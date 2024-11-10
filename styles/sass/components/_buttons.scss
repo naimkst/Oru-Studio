@@ -1,0 +1,138 @@
+.btn-style-1,
+.btn-style-2 {
+	background: transparent;
+	color: $white;
+	display: inline-block;
+	font-weight: 500;
+	padding: 15px 35px;
+	padding-right: 60px;
+	border: 0;
+	z-index: 1;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	font-family: $heading-font;
+	border: 1px solid $white;
+	border-radius: 6px;
+	position: relative;
+	overflow: hidden;
+	border-radius: 40px;
+	text-transform: uppercase;
+
+	&:before {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		height: 100%;
+		width: 0px;
+		z-index: -1;
+		content: "";
+		border-radius: 6px;
+		background: $theme-primary-color-s2;
+		transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1) 0s;
+		border-radius: 40px;
+	}
+
+	&:after {
+		position: absolute;
+		right: 30px;
+		top: 18px;
+		content: "\e628";
+		font-family: "themify";
+		transition: all 0.3s;
+
+		@include media-query(767px) {
+			top: 14px;
+		}
+	}
+
+	.hover-text {
+		position: absolute;
+		left: 0;
+		top: 70%;
+		opacity: 0;
+		-webkit-transition: all 0.3s ease 0s;
+		-o-transition: all 0.3s ease 0s;
+		transition: all 0.3s ease 0s;
+		display: block;
+		width: 100%;
+		text-align: center;
+		padding: 15px 35px;
+		padding-right: 60px;
+	}
+
+
+	&.btn-style-1-s4 {
+		background: $theme-primary-color;
+		color: $white;
+
+		&:after {
+			border: 1px solid $theme-primary-color;
+		}
+	}
+
+	.hover-text,
+	.main-text {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		text-align: center;
+		display: block;
+	}
+
+	&:hover,
+	&:focus,
+	&:active {
+		&:before {
+			left: 0%;
+			right: auto;
+			width: 100%;
+		}
+
+		span {
+			display: block;
+			-webkit-transition: all 0.15s ease-in-out 0s;
+			-o-transition: all 0.15s ease-in-out 0s;
+			transition: all 0.15s ease-in-out 0s;
+		}
+
+		.hover-text {
+			opacity: 1;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		.main-text {
+			transform: translate3d(0, -12px, 0);
+			opacity: 0;
+		}
+	}
+
+	&:hover:after {
+		opacity: 1;
+	}
+
+	@include media-query(991px) {
+		font-size: 18px;
+		font-size: calc-rem-value(18);
+	}
+
+	@include media-query(767px) {
+		padding: 12px 18px;
+		padding-right: 55px;
+		font-size: 14px;
+	}
+}
+
+.btn-style-2 {
+	font-style: normal;
+	background: $theme-primary-color;
+	color: $dark-gray;
+	border-color: $theme-primary-color;
+
+	&:hover {
+		color: $white;
+		border-color: $white;
+	}
+}
