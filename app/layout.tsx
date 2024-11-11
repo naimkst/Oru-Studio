@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/react-modal-video/scss/modal-video.scss';
 import "./globals.css";
+import 'swiper/css';
+import 'swiper/css/navigation';
 import "../styles/font-awesome.min.css";
 import "../styles/flaticon.css";
 import "../styles/themify-icons.css";

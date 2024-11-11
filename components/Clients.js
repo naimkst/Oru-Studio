@@ -52,7 +52,7 @@ const Clients = () => {
                     <div className="client-wrap">
                         <div className="row justify-content-md-center mt-none-30 g-0">
                             {ClientArray.map((service, srv) => (
-                                <div className={"col col-lg-3 col-md-12 mt-30"} key={srv}>
+                                <div className={"col col-lg-3 col-sm-6 col-12 mt-30"} key={srv}>
                                     <div className="client-item">
                                         <div className="client-icon mb-50">
                                             <div className="icon">

@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.0",
     "@mui/styled-engine-sc": "^5.11.0",
+    "@studio-freight/react-lenis": "^0.0.47",
     "bootstrap": "^5.3.3",
     "gsap": "^3.12.5",
     "next": "15.0.1",
@@ -20,7 +21,8 @@
     "react-awesome-reveal": "^4.2.14",
     "react-dom": "19.0.0-rc-69d4b800-20241021",
     "react-modal-video": "^2.0.2",
-    "sass": "^1.80.4"
+    "sass": "^1.80.4",
+    "swiper": "^9.3.0"
   },
   "devDependencies": {
     "@types/node": "^20",
