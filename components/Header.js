@@ -21,7 +21,7 @@ const Header = (props) => {
                             <div className="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-5">
                                 <div className="logo">
                                     <Link onClick={ClickHandler} href="/home">
-                                        <Image src={'/logo.png'} alt=""  width={200} height={20}/>
+                                        <Image src={'/logo.png'} alt="" width={200} height={20} />
                                     </Link>
                                 </div>
                             </div>
@@ -33,12 +33,100 @@ const Header = (props) => {
                                                 <Link onClick={ClickHandler} href="/home" data-hover="Services">
                                                     <span className='main-text'>Services</span>
                                                 </Link>
-                                                <ul className="sub-menu">
-                                                    <li><Link onClick={ClickHandler} href="/home">Services Page 01</Link></li>
-                                                    <li><Link onClick={ClickHandler} href="/home-2">Services Page 02</Link></li>
-                                                    <li><Link onClick={ClickHandler} href="/home-3">Services Page 03</Link></li>
-                                                    <li><Link onClick={ClickHandler} href="/home-4">Services Page 04</Link></li>
-                                                </ul>
+                                                <div className="mega-menu">
+                                                    <ul className="mega-menu-list">
+                                                        <li>
+                                                            <Link target="_self" href="/features">
+                                                                <div className="mega-menu-item-wrapper">
+                                                                    <div className="mega-menu-item">
+                                                                        <div className="mega-menu-icon">
+                                                                            <i>
+                                                                                <img alt="header" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" className="object-cover" src="/images/mega1.webp" />
+                                                                            </i>
+                                                                        </div>
+                                                                        <div className="mega-menu-content">
+                                                                            <h4 className="title">User Features</h4>
+                                                                            <p className="text-xs">It allows individuals to manage transactions, view payment history, and
+                                                                                interact seamlessly.</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link target="_self" href="/features">
+                                                                <div className="mega-menu-item-wrapper">
+                                                                    <div className="mega-menu-item">
+                                                                        <div className="mega-menu-icon">
+                                                                            <i>
+                                                                                <img alt="header" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" className="object-cover" src="/images/mega1.webp" />
+                                                                            </i>
+                                                                        </div>
+                                                                        <div className="mega-menu-content">
+                                                                            <h4 className="title">User Features</h4>
+                                                                            <p className="text-xs">It allows individuals to manage transactions, view payment history, and
+                                                                                interact seamlessly.</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link target="_self" href="/features">
+                                                                <div className="mega-menu-item-wrapper">
+                                                                    <div className="mega-menu-item">
+                                                                        <div className="mega-menu-icon">
+                                                                            <i>
+                                                                                <img alt="header" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" className="object-cover" src="/images/mega1.webp" />
+                                                                            </i>
+                                                                        </div>
+                                                                        <div className="mega-menu-content">
+                                                                            <h4 className="title">User Features</h4>
+                                                                            <p className="text-xs">It allows individuals to manage transactions, view payment history, and
+                                                                                interact seamlessly.</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link target="_self" href="/features">
+                                                                <div className="mega-menu-item-wrapper">
+                                                                    <div className="mega-menu-item">
+                                                                        <div className="mega-menu-icon">
+                                                                            <i>
+                                                                                <img alt="header" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" className="object-cover" src="/images/mega1.webp" />
+                                                                            </i>
+                                                                        </div>
+                                                                        <div className="mega-menu-content">
+                                                                            <h4 className="title">User Features</h4>
+                                                                            <p className="text-xs">It allows individuals to manage transactions, view payment history, and
+                                                                                interact seamlessly.</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="mega-menu-solutions-wrapper">
+                                                        <div class="mega-menu-solutions-inner">
+                                                            <div class="mega-menu-solutions-icon">
+                                                                <img alt="header" loading="lazy" width="38" height="38" src="/images/mega1.webp" />
+                                                            </div>
+                                                            <div class="mega-menu-solutions-content">
+                                                                <p class="text-xs text-white">Explore the future of seamless transactions with our cutting-edge Digital
+                                                                    Wallet Solution. Secure, fast, and user-friendly, this solution allows users to store, manage, and
+                                                                    transfer funds effortlessly.</p>
+                                                                <div class="mega-menu-solutions-button flex items-center mt-3">
+                                                                    <Link href="/home" className='btn-style-1'>
+                                                                        <span className='main-text'>Digital Wallet Solution </span>
+                                                                        <span className='hover-text'>Digital Wallet Solution </span>
+                                                                    </Link>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </li>
                                             <li>
                                                 <Link onClick={ClickHandler} href="/home" data-hover="Projects">
@@ -66,7 +154,7 @@ const Header = (props) => {
                             </div>
                             <div className="col-xl-2 col-lg-2 col-md-5 col-5 text-left">
                                 <div className="header-area-right">
-                                    <Link  href="/home" className='btn-style-1'>
+                                    <Link href="/home" className='btn-style-1'>
                                         <span className='main-text'>Contact us</span>
                                         <span className='hover-text'>Contact us</span>
                                     </Link>

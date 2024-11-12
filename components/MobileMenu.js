@@ -7,147 +7,57 @@ import Link from "next/link";
 const menus = [
     {
         id: 1,
-        title: '_home',
+        title: 'Home',
         link: '/home',
         submenu: [
             {
                 id: 11,
-                title: 'Home style 1',
+                title: 'Home ',
                 link: '/home'
             },
-            {
-                id: 12,
-                title: 'Home style 2',
-                link: '/home-2'
-            },
-            {
-                id: 13,
-                title: 'Home style 3',
-                link: '/home-3'
-            },
-            {
-                id: 13,
-                title: 'Home style 4',
-                link: '/home-4'
-            }
         ]
     },
 
     {
         id: 3,
-        title: '_pages',
+        title: 'Pages',
         link: '/',
         submenu: [
             {
                 id: 31,
                 title: 'About Me',
                 link: '/about-me'
-            },
-            {
-                id: 3222,
-                title: 'About Us',
-                link: '/about-us'
-            },
-            {
-                id: 322,
-                title: 'Services',
-                link: '/services'
-            },
-            {
-                id: 33,
-                title: 'Service Single',
-                link: '/service-single/Creative-Design'
-            },
-            {
-                id: 34,
-                title: 'Team Page',
-                link: '/team'
-            },
-            {
-                id: 3454,
-                title: 'Team Single',
-                link: '/team-single/Thomas'
-            },
-            {
-                id: 35,
-                title: 'Pricing',
-                link: '/pricing'
-            },
-            {
-                id: 36,
-                title: '404',
-                link: '/404'
             }
         ]
     },
     {
         id: 7,
-        title: '_portfolio',
+        title: 'Portfolio',
         link: '/portfolio',
         submenu: [
             {
                 id: 71,
-                title: 'Portfolio Grid',
+                title: 'Portfolio',
                 link: '/portfolio'
-            },
-            {
-                id: 72,
-                title: 'Portfolio Grid S2',
-                link: '/portfolio-s2'
-            },
-            {
-                id: 74,
-                title: 'Portfolio Grid S3',
-                link: '/portfolio-s3'
-            },
-            {
-                id: 75,
-                title: 'Portfolio Single',
-                link: '/project-single/Business'
-            },
+            }
         ]
     },
 
     {
         id: 5,
-        title: '_blog',
+        title: 'Blog',
         link: '/blog-grid',
         submenu: [
             {
                 id: 51,
-                title: 'Blog Grid Style',
+                title: 'Blog',
                 link: '/blog-grid'
             },
-            {
-                id: 52,
-                title: 'Blog right sidebar',
-                link: '/blog-right-sidebar'
-            },
-            {
-                id: 57,
-                title: 'Blog left sidebar',
-                link: '/blog-left-sidebar'
-            },
-            {
-                id: 53,
-                title: 'Blog fullwidth',
-                link: '/blog-fullwidth'
-            },
-            {
-                id: 54,
-                title: 'Blog Single Main',
-                link: '/blog-single/10-Reasons-why-you-should-make-a-physical-portfolio'
-            },
-            {
-                id: 55,
-                title: 'Blog Single Sidebar',
-                link: '/blog-single-sidebar/10-Reasons-why-you-should-make-a-physical-portfolio'
-            }
         ]
     },
     {
         id: 88,
-        title: '_contact',
+        title: 'Contact',
         link: '/contact',
     }
 

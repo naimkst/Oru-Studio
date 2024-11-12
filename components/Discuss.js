@@ -2,7 +2,32 @@ import { Fade } from "react-awesome-reveal";
 import React from 'react'
 import Link from "next/link";
 
-
+const clientsArray = [
+    {
+        Id: '1',
+        cImg: '/images/partner1.svg',
+        title: '4.9 AVG. SCORE Based on 80+ reviews',
+        duration: 1000,
+    },
+    {
+        Id: '2',
+        cImg: '/images/partner2.svg',
+        title: 'TOP DESIGN AGENCY WORLDWIDE',
+        duration: 1200,
+    },
+    {
+        Id: '3',
+        title: 'FEATURED Web Design AgencY IN UAE',
+        cImg: '/images/partner3.svg',
+        duration: 1400,
+    },
+    {
+        Id: '4',
+        title: 'TOP DESIGN AGENCY WORLDWIDE',
+        cImg: '/images/partner4.svg',
+        duration: 1600,
+    },
+]
 
 const Discuss = () => {
 
@@ -25,6 +50,20 @@ const Discuss = () => {
                                     <span className='hover-text'>Book a call</span>
                                 </Link>
                             </Fade>
+                        </div>
+                    </div>
+                    <div className="clients">
+                        <div className="row">
+                            {clientsArray.map((client, index) => (
+                                <div className="col-lg-3 col-md-3 col-12" key={index}>
+                                    <Fade direction="up" triggerOnce="false" duration={client.duration} delay={9}>
+                                        <div className="clients-item">
+                                            <img src={client.cImg} alt="" />
+                                            <p>{client.title}</p>
+                                        </div>
+                                    </Fade>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

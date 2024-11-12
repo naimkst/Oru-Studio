@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react'
 import ModalVideo from 'react-modal-video'
+import { Fade } from "react-awesome-reveal";
 
 const ServiceArray = [
     {
@@ -8,6 +9,7 @@ const ServiceArray = [
         sIcon: '/images/service1.svg',
         title: 'Discovery',
         slug: 'Discovery',
+        duration: 1000,
         description: 'To lay a solid foundation for the creative process that follows, we begin our journey with the discovery phase.',
     },
     {
@@ -15,6 +17,7 @@ const ServiceArray = [
         sIcon: '/images/service2.svg',
         title: 'Design',
         slug: 'Design',
+        duration: 1200,
         description: 'By putting users needs at the forefront, we tell a unique story of your company, juggling with fancy visual elements.',
     },
     {
@@ -22,6 +25,7 @@ const ServiceArray = [
         sIcon: '/images/service1.svg',
         title: 'Development',
         slug: 'Development',
+        duration: 1400,
         description: 'The motto of our development process is creating digital experiences that are both appealing and functional.',
     },
     {
@@ -29,6 +33,7 @@ const ServiceArray = [
         sIcon: '/images/service2.svg',
         title: 'Marketing',
         slug: 'Marketing',
+        duration: 1600,
         description: 'With various tools, our experts can help you expand the target audience and increase brand awareness.',
     },
 ]
@@ -68,20 +73,22 @@ const Services = () => {
                         <div className="row justify-content-md-center mt-none-30">
                             {ServiceArray.map((service, srv) => (
                                 <div className={"col-lg-6 col-md-12 mt-30"} key={srv}>
-                                    <div className="service-item">
-                                        <div className="service-icon mb-50">
-                                            <div className="icon">
-                                                <img src={service.sIcon} alt="" />
+                                    <Fade direction="up" triggerOnce="false" duration={service.duration} delay={9}>
+                                        <div className="service-item">
+                                            <div className="service-icon mb-50">
+                                                <div className="icon">
+                                                    <img src={service.sIcon} alt="" />
+                                                </div>
+                                                <Link className="link-btn" href={"/"}>
+                                                    <i className='ti-arrow-top-right'></i>
+                                                </Link>
                                             </div>
-                                            <Link className="link-btn" href={"/"}>
-                                                <i className='ti-arrow-top-right'></i>
-                                            </Link>
+                                            <div className="service-content">
+                                                <h3><Link onClick={ClickHandler} href={'/service-single/[slug]'} as={`/service-single/${service.slug}`}>{service.title}</Link></h3>
+                                                <p>{service.description}</p>
+                                            </div>
                                         </div>
-                                        <div className="service-content">
-                                            <h3><Link onClick={ClickHandler} href={'/service-single/[slug]'} as={`/service-single/${service.slug}`}>{service.title}</Link></h3>
-                                            <p>{service.description}</p>
-                                        </div>
-                                    </div>
+                                    </Fade>
                                 </div>
                             ))}
                         </div>

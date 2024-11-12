@@ -12,7 +12,7 @@ const Founders = () => {
                             <div className="founder-img">
                                 <img src="/images/founders.png" alt="" />
                                 <p>FOUNDERS <br />
-                                of HALO Lab</p>
+                                    of HALO Lab</p>
                             </div>
                         </div>
                         <div className="col-lg-8">
@@ -25,44 +25,52 @@ const Founders = () => {
                 <div className="awards-area">
                     <div className="row">
                         <div className="col col-lg-3 col-md-6 col-12">
-                            <div className="awards-item">
-                                <div className="awards-img">
-                                    <img src="/images/award-dribbble.svg" alt="" />
+                            <Fade direction="up" triggerOnce="false" duration={1000} delay={9}>
+                                <div className="awards-item">
+                                    <div className="awards-img">
+                                        <img src="/images/award-dribbble.svg" alt="" />
+                                    </div>
+                                    <div className="awards-text">
+                                        <p>Top Team in the world on Dribbble</p>
+                                    </div>
                                 </div>
-                                <div className="awards-text">
-                                    <p>Top Team in the world on Dribbble</p>
-                                </div>
-                            </div>
+                            </Fade>
                         </div>
                         <div className="col col-lg-3 col-md-6 col-12">
-                            <div className="awards-item">
-                                <div className="awards-img">
-                                    <img src="/images/award-clutch.svg" alt="" />
+                            <Fade direction="up" triggerOnce="false" duration={1200} delay={9}>
+                                <div className="awards-item">
+                                    <div className="awards-img">
+                                        <img src="/images/award-clutch.svg" alt="" />
+                                    </div>
+                                    <div className="awards-text">
+                                        <p>Top 100 Global Service Providers by Clutch</p>
+                                    </div>
                                 </div>
-                                <div className="awards-text">
-                                    <p>Top 100 Global Service Providers by Clutch</p>
-                                </div>
-                            </div>
+                            </Fade>
                         </div>
                         <div className="col col-lg-3 col-md-6 col-12">
-                            <div className="awards-item">
-                                <div className="awards-img">
-                                    <img src="/images/award-5stars.svg" alt="" />
+                            <Fade direction="up" triggerOnce="false" duration={1400} delay={9}>
+                                <div className="awards-item">
+                                    <div className="awards-img">
+                                        <img src="/images/award-5stars.svg" alt="" />
+                                    </div>
+                                    <div className="awards-text">
+                                        <p>5 Stars Rating on GoodFirms</p>
+                                    </div>
                                 </div>
-                                <div className="awards-text">
-                                    <p>5 Stars Rating on GoodFirms</p>
-                                </div>
-                            </div>
+                            </Fade>
                         </div>
                         <div className="col col-lg-3 col-md-6 col-12">
-                            <div className="awards-item">
-                                <div className="awards-img">
-                                    <img src="/images/award-upwork.svg" alt="" />
+                            <Fade direction="up" triggerOnce="false" duration={1600} delay={9}>
+                                <div className="awards-item">
+                                    <div className="awards-img">
+                                        <img src="/images/award-upwork.svg" alt="" />
+                                    </div>
+                                    <div className="awards-text">
+                                        <p>100% Job Success on Upwork</p>
+                                    </div>
                                 </div>
-                                <div className="awards-text">
-                                    <p>100% Job Success on Upwork</p>
-                                </div>
-                            </div>
+                            </Fade>
                         </div>
                     </div>
                 </div>
