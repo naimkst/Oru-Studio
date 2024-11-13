@@ -37,7 +37,7 @@ const Benefits = () => {
 
     return (
         <div>
-            <section className="benefits-area section-padding">
+            <section className="benefits-area section-padding pt-0">
                 <div className="container">
                     <div className="benefits-wrap">
                         <div className="benefits-top">
@@ -66,9 +66,6 @@ const Benefits = () => {
                             ))}
                         </div>
                     </div>
-                </div>
-                <div className="bg-2">
-                    <img src="/images/bg-2.png" alt="" />
                 </div>
             </section>
         </div>

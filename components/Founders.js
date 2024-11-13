@@ -75,9 +75,9 @@ const Founders = () => {
                     </div>
                 </div>
             </div>
-            <div className="awards-bg-wrap">
+            {/* <div className="awards-bg-wrap">
                 <img src="/images/bg-blue.webp" alt="" />
-            </div>
+            </div> */}
 
         </section>
     );

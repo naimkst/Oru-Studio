@@ -33,7 +33,7 @@ const Discuss = () => {
 
     return (
         <div>
-            <div className="discuss-area section-padding">
+            <div className="discuss-area section-padding pt-0">
                 <div className="container">
                     <div className="discuss-wrap">
                         <div className="discuss-text-wrap">
@@ -66,9 +66,6 @@ const Discuss = () => {
                             ))}
                         </div>
                     </div>
-                </div>
-                <div className="video">
-                    <video src="/images/bg-discuss.mp4" autoPlay muted loop></video>
                 </div>
             </div>
         </div>

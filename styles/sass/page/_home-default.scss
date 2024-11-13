@@ -129,15 +129,10 @@
 	}
 
 	.service-wrap {
-		background-image: linear-gradient(180deg, transparent 19%, #fff 20%), url(/images/card-bg2.png);
+		background: $white;
 		opacity: 1;
 		transform-origin: 50% 0;
-		color: var(--blue-dark);
-		background-position: 0 0, 0 0;
-		background-repeat: repeat, no-repeat;
-		background-size: auto, 100%;
-		border-bottom-right-radius: 2.5rem;
-		border-bottom-left-radius: 2.5rem;
+		border-radius: 2.5rem;
 		padding: 2.5rem;
 		transition: transform .8s, opacity .4s;
 		overflow: hidden;
@@ -438,9 +433,9 @@
 				height: 60px;
 				line-height: 60px;
 				border-radius: 50%;
-				background: $theme-primary-color-s2;
+				background: $white;
 				border: 0;
-				color: $white;
+				color: $dark-gray;
 
 				&.next {
 					margin-left: 10px;
@@ -476,9 +471,8 @@
 	.testimonial-item {
 		grid-column-gap: 2.5rem;
 		grid-row-gap: 2.5rem;
-		background-color: var(--blue);
-		border-bottom-right-radius: 1.5rem;
-		border-bottom-left-radius: 1.5rem;
+		background-color: $white;
+		border-radius: 1.5rem;
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: stretch;
@@ -486,11 +480,7 @@
 		padding: 2.5rem;
 		display: flex;
 		position: relative;
-		background-image: url(/images/testimonial-bg-1.png);
-		background-position: 0 0, 0 0;
-		background-repeat: repeat, no-repeat;
-		background-size: auto, 100%;
-		background-size: cover;
+		
 
 		@media(max-width:1500px) {
 			padding: 1.5rem;
@@ -563,19 +553,14 @@
 	}
 
 	.project-wrap {
-		background-image: linear-gradient(180deg, transparent 19%, #fff 20%), url(/images/card-bg2.png);
 		opacity: 1;
 		transform-origin: 50% 0;
-		color: var(--blue-dark);
-		background-position: 0 0, 0 0;
-		background-repeat: repeat, no-repeat;
-		background-size: auto, 100%;
-		border-bottom-right-radius: 2.5rem;
-		border-bottom-left-radius: 2.5rem;
+		border-radius: 2.5rem;
 		padding: 2.5rem;
 		transition: transform .8s, opacity .4s;
 		overflow: hidden;
 		transform: rotate(0) perspective(800px);
+		background: $white;
 
 		@media(max-width:575px) {
 			background-size: cover;
@@ -652,9 +637,9 @@
 			height: 60px;
 			line-height: 60px;
 			border-radius: 50%;
-			background: $theme-primary-color-s2;
+			background: $white;
 			border: 0;
-			color: $white;
+			color: $dark-gray;
 
 			&.next {
 				margin-left: 10px;
@@ -701,9 +686,7 @@
 	.benefits-item {
 		grid-column-gap: 2.5rem;
 		grid-row-gap: 2.5rem;
-		background-color: var(--blue);
-		border-bottom-right-radius: 1.5rem;
-		border-bottom-left-radius: 1.5rem;
+		border-radius: 1.5rem;
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: stretch;
@@ -711,12 +694,8 @@
 		padding: 2.5rem;
 		display: flex;
 		position: relative;
-		background-image: url(/images/benefits-bg.webp);
-		background-position: 0 0, 0 0;
-		background-repeat: repeat, no-repeat;
-		background-size: auto, 100%;
-		background-size: cover;
 		margin-bottom: 30px;
+		background: $white;
 
 		h2 {
 			font-size: 60px;
@@ -767,7 +746,6 @@
 	.blog-item {
 		grid-column-gap: 2.5rem;
 		grid-row-gap: 2.5rem;
-		background-color: var(--blue);
 		border-radius: 1.5rem;
 		flex-direction: column;
 		justify-content: space-between;
@@ -776,7 +754,7 @@
 		padding: 40px 30px;
 		display: flex;
 		position: relative;
-		background: $theme-primary-color-s2;
+		background: $white;
 		margin-bottom: 30px;
 
 		@media(max-width:1500px) {
@@ -795,7 +773,6 @@
 		.blog-content {
 			h2 {
 				font-size: 30px;
-				color: $white;
 				margin-bottom: 20px;
 
 				@media(max-width:575px) {
@@ -811,7 +788,6 @@
 
 			p {
 				font-size: 20px;
-				color: $white;
 				margin-bottom: 20px;
 
 				@media(max-width:575px) {
@@ -822,7 +798,6 @@
 			span {
 				font-size: 18px;
 				text-transform: uppercase;
-				color: $white;
 			}
 		}
 	}
@@ -831,11 +806,6 @@
 // discuss-area
 .discuss-area {
 	position: relative;
-	background-image: url(/images/discuss.webp);
-	background-position: 0 0, 0 0;
-	background-repeat: repeat, no-repeat;
-	background-size: auto, 100%;
-	background-size: cover;
 	border-radius: 2.5rem;
 	z-index: 1;
 
@@ -843,10 +813,7 @@
 		margin-right: auto;
 		padding: 120px 80px;
 		text-align: center;
-		background-image: url(/images/discuss.svg);
-		background-position: 100% 0;
-		background-repeat: no-repeat;
-		background-size: 100%;
+		background: $white;
 		flex-flow: column;
 		justify-content: center;
 		align-items: center;

@@ -1,7 +1,7 @@
 .btn-style-1,
 .btn-style-2 {
-	background: transparent;
-	color: $white;
+	background: $dark-gray;
+	color: $black;
 	display: inline-block;
 	font-weight: 500;
 	padding: 15px 35px;
@@ -13,25 +13,27 @@
 	font-weight: 400;
 	line-height: normal;
 	font-family: $heading-font;
-	border: 1px solid $white;
 	border-radius: 6px;
 	position: relative;
 	overflow: hidden;
 	border-radius: 40px;
 	text-transform: uppercase;
+	border: 1px solid $dark-gray;
 
-	&:before {
+	&::before {
 		position: absolute;
-		top: 0px;
-		right: 0px;
-		height: 100%;
-		width: 0px;
-		z-index: -1;
 		content: "";
-		border-radius: 6px;
-		background: $theme-primary-color-s2;
-		transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1) 0s;
-		border-radius: 40px;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background: $white;
+		transform-origin: 50%;
+		transition-property: transform;
+		transition-duration: 0.3s;
+		transition-timing-function: ease-out;
+		transition: 0.5s;
+		z-index: -1;
 	}
 
 	&:after {
@@ -64,7 +66,7 @@
 
 
 	&.btn-style-1-s4 {
-		background: $theme-primary-color;
+		background: $white;
 		color: $white;
 
 		&:after {
@@ -84,10 +86,10 @@
 	&:hover,
 	&:focus,
 	&:active {
+		color: $white;
+
 		&:before {
-			left: 0%;
-			right: auto;
-			width: 100%;
+			transform: scaleX(0);
 		}
 
 		span {
@@ -127,12 +129,14 @@
 
 .btn-style-2 {
 	font-style: normal;
-	background: $theme-primary-color;
-	color: $dark-gray;
-	border-color: $theme-primary-color;
+	background: $white;
+	color: $white;
+
+	&:before {
+		background-color: $dark-gray;
+	}
 
 	&:hover {
-		color: $white;
-		border-color: $white;
+		color: $dark-gray;
 	}
 }

@@ -47,7 +47,7 @@ const Services = () => {
 
     return (
         <div>
-            <section className="service-area section-padding">
+            <section className="service-area section-padding pt-0">
                 <div className="container">
                     <div className="service-wrap">
                         <div className="service-top">

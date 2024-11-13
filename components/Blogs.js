@@ -34,7 +34,7 @@ const Blogs = () => {
 
     return (
         <div>
-            <div className="blog-area section-padding">
+            <div className="blog-area section-padding pt-0">
                 <div className="container">
                     <div className="blog-wrap">
                         <div className="blog-top">

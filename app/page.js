@@ -11,6 +11,7 @@ import Projects from '../components/Projects';
 import Benefits from '../components/Benefits';
 import Blogs from '../components/Blogs';
 import Discuss from '../components/Discuss';
+import Footer from '../components/Footer';
 
 const Home = () => {
 
@@ -29,6 +30,7 @@ const Home = () => {
             <Benefits />
             <Blogs />
             <Discuss />
+            <Footer />
          </ReactLenis>
       </div>
    )

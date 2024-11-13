@@ -7,10 +7,7 @@
 	.hero-content {
 		grid-column-gap: 2rem;
 		grid-row-gap: 2rem;
-		background-image: url(/images/hero-img.webp);
-		background-position: 0 0;
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
+		background: $white;
 		flex-direction: column;
 		justify-content: space-between;
 		width: 100%;
@@ -18,6 +15,7 @@
 		padding: 6.5rem 2.25rem 2rem 2.5rem;
 		display: flex;
 		position: relative;
+		border-radius: 40px;
 
 		@media(max-width:1199px) {
 			padding-top: 60px;
@@ -33,7 +31,7 @@
 			font-size: 145px;
 			font-weight: 600;
 			line-height: .9;
-			color: $white;
+			color: $dark-gray;
 
 			@media(max-width:1600px) {
 				font-size: 125px;
@@ -106,7 +104,7 @@
 			display: flex;
 			justify-content: space-between;
 			padding: 30px;
-			border-top: .0625rem solid #ffffff4d;
+			border-top: .0625rem solid #ebebeb;
 			padding-bottom: 0;
 			margin-top: 50px;
 
@@ -130,7 +128,6 @@
 					font-size: 3.5rem;
 					font-weight: 500;
 					line-height: 1;
-					color: $white;
 					margin-right: 20px;
 				}
 
@@ -138,7 +135,6 @@
 					text-transform: uppercase;
 					font-size: 1.25rem;
 					line-height: 1.2;
-					color: $white;
 
 					@media(max-width:575px) {
 						font-size: 0.85rem;

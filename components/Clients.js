@@ -56,7 +56,7 @@ const Clients = () => {
 
     return (
         <div>
-            <section className="client-area section-padding">
+            <section className="client-area section-padding pt-0">
                 <div className="container">
                     <div className="client-wrap">
                         <div className="row justify-content-md-center mt-none-30 g-0">

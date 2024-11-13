@@ -3,10 +3,49 @@ import Link from "next/link";
 import Image from 'next/image';
 import MobileMenu from './MobileMenu';
 
+
+const menuItems = [
+    {
+        title: "User Features",
+        description: "Multiple payment options for flexible transactions.",
+        imgSrc: "/images/mega1.webp",
+        bgColor: "#e4edff"
+    },
+    {
+        title: "Payment Options",
+        description: "Advanced security settings to for flexible transactions.",
+        imgSrc: "/images/mega2.webp",
+        bgColor: "#fcefd7"
+    },
+    {
+        title: "Security Settings",
+        description: "Advanced security settings to protect your data.",
+        imgSrc: "/images/mega1.webp",
+        bgColor: "#f1ebff"
+    },
+    {
+        title: "Account Management",
+        description: "Easily manage account preferences and settings.",
+        imgSrc: "/images/mega2.webp",
+        bgColor: "#f1ebff"
+    },
+    {
+        title: "User Features",
+        description: "Multiple payment options for flexible transactions.",
+        imgSrc: "/images/mega1.webp",
+        bgColor: "#e4edff"
+    },
+    {
+        title: "Payment Options",
+        description: "Advanced security settings to for flexible transactions.",
+        imgSrc: "/images/mega2.webp",
+        bgColor: "#fcefd7"
+    },
+];
+
 const Header = (props) => {
 
-    const [menuActive, setMenuState] = useState(false);
-    const [rightActive, setRightState] = useState(false);
+    const [activeItem, setActiveItem] = useState(menuItems[0]);
 
     const ClickHandler = () => {
         window.scrollTo(10, 0);
@@ -33,95 +72,48 @@ const Header = (props) => {
                                                 <Link onClick={ClickHandler} href="/home" data-hover="Services">
                                                     <span className='main-text'>Services</span>
                                                 </Link>
-                                                <div className="mega-menu">
-                                                    <ul className="mega-menu-list">
-                                                        <li>
-                                                            <Link target="_self" href="/features">
-                                                                <div className="mega-menu-item-wrapper">
-                                                                    <div className="mega-menu-item">
-                                                                        <div className="mega-menu-icon">
-                                                                            <i>
-                                                                                <img alt="header" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" className="object-cover" src="/images/mega1.webp" />
-                                                                            </i>
+                                                <div className="mega-menu-main">
+                                                    <div className="mega-menu">
+                                                        <ul className="mega-menu-list">
+                                                            {menuItems.map((item, index) => (
+                                                                <li key={index}>
+                                                                    <Link target="_self" href="/features">
+                                                                        <div
+                                                                            className="mega-menu-item-wrapper"
+                                                                            onMouseEnter={() => setActiveItem(item)}
+                                                                            onMouseLeave={() => setActiveItem(menuItems[0])}
+                                                                        >
+                                                                            <div className="mega-menu-item">
+                                                                                <div className="mega-menu-icon">
+                                                                                    <i style={{ backgroundColor: item.bgColor }}>
+                                                                                        <img alt="header" loading="lazy" width="38" height="38" decoding="async" className="object-cover" src={item.imgSrc} />
+                                                                                    </i>
+                                                                                </div>
+                                                                                <div className="mega-menu-content">
+                                                                                    <h4 className="title">{item.title}</h4>
+                                                                                    <p className="text-xs">{item.description}</p>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div className="mega-menu-content">
-                                                                            <h4 className="title">User Features</h4>
-                                                                            <p className="text-xs">It allows individuals to manage transactions, view payment history, and
-                                                                                interact seamlessly.</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link target="_self" href="/features">
-                                                                <div className="mega-menu-item-wrapper">
-                                                                    <div className="mega-menu-item">
-                                                                        <div className="mega-menu-icon">
-                                                                            <i>
-                                                                                <img alt="header" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" className="object-cover" src="/images/mega1.webp" />
-                                                                            </i>
-                                                                        </div>
-                                                                        <div className="mega-menu-content">
-                                                                            <h4 className="title">User Features</h4>
-                                                                            <p className="text-xs">It allows individuals to manage transactions, view payment history, and
-                                                                                interact seamlessly.</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link target="_self" href="/features">
-                                                                <div className="mega-menu-item-wrapper">
-                                                                    <div className="mega-menu-item">
-                                                                        <div className="mega-menu-icon">
-                                                                            <i>
-                                                                                <img alt="header" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" className="object-cover" src="/images/mega1.webp" />
-                                                                            </i>
-                                                                        </div>
-                                                                        <div className="mega-menu-content">
-                                                                            <h4 className="title">User Features</h4>
-                                                                            <p className="text-xs">It allows individuals to manage transactions, view payment history, and
-                                                                                interact seamlessly.</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link target="_self" href="/features">
-                                                                <div className="mega-menu-item-wrapper">
-                                                                    <div className="mega-menu-item">
-                                                                        <div className="mega-menu-icon">
-                                                                            <i>
-                                                                                <img alt="header" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" className="object-cover" src="/images/mega1.webp" />
-                                                                            </i>
-                                                                        </div>
-                                                                        <div className="mega-menu-content">
-                                                                            <h4 className="title">User Features</h4>
-                                                                            <p className="text-xs">It allows individuals to manage transactions, view payment history, and
-                                                                                interact seamlessly.</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </Link>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="mega-menu-solutions-wrapper">
-                                                        <div class="mega-menu-solutions-inner">
-                                                            <div class="mega-menu-solutions-icon">
-                                                                <img alt="header" loading="lazy" width="38" height="38" src="/images/mega1.webp" />
-                                                            </div>
-                                                            <div class="mega-menu-solutions-content">
-                                                                <p class="text-xs text-white">Explore the future of seamless transactions with our cutting-edge Digital
-                                                                    Wallet Solution. Secure, fast, and user-friendly, this solution allows users to store, manage, and
-                                                                    transfer funds effortlessly.</p>
-                                                                <div class="mega-menu-solutions-button flex items-center mt-3">
-                                                                    <Link href="/home" className='btn-style-1'>
-                                                                        <span className='main-text'>Digital Wallet Solution </span>
-                                                                        <span className='hover-text'>Digital Wallet Solution </span>
                                                                     </Link>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                        <div className="mega-menu-solutions-wrapper">
+                                                            <div className="mega-menu-solutions-inner">
+                                                                <div className="mega-menu-solutions-icon">
+                                                                    <img alt="header" loading="lazy" width="38" height="38" src={activeItem.imgSrc} />
+                                                                </div>
+                                                                <div className="mega-menu-solutions-content">
+                                                                    <p className="text-xs text-white">
+                                                                        {activeItem.description}
+                                                                    </p>
+                                                                    <div className="mega-menu-solutions-button flex items-center mt-3">
+                                                                        <Link href="/home" className='btn-style-1'>
+                                                                            <span className='main-text'>Digital Wallet Solution</span>
+                                                                            <span className='hover-text'>Digital Wallet Solution</span>
+                                                                        </Link>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -62,7 +62,7 @@ const Projects = () => {
 
     return (
         <div>
-            <section className="project-area section-padding">
+            <section className="project-area section-padding pt-0">
                 <div className="container">
                     <div className="project-wrap">
                         <div className="project-top">
