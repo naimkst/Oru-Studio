@@ -15,11 +15,10 @@ const Footer = () => {
                                         <img src="/images/logo.svg" alt="logo" />
                                     </div>
                                     <div className="contact-ft">
-                                        <p>71-75 Shelton Street, Covent Garden London - WC2H 9JQ London, United Kingdom</p>
-                                        <p>F # F1 (5th Floor), H # 1188, Avenue # 11, Mirpur DOHS, Dhaka, Bangladesh</p>
+                                        <p>Postcode : 4024 debrecen,  street: Csapo utca 6,  floor 4th , door 61.</p>
                                         <ul>
-                                            <li><i className="flaticon-envelope"></i>needhelp@company.com</li>
-                                            <li><i className="flaticon-telephone"></i>+92 666 888 0000</li>
+                                            <li><i className="flaticon-envelope"></i>hello@orustudio.com</li>
+                                            <li><i className="flaticon-telephone"></i>+8801918775454</li>
                                         </ul>
                                     </div>
                                     <div className="widget social-widget">
