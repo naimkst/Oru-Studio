@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Fade } from "react-awesome-reveal";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import Slider from "react-slick";
+
+
 
 const Hero = () => {
     const [text, setText] = useState('Tech');
@@ -36,6 +42,31 @@ const Hero = () => {
 
         return () => clearInterval(intervalId);
     }, [currentIndex]);
+
+    var settings = {
+        dots: false,
+        infinite: true,
+        speed: 5000,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 0,
+        cssEase: "linear",
+        arrows: false,
+    };
+    var settings2 = {
+        dots: false,
+        infinite: true,
+        speed: 5000,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 0,
+        cssEase: "linear",
+        arrows: false,
+        rtl: true,
+    };
+
 
 
     return (
@@ -76,11 +107,45 @@ const Hero = () => {
                     </div>
                     <div className="col-lg-4">
                         <div className="hero-right">
+
                             <div className="video-area">
                                 <div className="logo">
                                     <img src="/logo.png" alt="Logo" />
                                 </div>
-                                <video src="/images/home-story-1-v2.mp4" autoPlay muted loop></video>
+                                <div className="image-slide-wrap">
+                                    <Slider {...settings}>
+                                        <div className="image-wrap">
+                                            <img src="/images/slide.png" alt="" />
+                                        </div>
+                                        <div className="image-wrap">
+                                            <img src="/images/slide.png" alt="" />
+                                        </div>
+                                        <div className="image-wrap">
+                                            <img src="/images/slide.png" alt="" />
+                                        </div>
+                                        <div className="image-wrap">
+                                            <img src="/images/slide.png" alt="" />
+                                        </div>
+                                    </Slider>
+
+                                </div>
+                                <div className="image-slide-wrap">
+                                    <Slider {...settings2}>
+                                        <div className="image-wrap">
+                                            <img src="/images/slide.png" alt="" />
+                                        </div>
+                                        <div className="image-wrap">
+                                            <img src="/images/slide.png" alt="" />
+                                        </div>
+                                        <div className="image-wrap">
+                                            <img src="/images/slide.png" alt="" />
+                                        </div>
+                                        <div className="image-wrap">
+                                            <img src="/images/slide.png" alt="" />
+                                        </div>
+                                    </Slider>
+
+                                </div>
                             </div>
                         </div>
                     </div>

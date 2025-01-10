@@ -3,6 +3,7 @@
 --------------------------------------------------------------*/
 .hero-area {
 	padding-top: 60px;
+	position: relative;
 
 	.hero-content {
 		grid-column-gap: 2rem;
@@ -148,16 +149,64 @@
 
 		.video-area {
 			position: relative;
+			background: #3c4558;
+			min-height: 690px;
+			border-radius: 30px;
 
 			video {
 				border-radius: 30px;
 				width: 100%;
 			}
 
+			.image-slide-wrap {
+				padding-top: 100px;
+
+				.slick-list {
+					overflow: hidden;
+					
+					.slick-slide {
+						padding: 0 10px;
+					}
+				}
+
+				.slick-track {
+					display: flex;
+
+				}
+			}
+
 			.logo {
 				position: absolute;
 				top: 25px;
 				left: 25px;
+			}
+		}
+	}
+
+	&.style-2 {
+		padding-top: 20px;
+		.hero-content {
+			padding-top: 80px;
+			padding-bottom: 80px;
+			background: #3827c7;
+			h1 {
+				font-size: 100px;
+				color: $white;
+			}
+
+		}
+
+		.hero-right {
+			max-width: 400px;
+		}
+
+		.hero-bottom-text .left-text {
+			h2 {
+				color: $white;
+			}
+
+			p {
+				color: $white;
 			}
 		}
 	}

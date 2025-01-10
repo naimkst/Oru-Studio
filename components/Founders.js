@@ -12,7 +12,7 @@ const Founders = () => {
                             <div className="founder-img">
                                 <img src="/images/founders.png" alt="" />
                                 <p>FOUNDERS <br />
-                                    of HALO Lab</p>
+                                    of Orustudio</p>
                             </div>
                         </div>
                         <div className="col-lg-8">

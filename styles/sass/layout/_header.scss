@@ -315,7 +315,7 @@
         }
     }
 
-    .main-menu ul li:hover {
+    .main-menu ul .has-submenu:hover {
         .mega-menu {
             visibility: visible;
             opacity: 1;
