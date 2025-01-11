@@ -1,74 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { Fade } from "react-awesome-reveal";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import Slider from "react-slick";
-
 
 
 const Hero2 = () => {
-    const [text, setText] = useState('Tech');
-    const texts = ['Tech', 'Cool', 'Buzz', 'Big', 'Smart'];
-    const imagesRef = useRef([]);
-    const [currentIndex, setCurrentIndex] = useState(1);
-
-    // Text changing effect
-    useEffect(() => {
-        const startChangingText = () => {
-            setText(texts[currentIndex]);
-            setCurrentIndex((currentIndex + 1) % texts.length);
-        };
-        const interval = setInterval(startChangingText, 3000);
-        return () => clearInterval(interval);
-    }, [currentIndex]);
-
-    // Image animation effect
-    useEffect(() => {
-        const images = Array.from(imagesRef.current);
-
-        const intervalId = setInterval(() => {
-            if (images && images.length) {
-                images.forEach((img, index) => {
-                    img.classList.remove('active', 'done');
-                    if (index === currentIndex) img.classList.add('active');
-                    if (index === currentIndex - 1) img.classList.add('active', 'done');
-                });
-
-                setCurrentIndex((currentIndex + 1) % images.length);
-            }
-        }, 3000);
-
-        return () => clearInterval(intervalId);
-    }, [currentIndex]);
-
-    var settings = {
-        dots: false,
-        infinite: true,
-        speed: 5000,
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 0,
-        cssEase: "linear",
-        arrows: false,
-    };
-    var settings2 = {
-        dots: false,
-        infinite: true,
-        speed: 5000,
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 0,
-        cssEase: "linear",
-        arrows: false,
-        rtl: true,
-    };
-
-
-
     return (
         <section className="hero-area style-2">
             <div className="container container--custom">

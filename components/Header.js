@@ -59,7 +59,7 @@ const Header = (props) => {
                         <div className="row align-items-center">
                             <div className="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-5">
                                 <div className="logo">
-                                    <Link onClick={ClickHandler} href="/home">
+                                    <Link onClick={ClickHandler} href="/">
                                         <Image src={'/logo.png'} alt="" width={200} height={20} />
                                     </Link>
                                 </div>
@@ -69,7 +69,7 @@ const Header = (props) => {
                                     <nav id="mobile-menu">
                                         <ul className="nav">
                                             <li className="has-submenu">
-                                                <Link onClick={ClickHandler} href="/home" data-hover="Services">
+                                                <Link onClick={ClickHandler} href="/" data-hover="Services">
                                                     <span className='main-text'>Services</span>
                                                 </Link>
                                                 <div className="mega-menu-main">
@@ -109,7 +109,7 @@ const Header = (props) => {
                                                                         {activeItem.description}
                                                                     </p>
                                                                     <div className="mega-menu-solutions-button flex items-center mt-3">
-                                                                        <Link href="/home" className='btn-style-1'>
+                                                                        <Link href="/" className='btn-style-1'>
                                                                             <span className='main-text'>Digital Wallet Solution</span>
                                                                             <span className='hover-text'>Digital Wallet Solution</span>
                                                                         </Link>
@@ -121,22 +121,22 @@ const Header = (props) => {
                                                 </div>
                                             </li>
                                             <li>
-                                                <Link onClick={ClickHandler} href="/home" data-hover="Projects">
+                                                <Link onClick={ClickHandler} href="/" data-hover="Projects">
                                                     <span className='main-text'>Projects</span>
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link onClick={ClickHandler} href="/home" data-hover="Our Process">
+                                                <Link onClick={ClickHandler} href="/" data-hover="Our Process">
                                                     <span className='main-text'>Our Process</span>
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link onClick={ClickHandler} href="/home" data-hover="open sourCe">
+                                                <Link onClick={ClickHandler} href="/" data-hover="open sourCe">
                                                     <span className='main-text'>open sourCe</span>
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link onClick={ClickHandler} href="/home" data-hover="our blog">
+                                                <Link onClick={ClickHandler} href="/" data-hover="our blog">
                                                     <span className='main-text'>our blog</span>
                                                 </Link>
                                             </li>
@@ -146,7 +146,7 @@ const Header = (props) => {
                             </div>
                             <div className="col-xl-2 col-lg-2 col-md-5 col-5 text-left">
                                 <div className="header-area-right">
-                                    <Link href="/home" className='btn-style-1'>
+                                    <Link href="/contact" className='btn-style-1'>
                                         <span className='main-text'>Contact us</span>
                                         <span className='hover-text'>Contact us</span>
                                     </Link>
