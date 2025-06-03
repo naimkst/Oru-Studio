@@ -17,7 +17,7 @@ const Process = () => {
                                 </div>
                                 <div className="col-lg-8">
                                     <div className="title-text">
-                                        <h3>Tailored and inspired. Professional and reliable. Our agency strives to provide only the best solutions.</h3>
+                                        <h3>Tailored and creative. Professional and dependable. We’re committed to delivering only the best solutions.</h3>
                                     </div>
                                 </div>
                             </div>

@@ -7,25 +7,25 @@ const RelatedServiceArray = [
     {
         Id: '1',
         subTitle: 'Web Design development',
-        description: 'ensuring efficient and effective product development.',
+        description: 'Designing and building functional, engaging websites.',
         duration: 1000,
     },
     {
         Id: '2',
         subTitle: 'Front-end development',
-        description: 'ensuring efficient and effective product development.',
+        description: 'Creating interactive, user-friendly website interfaces.',
         duration: 1200,
     },
     {
         Id: '3',
         subTitle: 'Back-end development',
-        description: 'ensuring efficient and effective product development.',
+        description: 'Building servers, databases, and application logic.',
         duration: 1400,
     },
     {
         Id: '4',
         subTitle: 'CMS development Agency',
-        description: 'Experience the revolutionary and transformative',
+        description: 'Experts in custom content management solutions.',
         duration: 1600,
     },
 ]

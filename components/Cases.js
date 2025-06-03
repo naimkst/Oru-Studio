@@ -5,7 +5,7 @@ const CasesArray = [
     {
         Id: '1',
         sImg: '/images/case1.webp',
-        title: 'Raven.gg — the leading brand for custom esports clothing design',
+        title: 'Raven.gg – A Leading Brand in Custom Esports Apparel Design',
         country: 'E-commerce, Fashion',
         cIcon: '/images/country.png',
         slug: 'leading',
@@ -13,7 +13,7 @@ const CasesArray = [
     {
         Id: '2',
         sImg: '/images/case2.webp',
-        title: 'Digital rebirth of Bookclub24 — #1 German online library for book collectors',
+        title: 'Digital Rebirth of Bookclub24 — Germany’s #1 Online Library for Book Collectors',
         slug: 'Leading',
         country: 'E-commerce, Fashion',
         cIcon: '/images/country.png',
@@ -21,7 +21,7 @@ const CasesArray = [
     {
         Id: '3',
         sImg: '/images/case3.webp',
-        title: 'Mighty Buildings — sustainable 3D printed houses of the future',
+        title: 'Mighty Buildings — Pioneering Sustainable 3D-Printed Homes of the Future',
         slug: 'Leading',
         country: 'E-commerce, Fashion',
         cIcon: '/images/country.png',

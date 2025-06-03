@@ -17,7 +17,7 @@ const clientsArray = [
     },
     {
         Id: '3',
-        title: 'FEATURED Web Design AgencY IN Bangladesh',
+        title: 'FEATURED Web Design AgencY IN USA',
         cImg: '/images/partner3.svg',
         duration: 1400,
     },
