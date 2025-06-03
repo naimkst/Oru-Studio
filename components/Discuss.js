@@ -6,24 +6,24 @@ const clientsArray = [
     {
         Id: '1',
         cImg: '/images/partner1.svg',
-        title: '4.9 AVG. SCORE Based on 80+ reviews',
+        title: '4.9 Average Score from 80+ Reviews',
         duration: 1000,
     },
     {
         Id: '2',
         cImg: '/images/partner2.svg',
-        title: 'TOP DESIGN AGENCY WORLDWIDE',
+        title: 'Top Design Agency Globally',
         duration: 1200,
     },
     {
         Id: '3',
-        title: 'FEATURED Web Design AgencY IN UAE',
+        title: 'FEATURED Web Design AgencY IN Bangladesh',
         cImg: '/images/partner3.svg',
         duration: 1400,
     },
     {
         Id: '4',
-        title: 'TOP DESIGN AGENCY WORLDWIDE',
+        title: 'Top on Dribbble WORLDWIDE',
         cImg: '/images/partner4.svg',
         duration: 1600,
     },
@@ -38,11 +38,10 @@ const Discuss = () => {
                     <div className="discuss-wrap">
                         <div className="discuss-text-wrap">
                             <Fade direction="up" triggerOnce="false" duration={1000} delay={9}>
-                                <h2>Ready to discuss
-                                    your project with us?</h2>
+                                <h2>Interested in discussing your project with us?</h2>
                             </Fade>
                             <Fade direction="up" triggerOnce="false" duration={1200} delay={9}>
-                                <p>Let’s talk about how we can craft a user experience that not only looks great but drives real growth for your product.</p>
+                                <p>Let’s discuss how we can create a user experience that’s both visually stunning and drives real growth for your product.</p>
                             </Fade>
                             <Fade direction="up" triggerOnce="false" duration={1400} delay={9}>
                                 <Link className="btn-style-2" href={'/'}>

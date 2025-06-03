@@ -17,7 +17,7 @@ const Founders = () => {
                         </div>
                         <div className="col-lg-8">
                             <div className="founder-text">
-                                <h3>Over the past 10 years, we’ve perfected our Design & Development game and are eager to help passionate Founders perfect theirs. Success is a team play, right? Let’s aim for the top together!</h3>
+                                <h3>After a decade of refining our Design & Development process, we're ready to team up with driven Founders who are ready to level up. Because big wins happen when great minds collaborate. Let’s build something extraordinary—together.</h3>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@ const Founders = () => {
                                         <img src="/images/award-dribbble.svg" alt="" />
                                     </div>
                                     <div className="awards-text">
-                                        <p>Top Team in the world on Dribbble</p>
+                                        <p>Leading Design Team on Dribbble</p>
                                     </div>
                                 </div>
                             </Fade>
@@ -43,7 +43,7 @@ const Founders = () => {
                                         <img src="/images/award-clutch.svg" alt="" />
                                     </div>
                                     <div className="awards-text">
-                                        <p>Top 100 Global Service Providers by Clutch</p>
+                                        <p>Clutch Top 100 Global Provider</p>
                                     </div>
                                 </div>
                             </Fade>
@@ -55,7 +55,7 @@ const Founders = () => {
                                         <img src="/images/award-5stars.svg" alt="" />
                                     </div>
                                     <div className="awards-text">
-                                        <p>5 Stars Rating on GoodFirms</p>
+                                        <p>5-Star Review on GoodFirms</p>
                                     </div>
                                 </div>
                             </Fade>
@@ -67,7 +67,7 @@ const Founders = () => {
                                         <img src="/images/award-upwork.svg" alt="" />
                                     </div>
                                     <div className="awards-text">
-                                        <p>100% Job Success on Upwork</p>
+                                        <p>Upwork Job Success: 100%</p>
                                     </div>
                                 </div>
                             </Fade>

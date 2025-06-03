@@ -7,37 +7,37 @@ import MobileMenu from './MobileMenu';
 const menuItems = [
     {
         title: "User Features",
-        description: "Multiple payment options for flexible transactions.",
+        description: "Multiple payment options for seamless and flexible transactions.",
         imgSrc: "/images/mega1.webp",
         bgColor: "#e4edff"
     },
     {
         title: "Payment Options",
-        description: "Advanced security settings to for flexible transactions.",
+        description: "Advanced security settings for safe and flexible transactions.",
         imgSrc: "/images/mega2.webp",
         bgColor: "#fcefd7"
     },
     {
         title: "Security Settings",
-        description: "Advanced security settings to protect your data.",
+        description: "Advanced security settings designed to protect your data.",
         imgSrc: "/images/mega1.webp",
         bgColor: "#f1ebff"
     },
     {
         title: "Account Management",
-        description: "Easily manage account preferences and settings.",
+        description: "Effortlessly manage your account preferences and settings.",
         imgSrc: "/images/mega2.webp",
         bgColor: "#f1ebff"
     },
     {
         title: "User Features",
-        description: "Multiple payment options for flexible transactions.",
+        description: "Various payment options for convenient and flexible transactions.",
         imgSrc: "/images/mega1.webp",
         bgColor: "#e4edff"
     },
     {
         title: "Payment Options",
-        description: "Advanced security settings to for flexible transactions.",
+        description: "Advanced security settings for safe and flexible transactions.",
         imgSrc: "/images/mega2.webp",
         bgColor: "#fcefd7"
     },

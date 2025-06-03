@@ -64,7 +64,7 @@ const Testimonial = () => {
                         </div>
                         <div className="col-lg-8">
                             <div className="testimonial-text">
-                                <h3>We’ve helped hundreds of partners, ranging from startups to medium-sized businesses to achieve their goals. And stellar feedback — is our reward!</h3>
+                                <h3>We’ve helped hundreds of partners—from startups to mid-sized businesses—achieve their goals. Their stellar feedback is our greatest reward!</h3>
                             </div>
                         </div>
                     </div>
@@ -80,7 +80,7 @@ const Testimonial = () => {
                                 </div>
                                 <div className="testimonial-left-text">
                                     <h2>4.9</h2>
-                                    <h3>Clutch average based on 80+ reviews. All chances are you’ll be impressed too.</h3>
+                                    <h3>Clutch average rating based on 80+ reviews. Chances are, you’ll be impressed too.</h3>
                                 </div>
                                 <div className="slide-btns">
                                     <button className='prev' ref={prevRef}><i className='ti-arrow-left'></i></button>

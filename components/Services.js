@@ -10,7 +10,7 @@ const ServiceArray = [
         title: 'Discovery',
         slug: 'Discovery',
         duration: 1000,
-        description: 'To lay a solid foundation for the creative process that follows, we begin our journey with the discovery phase.',
+        description: 'We start our journey with the discovery phase to build a strong foundation for the creative process ahead.',
     },
     {
         Id: '2',
@@ -18,7 +18,7 @@ const ServiceArray = [
         title: 'Design',
         slug: 'Design',
         duration: 1200,
-        description: 'By putting users needs at the forefront, we tell a unique story of your company, juggling with fancy visual elements.',
+        description: 'By prioritizing users’ needs, we craft a unique story for your company—balancing creativity with striking visual elements.',
     },
     {
         Id: '3',
@@ -26,7 +26,7 @@ const ServiceArray = [
         title: 'Development',
         slug: 'Development',
         duration: 1400,
-        description: 'The motto of our development process is creating digital experiences that are both appealing and functional.',
+        description: 'Our development process is driven by one motto: crafting digital experiences that are both beautiful and functional.',
     },
     {
         Id: '4',
@@ -34,7 +34,7 @@ const ServiceArray = [
         title: 'Marketing',
         slug: 'Marketing',
         duration: 1600,
-        description: 'With various tools, our experts can help you expand the target audience and increase brand awareness.',
+        description: 'Using a range of tools, our experts help you grow your audience and boost brand awareness.',
     },
 ]
 

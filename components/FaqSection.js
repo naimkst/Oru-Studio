@@ -9,19 +9,19 @@ const FaqSection = () => {
     const accordionData = [
         {
             title: "What are web development services?",
-            content: "Web development refers to the full-cycle creation of a web-based product. This process usually involves designing the web pages and then bringing them to life through programming. Depending on the scope of the project, these services may include front-end, back-end development, creation and optimization of text content, SEO, support, etc. Basically, web development is a set of measures necessary for the launch and sustainability of any given product.",
+            content: "Web development services involve building and maintaining websites or web applications. This includes everything from designing user-friendly interfaces, coding front-end and back-end functionality, integrating databases, to ensuring site performance, security, and responsiveness. These services help businesses establish and grow their online presence, providing seamless digital experiences for users.",
         },
         {
             title: "How is web development related to user experience?",
-            content: "Web development refers to the full-cycle creation of a web-based product. This process usually involves designing the web pages and then bringing them to life through programming. Depending on the scope of the project, these services may include front-end, back-end development, creation and optimization of text content, SEO, support, etc. Basically, web development is a set of measures necessary for the launch and sustainability of any given product.",
+            content: "Web development and user experience (UX) are closely connected because the way a website is built directly affects how users interact with it. Good web development ensures fast loading times, smooth navigation, mobile responsiveness, and accessibility—all key factors that create a positive user experience. In short, well-executed development makes websites easy, enjoyable, and efficient for users to engage with.",
         },
         {
             title: "Why do I need a website?",
-            content: "Web development refers to the full-cycle creation of a web-based product. This process usually involves designing the web pages and then bringing them to life through programming. Depending on the scope of the project, these services may include front-end, back-end development, creation and optimization of text content, SEO, support, etc. Basically, web development is a set of measures necessary for the launch and sustainability of any given product.",
+            content: "You need a website to establish your online presence, reach a wider audience, showcase your products or services, and build credibility. It acts as a 24/7 storefront where potential customers can learn about your business, contact you, and make decisions. In today’s digital world, a website is essential for growth and staying competitive.",
         },
         {
             title: "How long does a project take to complete from start to finish?",
-            content: "Web development refers to the full-cycle creation of a web-based product. This process usually involves designing the web pages and then bringing them to life through programming. Depending on the scope of the project, these services may include front-end, back-end development, creation and optimization of text content, SEO, support, etc. Basically, web development is a set of measures necessary for the launch and sustainability of any given product.",
+            content: "The timeline for completing a project varies depending on its size, complexity, and requirements. Simple projects may take a few weeks, while more complex ones can take several months. We work closely with clients to define clear milestones and ensure timely delivery without compromising quality.",
         },
     ];
 
@@ -44,7 +44,7 @@ const FaqSection = () => {
                                     <span>CEO @ Oru-Studio</span>
                                 </div>
                             </div>
-                            <p>“Have more questions or just curious about future possibilities? Feel free to connect with me on Telegram.”</p>
+                            <p>“Got more questions or curious about what’s next? Connect with me on Telegram anytime.”</p>
                             <Link href="/home" className='btn-style-2 button'>
                                 <span className='main-text'>CONNECT on Telegram</span>
                                 <span className='hover-text'>CONNECT on Telegram</span>

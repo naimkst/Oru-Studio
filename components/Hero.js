@@ -93,8 +93,7 @@ const Hero = () => {
                             <div className="hero-bottom-text">
                                 <div className="left-text">
                                     <h2>10Y</h2>
-                                    <p>OF Design-Driven
-                                        PRODUCT DEVELOPMENT</p>
+                                    <p>of Design-Led Product Development</p>
                                 </div>
                                 <div className="right-text">
                                     <Link href="/home" className='btn-style-2 button'>

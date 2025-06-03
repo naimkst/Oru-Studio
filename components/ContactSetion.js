@@ -17,9 +17,9 @@ const ContactSection = () => {
                                         Talk</h2>
                                 </div>
                                 <ul>
-                                    <li>We will respond to you within 24 hours.</li>
-                                    <li>We’ll sign an NDA if requested.</li>
-                                    <li>Access to dedicated product specialists.</li>
+                                    <li>We’ll get back to you within 24 hours.</li>
+                                    <li>NDA signing available upon request.</li>
+                                    <li>Connect with dedicated product specialists.</li>
                                 </ul>
                                 <div className="contact-left-text">
                                     <div className="contact-left-author">
@@ -28,7 +28,7 @@ const ContactSection = () => {
                                         </div>
                                         <div className="contact-text">
                                             <span>DIRECT CONTACT:</span>
-                                            <h3><Link href="/home">orustydio@email.com</Link></h3>
+                                            <h3><Link href="/home">hello@orustudio.com</Link></h3>
                                         </div>
                                     </div>
                                 </div>
