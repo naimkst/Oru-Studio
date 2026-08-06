@@ -5,6 +5,7 @@ import PartnerSection from './PartnerSection';
 import { company } from '../data/siteContent';
 
 const ContactSection = () => {
+    const addressLines = company.addressLines || [company.address];
 
     return (
         <section className="contact-area section-padding">
@@ -53,7 +54,12 @@ const ContactSection = () => {
                                 <div className="iconbox_content">
                                     <h3 className="iconbox_title">Location</h3>
                                     <p className="mb-0">
-                                        {company.address}
+                                        {addressLines.map((line, index) => (
+                                            <React.Fragment key={line}>
+                                                {line}
+                                                {index < addressLines.length - 1 && <br />}
+                                            </React.Fragment>
+                                        ))}
                                     </p>
                                 </div>
                             </div>
@@ -65,7 +71,9 @@ const ContactSection = () => {
                                 </div>
                                 <div className="iconbox_content">
                                     <h3 className="iconbox_title">Contact</h3>
-                                    <p className="mb-0">{company.phone}</p>
+                                    <p className="mb-0">
+                                        <Link href={`tel:${company.phoneHref}`}>{company.phone}</Link>
+                                    </p>
                                 </div>
                             </div>
                         </div>

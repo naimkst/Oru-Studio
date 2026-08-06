@@ -32,6 +32,10 @@ export default async function BlogPostPage({ params }) {
   }
 
   const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
+  const articleBlocks = post.body ?? post.content.map((paragraph) => ({
+    type: "paragraph",
+    text: paragraph,
+  }));
 
   return (
     <SiteFrame>
@@ -59,9 +63,36 @@ export default async function BlogPostPage({ params }) {
           <div className="container">
             <div className="detail-layout">
               <div className="article-content">
-                {post.content.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
+                {articleBlocks.map((block, index) => {
+                  if (block.type === "heading") {
+                    return <h2 key={`${block.type}-${index}`}>{block.text}</h2>;
+                  }
+
+                  if (block.type === "list") {
+                    return (
+                      <ul className="article-list" key={`${block.type}-${index}`}>
+                        {block.items.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    );
+                  }
+
+                  if (block.type === "image") {
+                    return (
+                      <figure className="article-figure" key={`${block.type}-${index}`}>
+                        <img src={block.src} alt={block.alt} />
+                        {block.caption && <figcaption>{block.caption}</figcaption>}
+                      </figure>
+                    );
+                  }
+
+                  if (block.type === "callout") {
+                    return <p className="article-callout" key={`${block.type}-${index}`}>{block.text}</p>;
+                  }
+
+                  return <p key={`${block.type}-${index}`}>{block.text}</p>;
+                })}
               </div>
               <aside className="detail-sidebar">
                 <h3>Need this implemented?</h3>

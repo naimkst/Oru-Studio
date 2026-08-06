@@ -31,8 +31,8 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="col-lg-5">
-              <div className="inner-hero-media">
-                <img src="/images/founders.png" alt="Oru Studio founder workspace" />
+              <div className="inner-hero-media about-hero-media">
+                <img src="/images/founder-studio-workspace.webp" alt="Oru Studio product development workspace" />
               </div>
             </div>
           </div>

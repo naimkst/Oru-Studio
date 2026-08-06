@@ -24,8 +24,8 @@ export default function BlogPage() {
               </div>
             </div>
             <div className="col-lg-5">
-              <div className="inner-hero-media">
-                <img src="/images/blog-bg.webp" alt="Oru Studio blog" />
+              <div className="inner-hero-media blog-hero-media">
+                <img src="/images/portfolio-headless-commerce-storefront.webp" alt="Oru Studio commerce and web product work" />
               </div>
             </div>
           </div>

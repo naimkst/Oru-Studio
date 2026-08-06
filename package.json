@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack -p 3386",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3386",
     "lint": "next lint"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "bootstrap": "^5.3.3",
     "gsap": "^3.12.5",
     "next": "15.0.1",
+    "nodemailer": "^9.0.4",
     "react": "19.0.0-rc-69d4b800-20241021",
     "react-awesome-reveal": "^4.2.14",
     "react-dom": "19.0.0-rc-69d4b800-20241021",

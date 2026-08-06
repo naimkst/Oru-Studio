@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { company, services } from '../data/siteContent';
 
 const Footer = () => {
+    const addressLines = company.addressLines || [company.address];
 
     return (
         <div>
@@ -16,10 +17,17 @@ const Footer = () => {
                                         <img src="/images/logo.svg" alt="logo" />
                                     </div>
                                     <div className="contact-ft">
-                                        <p>{company.address}</p>
+                                        <p>
+                                            {addressLines.map((line, index) => (
+                                                <React.Fragment key={line}>
+                                                    {line}
+                                                    {index < addressLines.length - 1 && <br />}
+                                                </React.Fragment>
+                                            ))}
+                                        </p>
                                         <ul>
                                             <li><i className="flaticon-envelope"></i>{company.email}</li>
-                                            <li><i className="flaticon-telephone"></i>{company.phone}</li>
+                                            <li><i className="flaticon-telephone"></i><Link href={`tel:${company.phoneHref}`}>{company.phone}</Link></li>
                                         </ul>
                                     </div>
                                     <div className="widget social-widget">
