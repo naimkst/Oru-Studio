@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useEffect } from 'react';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -110,8 +112,8 @@ const Exprience = () => {
                                                 </div>
                                             </div>
                                             <div className="exprience-content">
-                                                <h3><Link onClick={ClickHandler} href={'/exprience-single/[slug]'} as={`/exprience-single/${exprience.slug}`}>{exprience.title}</Link></h3>
-                                                <Link className="link-btn" href={"/"}>
+                                                <h3><Link onClick={ClickHandler} href="/process">{exprience.title}</Link></h3>
+                                                <Link className="link-btn" href="/process">
                                                     <i className='ti-plus'></i>
                                                 </Link>
                                             </div>
@@ -124,9 +126,9 @@ const Exprience = () => {
                                             <img src="/images/exprience-man.webp" alt="" />
                                         </div>
                                         <div className="exprience-content">
-                                            <h3>This is Julia, our manager, she will answer all your questions</h3>
+                                            <h3>Talk with Oru Studio about your next product, store, or Shopify app</h3>
                                         </div>
-                                        <Link href="/home" className='btn-style-1 button'>
+                                        <Link href="/contact" className='btn-style-1 button'>
                                             <span className='main-text'>Let’s TALK</span>
                                             <span className='hover-text'>Let’s TALK</span>
                                         </Link>

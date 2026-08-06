@@ -1,3 +1,5 @@
+"use client";
+
 import Link from 'next/link';
 import React, { useState } from 'react'
 import SimpleReactValidator from 'simple-react-validator';
@@ -86,7 +88,7 @@ const ContactForm = (props) => {
                                 onBlur={(e) => changeHandler(e)}
                                 onChange={(e) => changeHandler(e)}
                                 placeholder="Phone" />
-                            {validator.message('phone', forms.phone, 'required|phone')}
+                            {validator.message('phone', forms.phone, 'phone')}
                         </div>
                     </div>
                 </div>
@@ -106,7 +108,7 @@ const ContactForm = (props) => {
                                 <option value="$10,000 - $20,000">$10,000 - $20,000</option>
                                 <option value="Below $5,000">Below $5,000</option>
                             </select>
-                            {validator.message('select', forms.select, 'required|phone')}
+                            {validator.message('select', forms.select, 'required')}
                         </div>
                     </div>
                 </div>
@@ -128,9 +130,9 @@ const ContactForm = (props) => {
                 </div>
                 <div className="col-lg-12">
                     <div className="input-field text-field">
-                        <div class="form-group-check">
+                        <div className="form-group-check">
                             <input type="checkbox" id="html" />
-                            <label for="html">By submitting the form I agree with the <Link href="#">Privacy Policy</Link>
+                            <label htmlFor="html">By submitting the form I agree with the <Link href="/privacy-policy">Privacy Policy</Link>
                             </label>
                         </div>
                     </div>

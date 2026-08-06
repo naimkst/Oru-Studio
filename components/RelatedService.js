@@ -1,34 +1,7 @@
 import { Fade } from "react-awesome-reveal";
 import React from 'react'
 import Link from "next/link";
-
-
-const RelatedServiceArray = [
-    {
-        Id: '1',
-        subTitle: 'Web Design development',
-        description: 'Designing and building functional, engaging websites.',
-        duration: 1000,
-    },
-    {
-        Id: '2',
-        subTitle: 'Front-end development',
-        description: 'Creating interactive, user-friendly website interfaces.',
-        duration: 1200,
-    },
-    {
-        Id: '3',
-        subTitle: 'Back-end development',
-        description: 'Building servers, databases, and application logic.',
-        duration: 1400,
-    },
-    {
-        Id: '4',
-        subTitle: 'CMS development Agency',
-        description: 'Experts in custom content management solutions.',
-        duration: 1600,
-    },
-]
+import { services } from "../data/siteContent";
 
 const RelatedService = () => {
 
@@ -48,14 +21,14 @@ const RelatedService = () => {
                             </div>
                         </div>
                         <div className="row justify-content-md-center mt-none-30">
-                            {RelatedServiceArray.map((choose, index) => (
+                            {services.slice(0, 4).map((choose, index) => (
                                 <div className={"col-xl-3 col-lg-4 col-md-6 col-12 mt-30"} key={index}>
-                                    <Fade direction="up" triggerOnce="false" duration={choose.duration} delay={9}>
+                                    <Fade direction="up" triggerOnce={false} duration={choose.duration} delay={9}>
                                         <div className="related-item">
                                             <div className="related-content">
-                                                <h3>{choose.subTitle}</h3>
-                                                <p>{choose.description}</p>
-                                                <Link href="/home" className='btn-style-2 button'>
+                                                <h3>{choose.title}</h3>
+                                                <p>{choose.shortDescription}</p>
+                                                <Link href={`/services/${choose.slug}`} className='btn-style-2 button'>
                                                     <span className='main-text'>Learn more</span>
                                                     <span className='hover-text'>Learn more</span>
                                                 </Link>

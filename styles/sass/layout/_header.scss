@@ -193,6 +193,7 @@
         display: flex;
         justify-content: center;
         z-index: 11;
+        pointer-events: none;
     }
 
     .mega-menu {
@@ -316,6 +317,10 @@
     }
 
     .main-menu ul .has-submenu:hover {
+        .mega-menu-main {
+            pointer-events: auto;
+        }
+
         .mega-menu {
             visibility: visible;
             opacity: 1;

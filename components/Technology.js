@@ -15,32 +15,32 @@ const TechnologyArray = [
     {
         Id: '3',
         tIcon: '/images/tech3.svg',
-        title: 'Nest.js',
+        title: 'Node.js',
     },
     {
         Id: '4',
         tIcon: '/images/tech4.svg',
-        title: 'Express',
+        title: 'Shopify',
     },
     {
         Id: '5',
         tIcon: '/images/tech5.svg',
-        title: 'React.js',
+        title: 'Liquid',
     },
     {
         Id: '6',
         tIcon: '/images/tech6.svg',
-        title: 'Next.js',
+        title: 'GraphQL',
     },
     {
         Id: '7',
         tIcon: '/images/tech7.svg',
-        title: 'Nest.js',
+        title: 'REST APIs',
     },
     {
         Id: '8',
         tIcon: '/images/tech8.svg',
-        title: 'Express',
+        title: 'DevOps',
     },
 ]
 

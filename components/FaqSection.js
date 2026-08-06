@@ -1,6 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import Link from 'next/link';
 import React from 'react';
+import { company } from '../data/siteContent';
 
 const FaqSection = () => {
 
@@ -8,16 +11,16 @@ const FaqSection = () => {
 
     const accordionData = [
         {
-            title: "What are web development services?",
-            content: "Web development services involve building and maintaining websites or web applications. This includes everything from designing user-friendly interfaces, coding front-end and back-end functionality, integrating databases, to ensuring site performance, security, and responsiveness. These services help businesses establish and grow their online presence, providing seamless digital experiences for users.",
+            title: "What development services does Oru Studio provide?",
+            content: "We provide full stack web development, Shopify app development, Shopify theme development, headless commerce, backend integrations, UI/UX design, DevOps, performance optimization, QA, and maintenance support.",
         },
         {
-            title: "How is web development related to user experience?",
-            content: "Web development and user experience (UX) are closely connected because the way a website is built directly affects how users interact with it. Good web development ensures fast loading times, smooth navigation, mobile responsiveness, and accessibility—all key factors that create a positive user experience. In short, well-executed development makes websites easy, enjoyable, and efficient for users to engage with.",
+            title: "Can you build both Shopify apps and Shopify themes?",
+            content: "Yes. We build embedded Shopify apps, merchant dashboards, webhooks, Admin GraphQL workflows, custom Liquid themes, reusable sections, product templates, and storefront performance improvements.",
         },
         {
-            title: "Why do I need a website?",
-            content: "You need a website to establish your online presence, reach a wider audience, showcase your products or services, and build credibility. It acts as a 24/7 storefront where potential customers can learn about your business, contact you, and make decisions. In today’s digital world, a website is essential for growth and staying competitive.",
+            title: "Can you improve an existing website or app?",
+            content: "Yes. We can audit an existing product, fix bugs, improve performance, clean up UX issues, add features, migrate platforms, and create a maintenance plan without forcing a full rebuild.",
         },
         {
             title: "How long does a project take to complete from start to finish?",
@@ -40,12 +43,12 @@ const FaqSection = () => {
                                     <img src="/images/ceo.jpg" alt="" />
                                 </div>
                                 <div className="faq-text">
-                                    <h3>Naim Hossain Najmul</h3>
-                                    <span>CEO @ Oru-Studio</span>
+                                    <h3>{company.founder}</h3>
+                                    <span>{company.founderTitle}</span>
                                 </div>
                             </div>
                             <p>“Got more questions or curious about what’s next? Connect with me on Telegram anytime.”</p>
-                            <Link href="/home" className='btn-style-2 button'>
+                            <Link href={company.telegramUrl} target="_blank" className='btn-style-2 button'>
                                 <span className='main-text'>CONNECT on Telegram</span>
                                 <span className='hover-text'>CONNECT on Telegram</span>
                             </Link>

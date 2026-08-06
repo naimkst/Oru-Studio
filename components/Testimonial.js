@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { useRef, useEffect } from 'react';
 import { Navigation } from 'swiper';
@@ -7,31 +9,31 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 const ReviewArray = [
     {
         Id: '1',
-        tImg: '/images/tsm1.jpg',
-        name: 'Kisu Misu Hoilo',
-        title: 'we developer',
-        description: 'Oru-studio successfully delivered a product design that has proved popular with users. The team’s professionalism and creative abilities come at a very reasonable price. Their motivation is admirable, and their organization makes for a smooth workflow.',
+        tImg: '/images/testimonial-avatar-01.webp',
+        name: 'Shopify Merchant',
+        title: 'Ecommerce Founder',
+        description: 'Oru Studio rebuilt our storefront with cleaner product pages, faster load times, and flexible theme sections our team can update without developer help.',
     },
     {
         Id: '2',
-        tImg: '/images/tsm1.jpg',
-        name: 'Kisu Misu Hoilo',
-        title: 'we developer',
-        description: 'Oru-studio successfully delivered a product design that has proved popular with users. The team’s professionalism and creative abilities come at a very reasonable price. Their motivation is admirable, and their organization makes for a smooth workflow.',
+        tImg: '/images/testimonial-avatar-02.webp',
+        name: 'SaaS Operator',
+        title: 'Product Lead',
+        description: 'The team handled frontend, backend, deployment, and QA in one flow. We shipped a stable dashboard without adding internal engineering overhead.',
     },
     {
         Id: '3',
-        tImg: '/images/tsm1.jpg',
-        name: 'Kisu Misu Hoilo',
-        title: 'we developer',
-        description: 'Oru-studio successfully delivered a product design that has proved popular with users. The team’s professionalism and creative abilities come at a very reasonable price. Their motivation is admirable, and their organization makes for a smooth workflow.',
+        tImg: '/images/testimonial-avatar-03.webp',
+        name: 'Agency Partner',
+        title: 'Creative Director',
+        description: 'Oru Studio turned our design files into a polished Next.js site with integrations, forms, and launch checks already handled before handoff.',
     },
     {
         Id: '4',
-        tImg: '/images/tsm1.jpg',
-        name: 'Kisu Misu Hoilo',
-        title: 'we developer',
-        description: 'Oru-studio successfully delivered a product design that has proved popular with users. The team’s professionalism and creative abilities come at a very reasonable price. Their motivation is admirable, and their organization makes for a smooth workflow.',
+        tImg: '/images/testimonial-avatar-04.webp',
+        name: 'Commerce Team',
+        title: 'Operations Lead',
+        description: 'Their custom Shopify workflow reduced manual admin work and gave our team clearer product, order, and customer data in one place.',
     }
 ]
 
@@ -55,18 +57,9 @@ const Testimonial = () => {
         <section className="testimonial-area section-padding pt-0">
             <div className="container">
                 <div className="testimonial-top">
-                    <div className="row">
-                        <div className="col-lg-4">
-                            <div className="testimonial-top-img">
-                                <span><img src="/images/testimonial-logo.svg" alt="" /></span>
-                                <p>80+ REVIEWS</p>
-                            </div>
-                        </div>
-                        <div className="col-lg-8">
-                            <div className="testimonial-text">
-                                <h3>We’ve helped hundreds of partners—from startups to mid-sized businesses—achieve their goals. Their stellar feedback is our greatest reward!</h3>
-                            </div>
-                        </div>
+                    <div className="section-title testimonial-section-title">
+                        <h2>CLIENT <br />
+                            RESULTS</h2>
                     </div>
                 </div>
             </div>
@@ -76,11 +69,11 @@ const Testimonial = () => {
                         <div className="col-lg-4">
                             <div className="testimonial-left">
                                 <div className="man-img">
-                                    <img src="/images/testimonial-left.png" alt="" />
+                                    <img src="/images/testimonial-client-results.webp" alt="Founder reviewing a Shopify product dashboard" />
                                 </div>
                                 <div className="testimonial-left-text">
-                                    <h2>4.9</h2>
-                                    <h3>Clutch average rating based on 80+ reviews. Chances are, you’ll be impressed too.</h3>
+                                    <h2>Client-backed delivery</h2>
+                                    <h3>Practical results from Shopify app, theme, and full stack builds delivered with senior product judgment.</h3>
                                 </div>
                                 <div className="slide-btns">
                                     <button className='prev' ref={prevRef}><i className='ti-arrow-left'></i></button>
@@ -90,7 +83,10 @@ const Testimonial = () => {
                         </div>
                         <div className="col-lg-8">
                             <div className="testimonial-right">
-                                <div className="swiper-slide">
+                                <div className="testimonial-text">
+                                    <h3>We help founders and commerce teams turn complex product ideas into shipped Shopify stores, custom apps, and full stack platforms.</h3>
+                                </div>
+                                <div className="testimonial-slider">
                                     <Swiper
                                         // install Swiper modules
                                         modules={[Navigation]}

@@ -12,7 +12,7 @@ const Hero2 = () => {
                         <div className="col-xl-7 col-lg-7 mb-30">
                             <Fade direction="up" triggerOnce={false} duration={1200} delay={9}>
                                 <div>
-                                    <h1 className="hero-title">Web Development Services</h1>
+                                    <h1 className="hero-title">Full Stack & Shopify Development Services</h1>
                                 </div>
                             </Fade>
                         </div>
@@ -26,10 +26,10 @@ const Hero2 = () => {
                         <div className="left-text">
                             <h2>10Y</h2>
                             <p>OF Design-Driven
-                                PRODUCT DEVELOPMENT</p>
+                                PRODUCT & COMMERCE DEVELOPMENT</p>
                         </div>
                         <div className="right-text">
-                            <Link href="/home" className='btn-style-2 button'>
+                            <Link href="/contact" className='btn-style-2 button'>
                                 <span className='main-text'>Let’s TALK</span>
                                 <span className='hover-text'>Let’s TALK</span>
                             </Link>

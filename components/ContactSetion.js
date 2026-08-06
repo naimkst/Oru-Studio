@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import ContactForm from './ContactForm';
 import PartnerSection from './PartnerSection';
+import { company } from '../data/siteContent';
 
 const ContactSection = () => {
 
@@ -28,7 +29,7 @@ const ContactSection = () => {
                                         </div>
                                         <div className="contact-text">
                                             <span>DIRECT CONTACT:</span>
-                                            <h3><Link href="/home">hello@orustudio.com</Link></h3>
+                                            <h3><Link href={`mailto:${company.email}`}>{company.email}</Link></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +53,7 @@ const ContactSection = () => {
                                 <div className="iconbox_content">
                                     <h3 className="iconbox_title">Location</h3>
                                     <p className="mb-0">
-                                        Postcode : 4024 debrecen, street: Csapo utca 6, floor 4th , door 61.
+                                        {company.address}
                                     </p>
                                 </div>
                             </div>
@@ -64,8 +65,7 @@ const ContactSection = () => {
                                 </div>
                                 <div className="iconbox_content">
                                     <h3 className="iconbox_title">Contact</h3>
-                                    <p className="mb-0">+8801918775454</p>
-                                    <div className="mb-0">+88(0) 555-01117</div>
+                                    <p className="mb-0">{company.phone}</p>
                                 </div>
                             </div>
                         </div>
@@ -76,8 +76,7 @@ const ContactSection = () => {
                                 </div>
                                 <div className="iconbox_content">
                                     <h3 className="iconbox_title">Email</h3>
-                                    <p className="mb-0">hello@orustudio.com</p>
-                                    <p className="mb-0">gmail.@example.com</p>
+                                    <p className="mb-0">{company.email}</p>
                                 </div>
                             </div>
                         </div>

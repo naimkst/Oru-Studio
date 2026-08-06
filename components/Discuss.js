@@ -5,26 +5,26 @@ import Link from "next/link";
 const clientsArray = [
     {
         Id: '1',
-        cImg: '/images/partner1.svg',
-        title: '4.9 Average Score from 80+ Reviews',
+        cImg: '/images/service1.svg',
+        title: 'Shopify Storefront Buildouts',
         duration: 1000,
     },
     {
         Id: '2',
-        cImg: '/images/partner2.svg',
-        title: 'Top Design Agency Globally',
+        cImg: '/images/service2.svg',
+        title: 'Custom App Development',
         duration: 1200,
     },
     {
         Id: '3',
-        title: 'FEATURED Web Design AgencY IN USA',
-        cImg: '/images/partner3.svg',
+        title: 'Full Stack Product Systems',
+        cImg: '/images/service3.svg',
         duration: 1400,
     },
     {
         Id: '4',
-        title: 'Top on Dribbble WORLDWIDE',
-        cImg: '/images/partner4.svg',
+        title: 'Launch QA and Optimization',
+        cImg: '/images/service4.svg',
         duration: 1600,
     },
 ]
@@ -44,7 +44,7 @@ const Discuss = () => {
                                 <p>Let’s discuss how we can create a user experience that’s both visually stunning and drives real growth for your product.</p>
                             </Fade>
                             <Fade direction="up" triggerOnce="false" duration={1400} delay={9}>
-                                <Link className="btn-style-2" href={'/'}>
+                                <Link className="btn-style-2" href={'/contact'}>
                                     <span className='main-text'>Book a call</span>
                                     <span className='hover-text'>Book a call</span>
                                 </Link>

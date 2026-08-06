@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import { company, services } from '../data/siteContent';
 
 const Footer = () => {
 
@@ -15,18 +16,17 @@ const Footer = () => {
                                         <img src="/images/logo.svg" alt="logo" />
                                     </div>
                                     <div className="contact-ft">
-                                        <p>Postcode : 4024 debrecen,  street: Csapo utca 6,  floor 4th , door 61.</p>
+                                        <p>{company.address}</p>
                                         <ul>
-                                            <li><i className="flaticon-envelope"></i>hello@orustudio.com</li>
-                                            <li><i className="flaticon-telephone"></i>+8801918775454</li>
+                                            <li><i className="flaticon-envelope"></i>{company.email}</li>
+                                            <li><i className="flaticon-telephone"></i>{company.phone}</li>
                                         </ul>
                                     </div>
                                     <div className="widget social-widget">
                                         <ul>
-                                            <li><Link href="#"><i className="ti-facebook"></i></Link></li>
-                                            <li><Link href="#"><i className="ti-instagram"></i></Link></li>
-                                            <li><Link href="#"><i className="ti-twitter-alt"></i></Link></li>
-                                            <li><Link href="#"><i className="ti-pinterest"></i></Link></li>
+                                            <li><Link href={`mailto:${company.email}`} aria-label="Email Oru Studio"><i className="ti-email"></i></Link></li>
+                                            <li><Link href={company.telegramUrl} target="_blank" aria-label="Message Oru Studio on Telegram"><i className="ti-comment"></i></Link></li>
+                                            <li><Link href="/contact" aria-label="Contact Oru Studio"><i className="ti-arrow-top-right"></i></Link></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -37,13 +37,12 @@ const Footer = () => {
                                         <h3>Useful Links</h3>
                                     </div>
                                     <ul>
-                                        <li><Link href="/about"> About Company</Link></li>
-                                        <li><Link href="/team">Meet the Team</Link></li>
+                                        <li><Link href="/about">About Company</Link></li>
+                                        <li><Link href="/services">Services</Link></li>
                                         <li><Link href="/blog">News & Media</Link></li>
-                                        <li><Link href="/project">Our Projects</Link></li>
+                                        <li><Link href="/portfolio">Our Portfolio</Link></li>
+                                        <li><Link href="/process">Our Process</Link></li>
                                         <li><Link href="/contact">Contact us</Link></li>
-                                        <li><Link href="/contact">WooCommerce Plugin</Link></li>
-                                        <li><Link href="/contact">Documentation</Link></li>
                                     </ul>
                                 </div>
                             </div>
@@ -53,13 +52,9 @@ const Footer = () => {
                                         <h3>Services</h3>
                                     </div>
                                     <ul>
-                                        <li><Link href="/about"> Installation & Deployment</Link></li>
-                                        <li><Link href="/team">DevOps Services</Link></li>
-                                        <li><Link href="/blog">Free Consultation</Link></li>
-                                        <li><Link href="/project">Technical Support</Link></li>
-                                        <li><Link href="/contact">Quality Assurance Testing</Link></li>
-                                        <li><Link href="/contact">UI/UX Design</Link></li>
-                                        <li><Link href="/contact">Web Development</Link></li>
+                                        {services.slice(0, 7).map((service) => (
+                                            <li key={service.id}><Link href={`/services/${service.slug}`}>{service.title}</Link></li>
+                                        ))}
                                     </ul>
                                 </div>
                             </div>
@@ -87,15 +82,15 @@ const Footer = () => {
                         <div className="row align-items-center">
                             <div className="col col-lg-6 col-12">
                                 <div className="copy-right">
-                                    <p className="copyright">Copyright  2024 <Link href="home">Oru-studio</Link>, All
+                                    <p className="copyright">Copyright 2026 <Link href="/">Oru Studio</Link>, All
                                         Rights
                                         Reserved.</p>
                                 </div>
                             </div>
                             <div className="col col-lg-6 col-12">
                                 <ul className="lower-footer-link">
-                                    <li><Link href="/contact">Trams & Condition</Link></li>
-                                    <li><Link href="/contact">Privacy Policy</Link></li>
+                                    <li><Link href="/terms-conditions">Terms & Conditions</Link></li>
+                                    <li><Link href="/privacy-policy">Privacy Policy</Link></li>
                                 </ul>
                             </div>
                         </div>

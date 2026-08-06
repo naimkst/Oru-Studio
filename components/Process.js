@@ -17,7 +17,7 @@ const Process = () => {
                                 </div>
                                 <div className="col-lg-8">
                                     <div className="title-text">
-                                        <h3>Tailored and creative. Professional and dependable. We’re committed to delivering only the best solutions.</h3>
+                                        <h3>From discovery to launch, every project is scoped, designed, built, tested, and supported with the discipline of a full stack product team.</h3>
                                     </div>
                                 </div>
                             </div>

@@ -1,62 +1,51 @@
+"use client";
+
 import React, { Fragment, useState } from 'react';
 import List from "@mui/material/List";
-import ListItem from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 import Collapse from "@mui/material/Collapse";
 import Link from "next/link";
+import { services } from '../data/siteContent';
 
 const menus = [
     {
         id: 1,
         title: 'Home',
-        link: '/home',
-        submenu: [
-            {
-                id: 11,
-                title: 'Home ',
-                link: '/home'
-            },
-        ]
+        link: '/',
     },
 
     {
+        id: 2,
+        title: 'Services',
+        link: '/services',
+        submenu: services.slice(0, 6).map((service, index) => ({
+            id: 20 + index,
+            title: service.title,
+            link: `/services/${service.slug}`
+        }))
+    },
+    {
         id: 3,
-        title: 'Pages',
-        link: '/',
-        submenu: [
-            {
-                id: 31,
-                title: 'About Me',
-                link: '/about-me'
-            }
-        ]
+        title: 'Portfolio',
+        link: '/portfolio',
+    },
+    {
+        id: 4,
+        title: 'Blog',
+        link: '/blog',
+    },
+    {
+        id: 5,
+        title: 'Process',
+        link: '/process',
+    },
+    {
+        id: 6,
+        title: 'About',
+        link: '/about',
     },
     {
         id: 7,
-        title: 'Portfolio',
-        link: '/portfolio',
-        submenu: [
-            {
-                id: 71,
-                title: 'Portfolio',
-                link: '/portfolio'
-            }
-        ]
-    },
-
-    {
-        id: 5,
-        title: 'Blog',
-        link: '/blog-grid',
-        submenu: [
-            {
-                id: 51,
-                title: 'Blog',
-                link: '/blog-grid'
-            },
-        ]
-    },
-    {
-        id: 88,
         title: 'Contact',
         link: '/contact',
     }

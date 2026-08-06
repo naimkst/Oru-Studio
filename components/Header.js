@@ -1,47 +1,18 @@
+"use client";
+
 import React, { useState } from 'react'
 import Link from "next/link";
 import Image from 'next/image';
 import MobileMenu from './MobileMenu';
+import { services } from '../data/siteContent';
 
-
-const menuItems = [
-    {
-        title: "User Features",
-        description: "Multiple payment options for seamless and flexible transactions.",
-        imgSrc: "/images/mega1.webp",
-        bgColor: "#e4edff"
-    },
-    {
-        title: "Payment Options",
-        description: "Advanced security settings for safe and flexible transactions.",
-        imgSrc: "/images/mega2.webp",
-        bgColor: "#fcefd7"
-    },
-    {
-        title: "Security Settings",
-        description: "Advanced security settings designed to protect your data.",
-        imgSrc: "/images/mega1.webp",
-        bgColor: "#f1ebff"
-    },
-    {
-        title: "Account Management",
-        description: "Effortlessly manage your account preferences and settings.",
-        imgSrc: "/images/mega2.webp",
-        bgColor: "#f1ebff"
-    },
-    {
-        title: "User Features",
-        description: "Various payment options for convenient and flexible transactions.",
-        imgSrc: "/images/mega1.webp",
-        bgColor: "#e4edff"
-    },
-    {
-        title: "Payment Options",
-        description: "Advanced security settings for safe and flexible transactions.",
-        imgSrc: "/images/mega2.webp",
-        bgColor: "#fcefd7"
-    },
-];
+const menuItems = services.slice(0, 6).map((service, index) => ({
+    ...service,
+    href: `/services/${service.slug}`,
+    imgSrc: service.icon,
+    description: service.shortDescription,
+    bgColor: ["#e4edff", "#fcefd7", "#f1ebff", "#e9f8ef", "#fff0f0", "#ecf7ff"][index],
+}));
 
 const Header = (props) => {
 
@@ -69,7 +40,7 @@ const Header = (props) => {
                                     <nav id="mobile-menu">
                                         <ul className="nav">
                                             <li className="has-submenu">
-                                                <Link onClick={ClickHandler} href="/" data-hover="Services">
+                                                <Link onClick={ClickHandler} href="/services" data-hover="Services">
                                                     <span className='main-text'>Services</span>
                                                 </Link>
                                                 <div className="mega-menu-main">
@@ -77,7 +48,7 @@ const Header = (props) => {
                                                         <ul className="mega-menu-list">
                                                             {menuItems.map((item, index) => (
                                                                 <li key={index}>
-                                                                    <Link target="_self" href="/features">
+                                                                    <Link target="_self" href={item.href}>
                                                                         <div
                                                                             className="mega-menu-item-wrapper"
                                                                             onMouseEnter={() => setActiveItem(item)}
@@ -109,9 +80,9 @@ const Header = (props) => {
                                                                         {activeItem.description}
                                                                     </p>
                                                                     <div className="mega-menu-solutions-button flex items-center mt-3">
-                                                                        <Link href="/" className='btn-style-1'>
-                                                                            <span className='main-text'>Digital Wallet Solution</span>
-                                                                            <span className='hover-text'>Digital Wallet Solution</span>
+                                                                        <Link href="/services" className='btn-style-1'>
+                                                                            <span className='main-text'>View all services</span>
+                                                                            <span className='hover-text'>View all services</span>
                                                                         </Link>
                                                                     </div>
                                                                 </div>
@@ -121,23 +92,23 @@ const Header = (props) => {
                                                 </div>
                                             </li>
                                             <li>
-                                                <Link onClick={ClickHandler} href="/" data-hover="Projects">
-                                                    <span className='main-text'>Projects</span>
+                                                <Link onClick={ClickHandler} href="/portfolio" data-hover="Portfolio">
+                                                    <span className='main-text'>Portfolio</span>
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link onClick={ClickHandler} href="/" data-hover="Our Process">
+                                                <Link onClick={ClickHandler} href="/process" data-hover="Our Process">
                                                     <span className='main-text'>Our Process</span>
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link onClick={ClickHandler} href="/" data-hover="open sourCe">
-                                                    <span className='main-text'>open sourCe</span>
+                                                <Link onClick={ClickHandler} href="/blog" data-hover="Our Blog">
+                                                    <span className='main-text'>Our Blog</span>
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link onClick={ClickHandler} href="/" data-hover="our blog">
-                                                    <span className='main-text'>our blog</span>
+                                                <Link onClick={ClickHandler} href="/about" data-hover="About">
+                                                    <span className='main-text'>About</span>
                                                 </Link>
                                             </li>
                                         </ul>
