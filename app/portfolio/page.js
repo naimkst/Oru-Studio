@@ -1,11 +1,11 @@
 import Link from "next/link";
 import SiteFrame from "../../components/SiteFrame";
-import { portfolioItems, services } from "../../data/siteContent";
+import { portfolioItems, publishedShopifyApps, services } from "../../data/siteContent";
 
 export const metadata = {
-  title: "Portfolio | Oru Studio",
+  title: "Shopify Case Studies & Portfolio | Oru Studio",
   description:
-    "Selected Oru Studio portfolio work across Shopify themes, Shopify apps, full stack dashboards, headless commerce, ecommerce, and backend platforms.",
+    "Selected Oru Studio Shopify case studies, published App Store apps, Shopify themes, full stack dashboards, headless commerce, ecommerce, and backend platforms.",
 };
 
 export default function PortfolioPage() {
@@ -16,10 +16,10 @@ export default function PortfolioPage() {
           <div className="row align-items-center">
             <div className="col-lg-7">
               <div className="inner-hero-content">
-                <span className="eyebrow">Portfolio</span>
-                <h1>Selected work across Shopify, ecommerce, SaaS, and custom web products.</h1>
+                <span className="eyebrow">Shopify Case Studies & Portfolio</span>
+                <h1>Published apps and real commerce builds from Oru Studio.</h1>
                 <p>
-                  These portfolio directions show the kinds of product, commerce, and full stack problems Oru Studio is built to solve.
+                  Explore published Shopify App Store products, merchant workflow tools, custom Shopify builds, headless commerce projects, and full stack product examples.
                 </p>
               </div>
             </div>
@@ -42,6 +42,21 @@ export default function PortfolioPage() {
             ))}
           </div>
 
+          <div className="app-store-band">
+            <div>
+              <span className="eyebrow">Shopify App Store links</span>
+              <h2>Public Shopify apps by Naim Hossain</h2>
+            </div>
+            <div className="app-store-link-list">
+              {publishedShopifyApps.map((app) => (
+                <Link href={app.href} target="_blank" rel="noopener noreferrer" key={app.slug}>
+                  <span>{app.name}</span>
+                  <small>{app.category}</small>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           <div className="portfolio-page-grid">
             {portfolioItems.map((project) => (
               <Link href={`/portfolio/${project.slug}`} className="portfolio-card" key={project.id}>
@@ -52,6 +67,7 @@ export default function PortfolioPage() {
                   <span>{project.category}</span>
                   <h2>{project.title}</h2>
                   <p>{project.description}</p>
+                  {project.status && <strong>{project.status}</strong>}
                 </div>
               </Link>
             ))}

@@ -1,6 +1,12 @@
 import Link from "next/link";
 import SiteFrame from "../../components/SiteFrame";
-import { company, services, portfolioItems } from "../../data/siteContent";
+import {
+  authorProfile,
+  company,
+  portfolioItems,
+  publishedShopifyApps,
+  services,
+} from "../../data/siteContent";
 
 export const metadata = {
   title: "About Oru Studio | Full Stack & Shopify Development",
@@ -53,17 +59,41 @@ export default function AboutPage() {
 
           <div className="metric-grid">
             <div className="metric-card">
-              <strong>10Y</strong>
+              <strong>9Y+</strong>
               <span>Product development experience</span>
             </div>
             <div className="metric-card">
-              <strong>{services.length}+</strong>
-              <span>Core services across product and commerce</span>
+              <strong>{publishedShopifyApps.length}</strong>
+              <span>Published Shopify App Store apps</span>
             </div>
             <div className="metric-card">
               <strong>{portfolioItems.length}</strong>
-              <span>Featured portfolio directions</span>
+              <span>Portfolio and case study examples</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="page-section section-padding pt-0">
+        <div className="container">
+          <div className="page-intro-grid">
+            <div>
+              <span className="eyebrow">Published Shopify apps</span>
+              <h2>Public Shopify App Store products from the Oru Studio founder.</h2>
+            </div>
+            <p>
+              These listings show hands-on Shopify app experience beyond service pages: merchant admin workflows, app billing, storefront integration, product data, support policies, and App Store readiness.
+            </p>
+          </div>
+          <div className="shopify-app-grid">
+            {publishedShopifyApps.map((app) => (
+              <Link href={app.href} target="_blank" rel="noopener noreferrer" className="shopify-app-card" key={app.slug}>
+                <span>{app.category}</span>
+                <h3>{app.name}</h3>
+                <p>{app.description}</p>
+                <strong>{app.pricing}</strong>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -89,19 +119,25 @@ export default function AboutPage() {
         <div className="container">
           <div className="profile-band">
             <div className="profile-image">
-              <img src="/images/ceo.jpg" alt={company.founder} />
+              <img src={authorProfile.photo} alt={company.founder} />
             </div>
             <div className="profile-content">
-              <span className="eyebrow">Founder</span>
-              <h2>{company.founder}</h2>
-              <h3>{company.founderTitle}</h3>
-              <p>
-                Direct founder involvement keeps strategy, design, development, and delivery connected. You get clear technical decisions, practical implementation, and accountability through launch.
-              </p>
-              <Link href="/contact" className="btn-style-1">
-                <span className="main-text">Start a project</span>
-                <span className="hover-text">Start a project</span>
-              </Link>
+              <span className="eyebrow">Author profile</span>
+              <h2>{authorProfile.name}</h2>
+              <h3>{authorProfile.title}</h3>
+              <p>{authorProfile.summary}</p>
+              <ul className="credential-list">
+                {authorProfile.credentials.map((credential) => (
+                  <li key={credential}>{credential}</li>
+                ))}
+              </ul>
+              <div className="profile-link-row">
+                {authorProfile.links.slice(0, 3).map((link) => (
+                  <Link href={link.href} target="_blank" rel="noopener noreferrer" className="text-link dark" key={link.href}>
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -15,14 +15,14 @@ const Blogs = () => {
                                 <div className="col-lg-4">
                                     <div className="blog-top-img">
                                         <Link className="btn-style-1" href={'/blog'}>
-                                            <span className='main-text'>Latest News</span>
-                                            <span className='hover-text'>Latest News</span>
+                                            <span className='main-text'>Shopify Resources</span>
+                                            <span className='hover-text'>Shopify Resources</span>
                                         </Link>
                                     </div>
                                 </div>
                                 <div className="col-lg-8">
                                     <div className="blog-text">
-                                        <h3>The Oru Studio blog shares expert tips, industry trends, and valuable technical knowledge for you.</h3>
+                                        <h3>Original Shopify guides, ecommerce tutorials, app development notes, and case studies for merchants and founders.</h3>
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@ const Blogs = () => {
                                     <Fade direction="up" triggerOnce={false} duration={1000 + index * 200} delay={9}>
                                         <div className="blog-item">
                                             <div className="blog-img">
-                                                <img src={blog.thumbnail} alt="" />
+                                                <img src={blog.thumbnail} alt={blog.title} />
                                             </div>
                                             <div className="blog-content">
                                                 <h2><Link href={`/blog/${blog.slug}`}>{blog.title}</Link></h2>

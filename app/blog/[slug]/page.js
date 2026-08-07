@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SiteFrame from "../../../components/SiteFrame";
-import { blogBySlug, blogPosts } from "../../../data/siteContent";
+import { authorProfile, blogBySlug, blogPosts, publishedShopifyApps } from "../../../data/siteContent";
 
 export async function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -93,16 +93,49 @@ export default async function BlogPostPage({ params }) {
 
                   return <p key={`${block.type}-${index}`}>{block.text}</p>;
                 })}
+                <div className="article-author-box">
+                  <img src={authorProfile.photo} alt={authorProfile.name} />
+                  <div>
+                    <span>Written by</span>
+                    <h2>{authorProfile.name}</h2>
+                    <p>{authorProfile.summary}</p>
+                    <Link href="/about#team" className="text-link dark">Read author profile</Link>
+                  </div>
+                </div>
               </div>
               <aside className="detail-sidebar">
-                <h3>Need this implemented?</h3>
-                <p>
-                  Oru Studio can help plan, build, improve, or maintain your web product, Shopify app, or Shopify storefront.
-                </p>
-                <Link href="/contact" className="btn-style-1">
-                  <span className="main-text">Talk to us</span>
-                  <span className="hover-text">Talk to us</span>
-                </Link>
+                <div className="sidebar-group">
+                  <h3>Need this implemented?</h3>
+                  <p>
+                    Oru Studio can help plan, build, improve, or maintain your Shopify app, Shopify storefront, or ecommerce workflow.
+                  </p>
+                  <Link href="/contact" className="btn-style-1">
+                    <span className="main-text">Talk to us</span>
+                    <span className="hover-text">Talk to us</span>
+                  </Link>
+                </div>
+                <div className="sidebar-group">
+                  <h3>Published apps</h3>
+                  <ul className="plain-link-list">
+                    {publishedShopifyApps.map((app) => (
+                      <li key={app.slug}>
+                        <Link href={app.href} target="_blank" rel="noopener noreferrer">{app.name}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {post.references?.length > 0 && (
+                  <div className="sidebar-group">
+                    <h3>References</h3>
+                    <ul className="plain-link-list">
+                      {post.references.map((reference) => (
+                        <li key={reference.href}>
+                          <Link href={reference.href} target="_blank" rel="noopener noreferrer">{reference.label}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </aside>
             </div>
           </div>

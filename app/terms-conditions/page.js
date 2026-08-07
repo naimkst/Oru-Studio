@@ -30,6 +30,10 @@ export default function TermsConditionsPage() {
             <p>
               Website content is provided for general information about Oru Studio services. We may update services, pricing structures, case studies, or policies when needed.
             </p>
+            <h2>Educational resources</h2>
+            <p>
+              Blog posts, Shopify guides, platform comparisons, and ecommerce resources are provided for general education. Platform pricing, app requirements, policies, and features can change, so confirm important decisions with the relevant official provider before purchasing or launching.
+            </p>
             <h2>Contact</h2>
             <p>
               Questions about these terms can be sent to <Link href={`mailto:${company.email}`}>{company.email}</Link>.

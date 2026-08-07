@@ -102,8 +102,8 @@ const Header = (props) => {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link onClick={ClickHandler} href="/blog" data-hover="Our Blog">
-                                                    <span className='main-text'>Our Blog</span>
+                                                <Link onClick={ClickHandler} href="/blog" data-hover="Resources">
+                                                    <span className='main-text'>Resources</span>
                                                 </Link>
                                             </li>
                                             <li>

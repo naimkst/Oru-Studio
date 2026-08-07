@@ -26,6 +26,10 @@ export default function PrivacyPolicyPage() {
             <p>
               We use submitted information to reply to inquiries, understand project requirements, provide estimates, deliver contracted work, and improve our services.
             </p>
+            <h2>Analytics and affiliate links</h2>
+            <p>
+              We may use privacy-conscious analytics, email tracking, or affiliate referral tracking to understand resource performance and improve commerce-related content. Affiliate platforms may record clicks or referrals according to their own privacy practices.
+            </p>
             <h2>Sharing</h2>
             <p>
               We do not sell your personal information. We may share limited information with trusted service providers only when required to deliver agreed project work.

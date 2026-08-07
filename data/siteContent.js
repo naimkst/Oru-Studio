@@ -1,3 +1,12 @@
+import {
+  authorProfile,
+  publishedShopifyApps,
+  shopifyCaseStudies,
+  shopifyResourcePosts,
+} from "./shopifyResources";
+
+export { authorProfile, publishedShopifyApps };
+
 export const company = {
   name: "Oru Studio",
   email: "hello@orustudio.com",
@@ -194,6 +203,7 @@ export const services = [
 ];
 
 export const portfolioItems = [
+  ...shopifyCaseStudies,
   {
     id: "shopify-fashion-theme-system",
     title: "Shopify Fashion Theme System",
@@ -293,6 +303,7 @@ export const portfolioItems = [
 ];
 
 export const blogPosts = [
+  ...shopifyResourcePosts,
   {
     id: "shopify-app-development-roadmap",
     title: "A Practical Roadmap for Shopify App Development",

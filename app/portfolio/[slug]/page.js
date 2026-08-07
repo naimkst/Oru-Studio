@@ -39,14 +39,21 @@ export default async function PortfolioDetailPage({ params }) {
             <div>
               <div className="content-meta">
                 <span>{project.category}</span>
-                <span>Portfolio</span>
+                <span>{project.status || "Portfolio"}</span>
               </div>
               <h1>{project.title}</h1>
               <p>{project.description}</p>
-              <Link href="/contact" className="btn-style-2 button">
-                <span className="main-text">Build something similar</span>
-                <span className="hover-text">Build something similar</span>
-              </Link>
+              <div className="hero-action-row">
+                <Link href="/contact" className="btn-style-2 button">
+                  <span className="main-text">Build something similar</span>
+                  <span className="hover-text">Build something similar</span>
+                </Link>
+                {project.appStoreUrl && (
+                  <Link href={project.appStoreUrl} target="_blank" rel="noopener noreferrer" className="text-link">
+                    View App Store listing
+                  </Link>
+                )}
+              </div>
             </div>
             <div className="detail-hero-media">
               <img src={project.image} alt={project.title} />
@@ -59,10 +66,23 @@ export default async function PortfolioDetailPage({ params }) {
         <div className="container">
           <div className="detail-layout">
             <div className="article-content">
+              {project.metrics?.length > 0 && (
+                <div className="case-metric-row">
+                  {project.metrics.map((metric) => (
+                    <span key={metric}>{metric}</span>
+                  ))}
+                </div>
+              )}
               <h2>Challenge</h2>
               <p>{project.challenge}</p>
               <h2>Solution</h2>
               <p>{project.solution}</p>
+              {project.sections?.map((section) => (
+                <div key={section.title}>
+                  <h2>{section.title}</h2>
+                  <p>{section.text}</p>
+                </div>
+              ))}
               <h2>Result</h2>
               <ul className="check-list">
                 {project.results.map((result) => (
@@ -71,14 +91,35 @@ export default async function PortfolioDetailPage({ params }) {
               </ul>
             </div>
             <aside className="detail-sidebar">
-              <h3>Relevant services</h3>
-              <ul className="plain-link-list">
-                {services.slice(0, 5).map((service) => (
-                  <li key={service.id}>
-                    <Link href={`/services/${service.slug}`}>{service.title}</Link>
-                  </li>
-                ))}
-              </ul>
+              {project.appStoreUrl && (
+                <div className="sidebar-group">
+                  <h3>Public listing</h3>
+                  <p>This project is published on the Shopify App Store under the Naim Hossain developer profile.</p>
+                  <Link href={project.appStoreUrl} target="_blank" rel="noopener noreferrer" className="text-link dark">
+                    Open Shopify listing
+                  </Link>
+                </div>
+              )}
+              {project.stack?.length > 0 && (
+                <div className="sidebar-group">
+                  <h3>Stack</h3>
+                  <ul className="plain-link-list">
+                    {project.stack.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <div className="sidebar-group">
+                <h3>Relevant services</h3>
+                <ul className="plain-link-list">
+                  {services.slice(0, 5).map((service) => (
+                    <li key={service.id}>
+                      <Link href={`/services/${service.slug}`}>{service.title}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </aside>
           </div>
         </div>

@@ -23,7 +23,7 @@ const Founders = () => {
                                         OruStudio</p>
                                 </div>
                                 <div className="founder-card-footer">
-                                    <span>10Y</span>
+                                    <span>9Y+</span>
                                     <p>Full stack, Shopify app, and theme delivery.</p>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@ const Founders = () => {
                         <div className="col-lg-8">
                             <div className="founder-text">
                                 <span>Founder-led full stack and Shopify development</span>
-                                <h3>After a decade of building digital products, we help serious founders and commerce teams turn ideas into fast, reliable Shopify apps, themes, and web platforms.</h3>
+                                <h3>After 9+ years of building digital products, we help serious founders and commerce teams turn ideas into fast, reliable Shopify apps, themes, and web platforms.</h3>
                                 <p>You work directly with a senior product partner who can shape the strategy, design the flow, build the frontend and backend, and keep the launch moving with clear technical decisions.</p>
                             </div>
                         </div>

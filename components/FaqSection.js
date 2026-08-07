@@ -48,7 +48,7 @@ const FaqSection = () => {
                                 </div>
                             </div>
                             <p>“Got more questions or curious about what’s next? Connect with me on Telegram anytime.”</p>
-                            <Link href={company.telegramUrl} target="_blank" className='btn-style-2 button'>
+                            <Link href={company.telegramUrl} target="_blank" rel="noopener noreferrer" className='btn-style-2 button'>
                                 <span className='main-text'>CONNECT on Telegram</span>
                                 <span className='hover-text'>CONNECT on Telegram</span>
                             </Link>

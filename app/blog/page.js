@@ -1,11 +1,11 @@
 import Link from "next/link";
 import SiteFrame from "../../components/SiteFrame";
-import { blogPosts } from "../../data/siteContent";
+import { authorProfile, blogPosts, publishedShopifyApps } from "../../data/siteContent";
 
 export const metadata = {
-  title: "Blog | Oru Studio",
+  title: "Shopify Resources & Blog | Oru Studio",
   description:
-    "Oru Studio articles on Shopify app development, Shopify themes, full stack web apps, backend integrations, launch QA, and maintenance.",
+    "Original Oru Studio Shopify resources, ecommerce guides, App Store case studies, app development notes, theme guidance, and store optimization articles.",
 };
 
 export default function BlogPage() {
@@ -16,11 +16,18 @@ export default function BlogPage() {
           <div className="row align-items-center">
             <div className="col-lg-7">
               <div className="inner-hero-content">
-                <span className="eyebrow">Oru Studio Blog</span>
-                <h1>Practical notes on building better web products and Shopify systems.</h1>
+                <span className="eyebrow">Shopify Resources & Blog</span>
+                <h1>Original Shopify education for merchants, founders, and ecommerce teams.</h1>
                 <p>
-                  Guides, launch checklists, and implementation thinking for founders, merchants, and teams building with modern web and commerce stacks.
+                  Long-form guides, practical tutorials, Shopify app development notes, conversion advice, Plus planning, troubleshooting, and case studies written from Oru Studio's implementation experience.
                 </p>
+                <div className="hero-action-row">
+                  <Link href="/portfolio" className="btn-style-2 button">
+                    <span className="main-text">View case studies</span>
+                    <span className="hover-text">View case studies</span>
+                  </Link>
+                  <Link href="/about#team" className="text-link">Author profile</Link>
+                </div>
               </div>
             </div>
             <div className="col-lg-5">
@@ -34,6 +41,20 @@ export default function BlogPage() {
 
       <section className="page-section section-padding pt-0">
         <div className="container">
+          <div className="resource-proof-row">
+            <div>
+              <strong>{blogPosts.length}</strong>
+              <span>Original resources</span>
+            </div>
+            <div>
+              <strong>{publishedShopifyApps.length}</strong>
+              <span>Published Shopify apps</span>
+            </div>
+            <div>
+              <strong>9Y+</strong>
+              <span>{authorProfile.name} experience</span>
+            </div>
+          </div>
           <div className="blog-page-grid">
             {blogPosts.map((post) => (
               <article className="blog-page-card" key={post.id}>
