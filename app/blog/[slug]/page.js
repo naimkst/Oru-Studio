@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ArticleBlocks from "../../../components/ArticleBlocks";
+import FallbackImage from "../../../components/FallbackImage";
 import JsonLd from "../../../components/JsonLd";
 import SiteFrame from "../../../components/SiteFrame";
 import { authorProfile, blogPosts, publishedShopifyApps } from "../../../data/siteContent";
@@ -95,7 +97,7 @@ export default async function BlogPostPage({ params }) {
                 <p>{post.description}</p>
               </div>
               <div className="detail-hero-media">
-                <img src={post.thumbnail} alt={post.title} />
+                <FallbackImage src={post.thumbnail} alt={post.title} />
               </div>
             </div>
           </div>
@@ -105,36 +107,7 @@ export default async function BlogPostPage({ params }) {
           <div className="container">
             <div className="detail-layout">
               <div className="article-content">
-                {articleBlocks.map((block, index) => {
-                  if (block.type === "heading") {
-                    return <h2 key={`${block.type}-${index}`}>{block.text}</h2>;
-                  }
-
-                  if (block.type === "list") {
-                    return (
-                      <ul className="article-list" key={`${block.type}-${index}`}>
-                        {block.items.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    );
-                  }
-
-                  if (block.type === "image") {
-                    return (
-                      <figure className="article-figure" key={`${block.type}-${index}`}>
-                        <img src={block.src} alt={block.alt} />
-                        {block.caption && <figcaption>{block.caption}</figcaption>}
-                      </figure>
-                    );
-                  }
-
-                  if (block.type === "callout") {
-                    return <p className="article-callout" key={`${block.type}-${index}`}>{block.text}</p>;
-                  }
-
-                  return <p key={`${block.type}-${index}`}>{block.text}</p>;
-                })}
+                <ArticleBlocks blocks={articleBlocks} />
                 <div className="article-author-box">
                   <img src={authorProfile.photo} alt={authorProfile.name} />
                   <div>
@@ -203,7 +176,7 @@ export default async function BlogPostPage({ params }) {
             {relatedPosts.map((item) => (
               <article className="blog-page-card" key={item.id}>
                 <Link href={`/blog/${item.slug}`} className="blog-page-image">
-                  <img src={item.thumbnail} alt={item.title} />
+                  <FallbackImage src={item.thumbnail} alt={item.title} />
                 </Link>
                 <div className="blog-page-content">
                   <div className="content-meta">

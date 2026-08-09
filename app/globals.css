@@ -328,6 +328,103 @@ a {
   margin-top: 14px;
 }
 
+.admin-detail-layout {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.admin-detail-main {
+  display: grid;
+  gap: 22px;
+}
+
+.admin-detail-hero,
+.admin-detail-sidebar .admin-panel {
+  background: #ffffff;
+  border: 1px solid #dde1e7;
+  border-radius: 8px;
+}
+
+.admin-detail-hero {
+  display: grid;
+  gap: 20px;
+  padding: 22px;
+}
+
+.admin-detail-hero p {
+  color: #475467;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 14px 0 0;
+}
+
+.admin-detail-media {
+  background: #f2f4f7;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.admin-detail-media img {
+  aspect-ratio: 16 / 9;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.admin-preview-content {
+  border: 1px solid #dde1e7;
+  border-radius: 8px;
+}
+
+.admin-detail-sidebar {
+  display: grid;
+  gap: 22px;
+  align-content: start;
+}
+
+.admin-detail-list {
+  display: grid;
+  gap: 14px;
+}
+
+.admin-detail-list div {
+  border-bottom: 1px solid #eaecf0;
+  display: grid;
+  gap: 4px;
+  padding-bottom: 14px;
+}
+
+.admin-detail-list div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.admin-detail-list dt {
+  color: #667085;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.admin-detail-list dd {
+  color: #101828;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.admin-image-missing {
+  color: #b42318;
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -336,6 +433,7 @@ a {
 
 @media (max-width: 980px) {
   .admin-layout,
+  .admin-detail-layout,
   .admin-metrics {
     grid-template-columns: 1fr;
   }

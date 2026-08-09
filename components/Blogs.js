@@ -1,6 +1,7 @@
 import { Fade } from "react-awesome-reveal";
 import React from 'react'
 import Link from "next/link";
+import FallbackImage from "./FallbackImage";
 import { featuredBlogPosts } from "../data/siteContent";
 
 const Blogs = ({ posts = featuredBlogPosts }) => {
@@ -34,7 +35,7 @@ const Blogs = ({ posts = featuredBlogPosts }) => {
                                     <Fade direction="up" triggerOnce={false} duration={1000 + index * 200} delay={9}>
                                         <div className="blog-item">
                                             <div className="blog-img">
-                                                <img src={blog.thumbnail} alt={blog.title} />
+                                                <FallbackImage src={blog.thumbnail} alt={blog.title} />
                                             </div>
                                             <div className="blog-content">
                                                 <h2><Link href={`/blog/${blog.slug}`}>{blog.title}</Link></h2>

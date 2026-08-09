@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import FallbackImage from "./FallbackImage";
 
 function toDatetimeLocal(date) {
   const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
@@ -143,6 +144,28 @@ export default function DashboardClient() {
       await loadDashboard();
       router.refresh();
     }
+  }
+
+  async function regenerateMedia(post) {
+    setMessage(`Regenerating media for: ${post.title}`);
+
+    const response = await fetch(`/api/admin/posts/${post.dbId}/regenerate-media`, {
+      method: "POST",
+    });
+
+    if (!response.ok) {
+      setMessage(
+        await readErrorMessage(
+          response,
+          "Media regeneration failed. Check OPENAI_API_KEY and server logs."
+        )
+      );
+      return;
+    }
+
+    setMessage(`Regenerated media for: ${post.title}`);
+    await loadDashboard();
+    router.refresh();
   }
 
   async function deletePost(post) {
@@ -286,7 +309,7 @@ export default function DashboardClient() {
             <div className="admin-post-list">
               {posts.map((post) => (
                 <article className="admin-post-item" key={post.dbId}>
-                  <img src={post.thumbnail} alt="" />
+                  <FallbackImage src={post.thumbnail} alt="" />
                   <div>
                     <div className="admin-post-meta">
                       <span>{post.status}</span>
@@ -301,7 +324,15 @@ export default function DashboardClient() {
                       ))}
                     </div>
                     <div className="admin-button-row compact">
-                      <Link href={`/blog/${post.slug}`}>View</Link>
+                      <Link href={`/dashboard/posts/${post.dbId}`}>Details</Link>
+                      {post.status === "published" && (
+                        <Link href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
+                          Public page
+                        </Link>
+                      )}
+                      <button type="button" className="secondary" onClick={() => regenerateMedia(post)}>
+                        Regenerate media
+                      </button>
                       {post.status !== "published" && (
                         <button type="button" onClick={() => updateStatus(post, "published")}>Publish</button>
                       )}

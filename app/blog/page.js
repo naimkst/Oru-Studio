@@ -1,4 +1,5 @@
 import Link from "next/link";
+import FallbackImage from "../../components/FallbackImage";
 import SiteFrame from "../../components/SiteFrame";
 import { authorProfile, publishedShopifyApps } from "../../data/siteContent";
 import { getAllBlogPosts } from "../../lib/blogRepository";
@@ -67,7 +68,7 @@ export default function BlogPage() {
             {blogPosts.map((post) => (
               <article className="blog-page-card" key={post.id}>
                 <Link href={`/blog/${post.slug}`} className="blog-page-image">
-                  <img src={post.thumbnail} alt={post.title} />
+                  <FallbackImage src={post.thumbnail} alt={post.title} />
                 </Link>
                 <div className="blog-page-content">
                   <div className="content-meta">
