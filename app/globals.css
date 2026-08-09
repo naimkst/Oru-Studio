@@ -453,11 +453,11 @@ a {
 
 .admin-post-item h3 {
   color: #101828;
-  font-size: clamp(20px, 2vw, 24px);
+  font-size: clamp(18px, 1.55vw, 21px);
   font-weight: 680;
   letter-spacing: 0;
-  line-height: 1.18;
-  margin: 14px 0 8px;
+  line-height: 1.16;
+  margin: 12px 0 8px;
 }
 
 .admin-post-item h3 a:hover {
@@ -522,16 +522,16 @@ a {
 }
 
 .admin-button-row.compact {
-  gap: 8px;
-  margin-top: 16px;
+  gap: 7px 6px;
+  margin-top: 14px;
 }
 
 .admin-button-row.compact a,
 .admin-button-row.compact button {
-  border-radius: 8px;
-  font-size: 13px;
-  min-height: 40px;
-  padding: 8px 13px;
+  border-radius: 7px;
+  font-size: 12px;
+  min-height: 36px;
+  padding: 7px 10px;
 }
 
 .admin-button-row.compact .danger {
