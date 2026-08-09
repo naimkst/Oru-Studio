@@ -1,38 +1,31 @@
-"use client"
-import React from 'react';
-import { ReactLenis } from "@studio-freight/react-lenis";
-import Header from '../components/Header';
-import Hero from '../components/Hero';
-import Founders from '../components/Founders';
-import Services from '../components/Services';
-import Clients from '../components/Clients';
-import Testimonial from '../components/Testimonial';
-import Projects from '../components/Projects';
-import Benefits from '../components/Benefits';
-import Blogs from '../components/Blogs';
-import Discuss from '../components/Discuss';
-import Footer from '../components/Footer';
+import HomePageShell from "../components/HomePageShell";
+import JsonLd from "../components/JsonLd";
+import {
+   buildWebPageJsonLd,
+   createPageMetadata,
+} from "../data/seo";
+
+export const metadata = createPageMetadata({
+   title: "Oru Studio | Shopify Apps, Store Development & Shopify Plus Experts",
+   description:
+      "Oru Studio builds Shopify apps, Shopify stores, Shopify Plus projects, ecommerce systems, and full stack web products for merchants, founders, and agencies.",
+   path: "/",
+   image: "/images/hero-video-area-shopify-01.webp",
+});
 
 const Home = () => {
-
    return (
-      <div className="page-wrapper">
-         <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothTouch: true }}>
-            <Header />
-            <Hero />
-            <div className="bg-wrap">
-               <Founders />
-               <Services />
-            </div>
-            <Clients />
-            <Testimonial />
-            <Projects />
-            <Benefits />
-            <Blogs />
-            <Discuss />
-            <Footer />
-         </ReactLenis>
-      </div>
+      <>
+         <JsonLd
+            data={buildWebPageJsonLd({
+               name: "Oru Studio",
+               description:
+                  "Shopify app development, Shopify store development, Shopify Plus planning, ecommerce systems, and full stack web product delivery.",
+               path: "/",
+            })}
+         />
+         <HomePageShell />
+      </>
    )
 }
 

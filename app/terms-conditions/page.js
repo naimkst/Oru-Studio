@@ -1,11 +1,14 @@
 import Link from "next/link";
 import SiteFrame from "../../components/SiteFrame";
 import { company } from "../../data/siteContent";
+import { createPageMetadata } from "../../data/seo";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Terms & Conditions | Oru Studio",
   description: "Oru Studio service terms for development inquiries, proposals, project delivery, and website use.",
-};
+  path: "/terms-conditions",
+  image: "/images/discuss.webp",
+});
 
 export default function TermsConditionsPage() {
   return (

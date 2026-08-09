@@ -1,12 +1,15 @@
 import Link from "next/link";
 import SiteFrame from "../../components/SiteFrame";
 import { authorProfile, blogPosts, publishedShopifyApps } from "../../data/siteContent";
+import { createPageMetadata } from "../../data/seo";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Shopify Resources & Blog | Oru Studio",
   description:
     "Original Oru Studio Shopify resources, ecommerce guides, App Store case studies, app development notes, theme guidance, and store optimization articles.",
-};
+  path: "/blog",
+  image: "/images/portfolio-headless-commerce-storefront.webp",
+});
 
 export default function BlogPage() {
   return (

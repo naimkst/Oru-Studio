@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import JsonLd from "../../../components/JsonLd";
 import SiteFrame from "../../../components/SiteFrame";
 import { portfolioBySlug, portfolioItems, services } from "../../../data/siteContent";
+import {
+  absoluteUrl,
+  buildBreadcrumbJsonLd,
+  createPageMetadata,
+  siteUrl,
+} from "../../../data/seo";
 
 export async function generateStaticParams() {
   return portfolioItems.map((project) => ({ slug: project.slug }));
@@ -17,10 +24,12 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return {
+  return createPageMetadata({
     title: `${project.title} | Oru Studio Portfolio`,
     description: project.description,
-  };
+    path: `/portfolio/${project.slug}`,
+    image: project.image,
+  });
 }
 
 export default async function PortfolioDetailPage({ params }) {
@@ -30,9 +39,32 @@ export default async function PortfolioDetailPage({ params }) {
   if (!project) {
     notFound();
   }
+  const portfolioJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.description,
+    image: absoluteUrl(project.image),
+    url: absoluteUrl(`/portfolio/${project.slug}`),
+    creator: {
+      "@id": `${siteUrl}/#organization`,
+    },
+    about: project.category,
+    ...(project.appStoreUrl ? { sameAs: project.appStoreUrl } : {}),
+  };
 
   return (
     <SiteFrame>
+      <JsonLd
+        data={[
+          buildBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Portfolio", path: "/portfolio" },
+            { name: project.title, path: `/portfolio/${project.slug}` },
+          ]),
+          portfolioJsonLd,
+        ]}
+      />
       <section className="detail-hero section-padding">
         <div className="container">
           <div className="detail-hero-inner">

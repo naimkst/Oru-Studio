@@ -1,12 +1,15 @@
 import Link from "next/link";
 import SiteFrame from "../../components/SiteFrame";
 import { processSteps } from "../../data/siteContent";
+import { createPageMetadata } from "../../data/seo";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Process | Oru Studio",
   description:
     "The Oru Studio process for discovery, planning, design, full stack development, Shopify development, QA, launch, and support.",
-};
+  path: "/process",
+  image: "/images/process.svg",
+});
 
 export default function ProcessPage() {
   return (

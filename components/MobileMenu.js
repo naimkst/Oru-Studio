@@ -31,21 +31,26 @@ const menus = [
     },
     {
         id: 4,
+        title: 'Apps',
+        link: '/apps',
+    },
+    {
+        id: 5,
         title: 'Blog',
         link: '/blog',
     },
     {
-        id: 5,
+        id: 6,
         title: 'Process',
         link: '/process',
     },
     {
-        id: 6,
+        id: 7,
         title: 'About',
         link: '/about',
     },
     {
-        id: 7,
+        id: 8,
         title: 'Contact',
         link: '/contact',
     }

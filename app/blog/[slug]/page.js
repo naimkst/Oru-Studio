@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import JsonLd from "../../../components/JsonLd";
 import SiteFrame from "../../../components/SiteFrame";
 import { authorProfile, blogBySlug, blogPosts, publishedShopifyApps } from "../../../data/siteContent";
+import {
+  absoluteUrl,
+  buildBreadcrumbJsonLd,
+  createPageMetadata,
+  siteUrl,
+} from "../../../data/seo";
 
 export async function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -17,10 +24,15 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return {
+  return createPageMetadata({
     title: `${post.title} | Oru Studio Blog`,
     description: post.description,
-  };
+    path: `/blog/${post.slug}`,
+    image: post.thumbnail,
+    type: "article",
+    publishedTime: post.date,
+    modifiedTime: post.date,
+  });
 }
 
 export default async function BlogPostPage({ params }) {
@@ -36,9 +48,35 @@ export default async function BlogPostPage({ params }) {
     type: "paragraph",
     text: paragraph,
   }));
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description,
+    image: absoluteUrl(post.thumbnail),
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@id": `${siteUrl}/#naim-hossain-najmul`,
+    },
+    publisher: {
+      "@id": `${siteUrl}/#organization`,
+    },
+    mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+  };
 
   return (
     <SiteFrame>
+      <JsonLd
+        data={[
+          buildBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ]),
+          articleJsonLd,
+        ]}
+      />
       <article>
         <section className="detail-hero section-padding">
           <div className="container">

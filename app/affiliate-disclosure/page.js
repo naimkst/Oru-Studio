@@ -1,12 +1,15 @@
 import Link from "next/link";
 import SiteFrame from "../../components/SiteFrame";
 import { company } from "../../data/siteContent";
+import { createPageMetadata } from "../../data/seo";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Affiliate Disclosure | Oru Studio",
   description:
     "Oru Studio affiliate disclosure for Shopify, ecommerce tools, app recommendations, and commerce-related educational content.",
-};
+  path: "/affiliate-disclosure",
+  image: "/images/portfolio-headless-commerce-storefront.webp",
+});
 
 export default function AffiliateDisclosurePage() {
   return (

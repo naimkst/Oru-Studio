@@ -47,6 +47,7 @@ const Footer = () => {
                                     <ul>
                                         <li><Link href="/about">About Company</Link></li>
                                         <li><Link href="/services">Services</Link></li>
+                                        <li><Link href="/apps">Shopify Apps</Link></li>
                                         <li><Link href="/blog">Shopify Resources</Link></li>
                                         <li><Link href="/portfolio">Our Portfolio</Link></li>
                                         <li><Link href="/process">Our Process</Link></li>

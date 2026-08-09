@@ -18,7 +18,7 @@ export const authorProfile = {
   credentials: [
     "9+ years in Shopify, ecommerce, and full stack development",
     "3 published Shopify App Store apps under the Naim Hossain developer profile",
-    "Experience across Shopify themes, app development, Admin GraphQL, Storefront API, Remix, React, Next.js, Node.js, Laravel, Django, and WordPress",
+    "Experience across Shopify themes, app development, Admin GraphQL, Storefront API, Remix, React, Next.js, Node.js, Laravel, and Django",
     "Founder-led project delivery covering planning, design, engineering, QA, launch, and maintenance",
   ],
   links: [
@@ -46,31 +46,190 @@ export const publishedShopifyApps = [
     name: "Blog CTA Pro",
     slug: "blog-cta-pro",
     href: "https://apps.shopify.com/blog-cta",
+    image: "/images/portfolio-merchant-automation-app.webp",
     category: "Blogs, product CTAs",
     pricing: "Free plan available",
     launched: "June 23, 2025",
+    launchedDate: "2025-06-23",
+    supportHref: "/contact",
+    privacyHref: "/privacy-policy",
+    caseStudySlug: "blog-cta-pro-shopify-app",
     description:
       "A Shopify app for placing product sliders, grids, and calls to action inside blog posts so content-led stores can turn readers into shoppers.",
+    features: [
+      "Add product sliders and grids inside Shopify blog content",
+      "Map article topics to relevant product recommendations",
+      "Control CTA layout, labels, styling, and placement rules",
+      "Support content-led ecommerce campaigns without editing theme templates for each article",
+    ],
+    documentation: [
+      {
+        title: "Setup workflow",
+        items: [
+          "Install the app from the Shopify App Store listing.",
+          "Select the blog articles or article groups that should show product CTAs.",
+          "Choose products, layout style, button text, and display rules.",
+          "Preview the article experience on desktop and mobile before publishing broadly.",
+        ],
+      },
+      {
+        title: "Best use cases",
+        items: [
+          "Buying guides that should recommend matching products.",
+          "SEO blog posts where readers need a direct product path.",
+          "Campaign articles that promote seasonal products or bundles.",
+          "Editorial content that needs measurable product clicks.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Does Blog CTA Pro replace my Shopify blog?",
+        answer:
+          "No. It works with Shopify blog content by adding product calls to action inside or alongside articles.",
+      },
+      {
+        question: "Can merchants change the products without editing code?",
+        answer:
+          "Yes. The app is designed so merchants can manage product selections and display settings from the Shopify admin workflow.",
+      },
+      {
+        question: "What data does the app need?",
+        answer:
+          "The app needs access required to read selected blog and product information and save the merchant's CTA configuration.",
+      },
+    ],
+    privacyNotes: [
+      "The app is designed around merchant-managed blog and product display settings.",
+      "Store data is used to power the configured blog CTA experience.",
+      "Support and privacy questions can be sent through the Oru Studio contact page.",
+    ],
   },
   {
     name: "Real Time Find And Replace",
     slug: "real-time-find-and-replace",
     href: "https://apps.shopify.com/real-time-find-and-replace",
+    image: "/images/portfolio-headless-commerce-storefront.webp",
     category: "Storefront content tools",
     pricing: "Free trial available",
     launched: "May 8, 2025",
+    launchedDate: "2025-05-08",
+    supportHref: "/contact",
+    privacyHref: "/privacy-policy",
+    caseStudySlug: "real-time-find-and-replace-shopify-app",
     description:
       "A storefront utility that lets merchants create find-and-replace rules for visible store content without manually editing theme code.",
+    features: [
+      "Create storefront text replacement rules from a merchant-friendly interface",
+      "Update repeated words, labels, messages, or small HTML snippets without theme file edits",
+      "Keep changes reversible through clear rule management",
+      "Reduce developer dependency for routine storefront copy fixes",
+    ],
+    documentation: [
+      {
+        title: "Setup workflow",
+        items: [
+          "Install the app and confirm the required Shopify permissions.",
+          "Create a replacement rule with the original text and replacement content.",
+          "Review the storefront pages where the rule should apply.",
+          "Disable or delete rules when campaign copy or store wording changes.",
+        ],
+      },
+      {
+        title: "Best use cases",
+        items: [
+          "Temporary campaign wording across a live storefront.",
+          "Replacing repeated labels without opening Liquid templates.",
+          "Fixing storefront copy while a full theme update is waiting.",
+          "Testing updated product or policy wording before a permanent theme change.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Does this app require editing Shopify theme files?",
+        answer:
+          "No. The app is intended to let merchants manage replacement rules without manually changing theme code.",
+      },
+      {
+        question: "Can rules be removed later?",
+        answer:
+          "Yes. Replacement rules should be managed as reversible store operations so merchants can disable or remove them when they are no longer needed.",
+      },
+      {
+        question: "Is this a replacement for a proper theme cleanup?",
+        answer:
+          "No. It is useful for operational text changes, while larger structural or performance issues should still be handled in the theme codebase.",
+      },
+    ],
+    privacyNotes: [
+      "The app uses configured replacement rules to adjust storefront output.",
+      "Storefront behavior depends on the merchant's saved rule settings.",
+      "Support and privacy questions can be sent through the Oru Studio contact page.",
+    ],
   },
   {
     name: "RateMate",
     slug: "ratemate",
     href: "https://apps.shopify.com/simple-product-rating",
+    image: "/images/portfolio-custom-product-builder.webp",
     category: "Product reviews",
     pricing: "Free trial available",
     launched: "April 24, 2025",
+    launchedDate: "2025-04-24",
+    supportHref: "/contact",
+    privacyHref: "/privacy-policy",
+    caseStudySlug: "ratemate-shopify-review-app",
     description:
       "A product review app for collecting, moderating, and displaying customer ratings, review titles, review content, and verified-buyer style proof.",
+    features: [
+      "Collect product ratings, review titles, and written review content",
+      "Moderate reviews before they appear on product pages",
+      "Display review proof on Shopify storefronts",
+      "Give smaller stores a focused review workflow without a heavy platform setup",
+    ],
+    documentation: [
+      {
+        title: "Setup workflow",
+        items: [
+          "Install RateMate from the Shopify App Store listing.",
+          "Configure review collection and storefront display settings.",
+          "Moderate incoming reviews before publishing them.",
+          "Review product pages on mobile and desktop after enabling the display.",
+        ],
+      },
+      {
+        title: "Best use cases",
+        items: [
+          "Early-stage stores that need product reviews without a complex enterprise review stack.",
+          "Merchants who want moderation before review content is public.",
+          "Stores that need simple product-level trust proof.",
+          "Theme builds where review display should stay focused and lightweight.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Can merchants moderate reviews?",
+        answer:
+          "Yes. RateMate is designed around merchant review management before approved review content appears publicly.",
+      },
+      {
+        question: "Is RateMate only for Shopify stores?",
+        answer:
+          "Yes. RateMate is a Shopify app and is intended for Shopify merchant workflows.",
+      },
+      {
+        question: "What customer data can reviews contain?",
+        answer:
+          "Reviews may include the submitted rating, review text, title, product relationship, and customer-provided details needed for moderation and display.",
+      },
+    ],
+    privacyNotes: [
+      "Review data is used to collect, moderate, and display product feedback for the merchant's store.",
+      "Merchants should review their own privacy commitments when collecting customer-submitted review content.",
+      "Support and privacy questions can be sent through the Oru Studio contact page.",
+    ],
   },
 ];
 

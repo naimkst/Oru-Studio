@@ -1,11 +1,14 @@
 import Link from "next/link";
 import SiteFrame from "../../components/SiteFrame";
+import { createPageMetadata } from "../../data/seo";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Open Source & Resources | Oru Studio",
   description:
     "Developer resources, reusable patterns, and open-source friendly engineering practices from Oru Studio.",
-};
+  path: "/open-source",
+  image: "/images/hero-img.webp",
+});
 
 const resources = [
   {

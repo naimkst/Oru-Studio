@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import JsonLd from "../../../components/JsonLd";
 import SiteFrame from "../../../components/SiteFrame";
 import { portfolioItems, serviceBySlug, services } from "../../../data/siteContent";
+import {
+  absoluteUrl,
+  buildBreadcrumbJsonLd,
+  createPageMetadata,
+  siteUrl,
+} from "../../../data/seo";
 
 export async function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
@@ -17,10 +24,12 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return {
+  return createPageMetadata({
     title: `${service.title} | Oru Studio Services`,
     description: service.shortDescription,
-  };
+    path: `/services/${service.slug}`,
+    image: service.image,
+  });
 }
 
 export default async function ServiceDetailPage({ params }) {
@@ -32,9 +41,32 @@ export default async function ServiceDetailPage({ params }) {
   }
 
   const relatedServices = services.filter((item) => item.slug !== service.slug).slice(0, 3);
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    description: service.description,
+    serviceType: service.title,
+    url: absoluteUrl(`/services/${service.slug}`),
+    image: absoluteUrl(service.image),
+    provider: {
+      "@id": `${siteUrl}/#organization`,
+    },
+    areaServed: "Worldwide",
+  };
 
   return (
     <SiteFrame>
+      <JsonLd
+        data={[
+          buildBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: service.title, path: `/services/${service.slug}` },
+          ]),
+          serviceJsonLd,
+        ]}
+      />
       <section className="detail-hero section-padding">
         <div className="container">
           <div className="detail-hero-inner">

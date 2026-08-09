@@ -1,11 +1,14 @@
 import Link from "next/link";
 import SiteFrame from "../../components/SiteFrame";
 import { company } from "../../data/siteContent";
+import { createPageMetadata } from "../../data/seo";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Privacy Policy | Oru Studio",
   description: "Oru Studio privacy policy for project inquiries, contact forms, and service communication.",
-};
+  path: "/privacy-policy",
+  image: "/images/discuss.webp",
+});
 
 export default function PrivacyPolicyPage() {
   return (

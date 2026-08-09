@@ -1,12 +1,15 @@
 import Link from "next/link";
 import SiteFrame from "../../components/SiteFrame";
 import { portfolioItems, publishedShopifyApps, services } from "../../data/siteContent";
+import { createPageMetadata } from "../../data/seo";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Shopify Case Studies & Portfolio | Oru Studio",
   description:
     "Selected Oru Studio Shopify case studies, published App Store apps, Shopify themes, full stack dashboards, headless commerce, ecommerce, and backend platforms.",
-};
+  path: "/portfolio",
+  image: "/images/portfolio-merchant-automation-app.webp",
+});
 
 export default function PortfolioPage() {
   return (

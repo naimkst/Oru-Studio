@@ -7,12 +7,15 @@ import {
   publishedShopifyApps,
   services,
 } from "../../data/siteContent";
+import { createPageMetadata } from "../../data/seo";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "About Oru Studio | Full Stack & Shopify Development",
   description:
     "Oru Studio is a full stack development partner for Shopify apps, Shopify themes, ecommerce, SaaS products, and custom web applications.",
-};
+  path: "/about",
+  image: "/images/founder-studio-workspace.webp",
+});
 
 export default function AboutPage() {
   return (
