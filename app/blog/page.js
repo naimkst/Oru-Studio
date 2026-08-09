@@ -1,7 +1,10 @@
 import Link from "next/link";
 import SiteFrame from "../../components/SiteFrame";
-import { authorProfile, blogPosts, publishedShopifyApps } from "../../data/siteContent";
+import { authorProfile, publishedShopifyApps } from "../../data/siteContent";
+import { getAllBlogPosts } from "../../lib/blogRepository";
 import { createPageMetadata } from "../../data/seo";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = createPageMetadata({
   title: "Shopify Resources & Blog | Oru Studio",
@@ -12,6 +15,8 @@ export const metadata = createPageMetadata({
 });
 
 export default function BlogPage() {
+  const blogPosts = getAllBlogPosts();
+
   return (
     <SiteFrame>
       <section className="inner-page-hero section-padding">

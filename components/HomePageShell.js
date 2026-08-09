@@ -11,7 +11,7 @@ import Services from "./Services";
 import SiteFrame from "./SiteFrame";
 import Testimonial from "./Testimonial";
 
-export default function HomePageShell() {
+export default function HomePageShell({ featuredPosts }) {
   return (
     <SiteFrame>
       <Hero />
@@ -23,7 +23,7 @@ export default function HomePageShell() {
       <Testimonial />
       <Projects />
       <Benefits />
-      <Blogs />
+      <Blogs posts={featuredPosts} />
       <Discuss />
     </SiteFrame>
   );

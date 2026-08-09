@@ -4,7 +4,10 @@ import {
   publishedShopifyApps,
   services,
 } from "../data/siteContent";
+import { getPublishedGeneratedPosts } from "../lib/blogRepository";
 import { absoluteUrl } from "../data/seo";
+
+export const dynamic = "force-dynamic";
 
 const now = new Date();
 
@@ -24,6 +27,8 @@ const staticRoutes = [
 ];
 
 export default function sitemap() {
+  const allBlogPosts = [...getPublishedGeneratedPosts(), ...blogPosts];
+
   return [
     ...staticRoutes.map((route) => ({
       url: absoluteUrl(route.path),
@@ -49,7 +54,7 @@ export default function sitemap() {
       changeFrequency: "monthly",
       priority: project.appStoreUrl ? 0.8 : 0.7,
     })),
-    ...blogPosts.map((post) => ({
+    ...allBlogPosts.map((post) => ({
       url: absoluteUrl(`/blog/${post.slug}`),
       lastModified: post.date ? new Date(post.date) : now,
       changeFrequency: "monthly",

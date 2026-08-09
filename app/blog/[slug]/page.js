@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import JsonLd from "../../../components/JsonLd";
 import SiteFrame from "../../../components/SiteFrame";
-import { authorProfile, blogBySlug, blogPosts, publishedShopifyApps } from "../../../data/siteContent";
+import { authorProfile, blogPosts, publishedShopifyApps } from "../../../data/siteContent";
+import { getBlogPostBySlug, getRelatedBlogPosts } from "../../../lib/blogRepository";
 import {
   absoluteUrl,
   buildBreadcrumbJsonLd,
@@ -10,13 +11,15 @@ import {
   siteUrl,
 } from "../../../data/seo";
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const post = blogBySlug[slug];
+  const post = getBlogPostBySlug(slug);
 
   if (!post) {
     return {
@@ -37,13 +40,13 @@ export async function generateMetadata({ params }) {
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
-  const post = blogBySlug[slug];
+  const post = getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
-  const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
+  const relatedPosts = getRelatedBlogPosts(post.slug, 3);
   const articleBlocks = post.body ?? post.content.map((paragraph) => ({
     type: "paragraph",
     text: paragraph,
@@ -63,6 +66,7 @@ export default async function BlogPostPage({ params }) {
       "@id": `${siteUrl}/#organization`,
     },
     mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+    ...(post.tags?.length ? { keywords: post.tags.join(", ") } : {}),
   };
 
   return (
@@ -170,6 +174,16 @@ export default async function BlogPostPage({ params }) {
                         <li key={reference.href}>
                           <Link href={reference.href} target="_blank" rel="noopener noreferrer">{reference.label}</Link>
                         </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {post.tags?.length > 0 && (
+                  <div className="sidebar-group">
+                    <h3>Tags</h3>
+                    <ul className="plain-link-list">
+                      {post.tags.map((tag) => (
+                        <li key={tag}>{tag}</li>
                       ))}
                     </ul>
                   </div>

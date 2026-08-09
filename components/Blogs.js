@@ -3,7 +3,8 @@ import React from 'react'
 import Link from "next/link";
 import { featuredBlogPosts } from "../data/siteContent";
 
-const Blogs = () => {
+const Blogs = ({ posts = featuredBlogPosts }) => {
+    const displayPosts = posts.slice(0, 3);
 
     return (
         <div>
@@ -28,7 +29,7 @@ const Blogs = () => {
                             </div>
                         </div>
                         <div className="row justify-content-md-center mt-none-30">
-                            {featuredBlogPosts.map((blog, index) => (
+                            {displayPosts.map((blog, index) => (
                                 <div className={"col-xl-4 col-lg-6 col-md-6 col-12 mt-30"} key={index}>
                                     <Fade direction="up" triggerOnce={false} duration={1000 + index * 200} delay={9}>
                                         <div className="blog-item">

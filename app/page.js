@@ -1,9 +1,12 @@
 import HomePageShell from "../components/HomePageShell";
 import JsonLd from "../components/JsonLd";
+import { getAllBlogPosts } from "../lib/blogRepository";
 import {
    buildWebPageJsonLd,
    createPageMetadata,
 } from "../data/seo";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = createPageMetadata({
    title: "Oru Studio | Shopify Apps, Store Development & Shopify Plus Experts",
@@ -14,6 +17,8 @@ export const metadata = createPageMetadata({
 });
 
 const Home = () => {
+   const featuredPosts = getAllBlogPosts().slice(0, 3);
+
    return (
       <>
          <JsonLd
@@ -24,7 +29,7 @@ const Home = () => {
                path: "/",
             })}
          />
-         <HomePageShell />
+         <HomePageShell featuredPosts={featuredPosts} />
       </>
    )
 }
