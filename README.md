@@ -20,7 +20,7 @@ Important production values:
 ```bash
 NEXT_PUBLIC_SITE_URL=https://orustudio.com
 OPENAI_API_KEY=your-openai-api-key
-OPENAI_IMAGE_MODEL=gpt-image-1.5
+OPENAI_IMAGE_MODEL=gpt-image-1
 OPENAI_IMAGE_FORMAT=webp
 OPENAI_IMAGE_QUALITY=medium
 OPENAI_THUMBNAIL_SIZE=1536x1024
@@ -82,6 +82,10 @@ server {
     location / {
         proxy_pass http://127.0.0.1:3386;
         proxy_http_version 1.1;
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 300s;
+        proxy_read_timeout 300s;
+        send_timeout 300s;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_set_header Host $host;
@@ -136,3 +140,12 @@ pm2 logs oru-studio --lines 100
 ```
 
 If `curl http://127.0.0.1:3386/api/health` works but the domain still shows 502, the problem is nginx configuration. If the curl command fails, the Next.js process is not running correctly.
+
+For article generation failures, check the live server logs:
+
+```bash
+pm2 logs oru-studio --lines 150
+sudo tail -n 120 /var/log/nginx/error.log
+```
+
+Generating a large article plus AI images can take longer than nginx's default timeout. Keep `proxy_read_timeout 300s` in the nginx server block.

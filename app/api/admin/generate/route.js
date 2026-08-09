@@ -32,6 +32,8 @@ export async function POST(request) {
 
     return NextResponse.json({ post }, { status: 201 });
   } catch (error) {
+    console.error("Article generation failed", error);
+
     return NextResponse.json(
       { message: error.message || "Article generation failed." },
       { status: 500 }

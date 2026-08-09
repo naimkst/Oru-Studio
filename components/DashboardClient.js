@@ -24,6 +24,24 @@ function formatDate(value) {
   }).format(new Date(value));
 }
 
+async function readErrorMessage(response, fallback) {
+  const contentType = response.headers.get("content-type") || "";
+
+  if (contentType.includes("application/json")) {
+    const data = await response.json().catch(() => ({}));
+    return data.message || fallback;
+  }
+
+  const text = await response.text().catch(() => "");
+  const shortText = text.replace(/\s+/g, " ").trim().slice(0, 180);
+
+  if (response.status === 502 || response.status === 504) {
+    return `Generation timed out or the server gateway returned HTTP ${response.status}. Increase nginx proxy timeouts and check PM2 logs.`;
+  }
+
+  return shortText ? `${fallback} HTTP ${response.status}: ${shortText}` : `${fallback} HTTP ${response.status}.`;
+}
+
 export default function DashboardClient() {
   const router = useRouter();
   const [posts, setPosts] = useState([]);
@@ -76,25 +94,38 @@ export default function DashboardClient() {
     setGenerating(true);
     setMessage("");
 
-    const response = await fetch("/api/admin/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        topic: form.topic,
-        category: form.category,
-        status: form.status,
-        scheduledAt: form.status === "scheduled" ? toIsoOrNull(form.scheduledAt) : null,
-      }),
-    });
-    const data = await response.json().catch(() => ({}));
+    let response;
+
+    try {
+      response = await fetch("/api/admin/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic: form.topic,
+          category: form.category,
+          status: form.status,
+          scheduledAt: form.status === "scheduled" ? toIsoOrNull(form.scheduledAt) : null,
+        }),
+      });
+    } catch (error) {
+      setGenerating(false);
+      setMessage(error.message || "Article generation request failed before reaching the server.");
+      return;
+    }
 
     setGenerating(false);
 
     if (!response.ok) {
-      setMessage(data.message || "Article generation failed. Check OPENAI_API_KEY and server logs.");
+      setMessage(
+        await readErrorMessage(
+          response,
+          "Article generation failed. Check OPENAI_API_KEY and server logs."
+        )
+      );
       return;
     }
 
+    const data = await response.json().catch(() => ({}));
     setMessage(`Generated: ${data.post.title}`);
     setForm((current) => ({ ...current, topic: "" }));
     await loadDashboard();
