@@ -52,6 +52,17 @@ pm2 logs oru-studio --lines 100
 
 If the health check fails, nginx will show `502 Bad Gateway` because the upstream app is not responding.
 
+If PM2 shows `Could not find a production build in the '.next' directory`, run this from the project directory:
+
+```bash
+cd /var/www/orustudio.com
+npm ci
+npm run build
+pm2 delete oru-studio
+pm2 start ecosystem.config.cjs
+pm2 save
+```
+
 ## Nginx Server Block
 
 Example `/etc/nginx/sites-available/orustudio.com`:

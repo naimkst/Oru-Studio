@@ -4,7 +4,7 @@ module.exports = {
       name: "oru-studio",
       cwd: __dirname,
       script: "npm",
-      args: "run start",
+      args: "run start:production",
       env: {
         NODE_ENV: "production",
         PORT: "3386",
