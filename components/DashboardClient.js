@@ -109,8 +109,8 @@ export default function DashboardClient() {
   async function loadDashboard() {
     setLoadingPosts(true);
     const [sessionResponse, postsResponse] = await Promise.all([
-      fetch("/api/admin/session"),
-      fetch("/api/admin/posts"),
+      fetch("/api/admin/session", { cache: "no-store" }),
+      fetch("/api/admin/posts", { cache: "no-store" }),
     ]);
 
     if (sessionResponse.ok) {
