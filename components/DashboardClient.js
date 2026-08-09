@@ -188,7 +188,7 @@ export default function DashboardClient() {
         <section className="admin-panel">
           <div className="admin-section-heading">
             <h2>Generate Article</h2>
-            <p>Create a large Shopify-focused article with category, tags, thumbnail, and scheduled publish time.</p>
+            <p>Create a large Shopify-focused article with category, tags, generated thumbnail, in-content image, and scheduled publish time.</p>
           </div>
           <form className="admin-form-grid" onSubmit={generatePost}>
             <label>
@@ -233,7 +233,7 @@ export default function DashboardClient() {
             {message && <p className="admin-message">{message}</p>}
             <div className="admin-button-row">
               <button type="submit" disabled={generating}>
-                {generating ? "Generating..." : "Generate article"}
+                {generating ? "Generating article and images..." : "Generate article"}
               </button>
               <button type="button" className="secondary" onClick={publishDue}>
                 Publish due posts

@@ -20,11 +20,17 @@ Important production values:
 ```bash
 NEXT_PUBLIC_SITE_URL=https://orustudio.com
 OPENAI_API_KEY=your-openai-api-key
+OPENAI_IMAGE_MODEL=gpt-image-1.5
+OPENAI_IMAGE_FORMAT=webp
+OPENAI_IMAGE_QUALITY=medium
+OPENAI_THUMBNAIL_SIZE=1536x1024
+OPENAI_CONTENT_IMAGE_SIZE=1536x1024
+BLOG_INSIDE_IMAGE_COUNT=1
 BLOG_ADMIN_USERNAME=your-admin-username
 BLOG_ADMIN_PASSWORD=your-strong-password
 BLOG_SESSION_SECRET=long-random-secret
 BLOG_CRON_SECRET=long-random-secret
-BLOG_DB_PATH=/var/www/Oru-Studio/data/blog.sqlite
+BLOG_DB_PATH=/var/www/orustudio.com/data/blog.sqlite
 ```
 
 ## VPS Deployment With Nginx
@@ -32,10 +38,11 @@ BLOG_DB_PATH=/var/www/Oru-Studio/data/blog.sqlite
 The app runs on port `3386`. Nginx should proxy public traffic to `http://127.0.0.1:3386`.
 
 ```bash
-cd /var/www/Oru-Studio
+cd /var/www/orustudio.com
 npm ci
 npm run build
 npm install -g pm2
+mkdir -p public/images/generated-blog
 pm2 start ecosystem.config.cjs
 pm2 startup
 # Run the command that PM2 prints, then:
@@ -112,14 +119,14 @@ crontab -e
 15 8 * * * curl -fsS -H "Authorization: Bearer YOUR_BLOG_CRON_SECRET" https://orustudio.com/api/cron/blog >/dev/null 2>&1
 ```
 
-The endpoint publishes due scheduled posts and generates a new scheduled article when there is no post for the day.
+The endpoint publishes due scheduled posts and generates a new scheduled article when there is no post for the day. Each generated post also creates a unique thumbnail and in-article image under `public/images/generated-blog`.
 
 ## 502 Debug Checklist
 
 Run these on the VPS:
 
 ```bash
-cd /var/www/Oru-Studio
+cd /var/www/orustudio.com
 npm run build
 pm2 restart oru-studio
 curl -i http://127.0.0.1:3386/api/health
