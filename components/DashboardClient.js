@@ -5,6 +5,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import FallbackImage from "./FallbackImage";
 
+const ADMIN_POST_PAGE_SIZE = 10;
+
 function toDatetimeLocal(date) {
   const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
   return local.toISOString().slice(0, 16);
@@ -50,6 +52,7 @@ export default function DashboardClient() {
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [activePostAction, setActivePostAction] = useState(null);
+  const [visiblePostCount, setVisiblePostCount] = useState(ADMIN_POST_PAGE_SIZE);
   const [message, setMessage] = useState("");
   const [form, setForm] = useState({
     topic: "",
@@ -67,6 +70,17 @@ export default function DashboardClient() {
     }),
     [posts]
   );
+  const visiblePosts = useMemo(
+    () => posts.slice(0, visiblePostCount),
+    [posts, visiblePostCount]
+  );
+  const hasMorePosts = visiblePostCount < posts.length;
+
+  useEffect(() => {
+    setVisiblePostCount((current) =>
+      Math.min(Math.max(ADMIN_POST_PAGE_SIZE, current), Math.max(posts.length, ADMIN_POST_PAGE_SIZE))
+    );
+  }, [posts.length]);
 
   function getPostActionType(post) {
     return activePostAction?.id === post.dbId ? activePostAction.type : null;
@@ -415,7 +429,7 @@ export default function DashboardClient() {
             <p className="admin-muted">No generated posts yet.</p>
           ) : (
             <div className="admin-post-list">
-              {posts.map((post) => (
+              {visiblePosts.map((post) => (
                 (() => {
                   const postActionType = getPostActionType(post);
                   const postIsBusy = Boolean(postActionType);
@@ -490,6 +504,21 @@ export default function DashboardClient() {
                   );
                 })()
               ))}
+              {hasMorePosts && (
+                <div className="admin-load-more">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setVisiblePostCount((current) => current + ADMIN_POST_PAGE_SIZE)
+                    }
+                  >
+                    Load more posts
+                  </button>
+                  <p>
+                    Showing {visiblePosts.length} of {posts.length} posts
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </section>
