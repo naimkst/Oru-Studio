@@ -88,7 +88,8 @@ export const metadata: Metadata = {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.ico?v=yellow-round",
+    shortcut: "/favicon.ico?v=yellow-round",
   },
 };
 
