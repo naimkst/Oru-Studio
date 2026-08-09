@@ -1,5 +1,5 @@
 import Link from "next/link";
-import FallbackImage from "../../components/FallbackImage";
+import BlogLoadMoreGrid from "../../components/BlogLoadMoreGrid";
 import SiteFrame from "../../components/SiteFrame";
 import { authorProfile, publishedShopifyApps } from "../../data/siteContent";
 import { getAllBlogPosts } from "../../lib/blogRepository";
@@ -64,26 +64,7 @@ export default function BlogPage() {
               <span>{authorProfile.name} experience</span>
             </div>
           </div>
-          <div className="blog-page-grid">
-            {blogPosts.map((post) => (
-              <article className="blog-page-card" key={post.id}>
-                <Link href={`/blog/${post.slug}`} className="blog-page-image">
-                  <FallbackImage src={post.thumbnail} alt={post.title} />
-                </Link>
-                <div className="blog-page-content">
-                  <div className="content-meta">
-                    <span>{post.category}</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  <h2>
-                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                  </h2>
-                  <p>{post.description}</p>
-                  <Link href={`/blog/${post.slug}`} className="text-link">Read article</Link>
-                </div>
-              </article>
-            ))}
-          </div>
+          <BlogLoadMoreGrid posts={blogPosts} />
         </div>
       </section>
     </SiteFrame>

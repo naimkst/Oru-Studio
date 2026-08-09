@@ -688,6 +688,26 @@
 	}
 }
 
+.blog-load-more {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	margin-top: 48px;
+	text-align: center;
+
+	button {
+		border: 0;
+	}
+
+	p {
+		color: $body-color;
+		font-size: 15px;
+		line-height: 1.45;
+		margin: 0;
+	}
+}
+
 .content-meta {
 	display: flex;
 	flex-wrap: wrap;
