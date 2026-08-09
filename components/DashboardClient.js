@@ -391,8 +391,8 @@ export default function DashboardClient() {
             )}
             {message && <p className="admin-message">{message}</p>}
             <div className="admin-button-row">
-              <button type="submit" disabled={generating}>
-                {generating ? "Generating article and images..." : "Generate article"}
+              <button type="submit" className={generating ? "is-loading" : ""} disabled={generating}>
+                {generating ? "Generating article..." : "Generate article"}
               </button>
               <button type="button" className="secondary" onClick={publishDue}>
                 Publish due posts
