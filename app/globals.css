@@ -425,6 +425,43 @@ a {
   overflow-wrap: anywhere;
 }
 
+.admin-public-preview-banner {
+  background: #101828;
+  color: #ffffff;
+  padding: 14px 0;
+}
+
+.admin-public-preview-banner .container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+
+.admin-public-preview-banner strong {
+  background: #ffffff;
+  border-radius: 999px;
+  color: #101828;
+  font-size: 13px;
+  line-height: 1;
+  padding: 7px 10px;
+}
+
+.admin-public-preview-banner span {
+  color: rgba(255, 255, 255, 0.78);
+  flex: 1 1 320px;
+  line-height: 1.45;
+}
+
+.admin-public-preview-banner a {
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 12px;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import ArticleBlocks from "../../../components/ArticleBlocks";
 import FallbackImage from "../../../components/FallbackImage";
 import JsonLd from "../../../components/JsonLd";
 import SiteFrame from "../../../components/SiteFrame";
 import { authorProfile, blogPosts, publishedShopifyApps } from "../../../data/siteContent";
+import { ADMIN_COOKIE, readSessionCookieValue } from "../../../lib/auth";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "../../../lib/blogRepository";
 import {
   absoluteUrl,
@@ -19,9 +21,16 @@ export async function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
+async function hasAdminSession() {
+  const cookieStore = await cookies();
+
+  return Boolean(readSessionCookieValue(cookieStore.get(ADMIN_COOKIE)?.value));
+}
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const isAdmin = await hasAdminSession();
+  const post = getBlogPostBySlug(slug, { includeUnpublished: isAdmin });
 
   if (!post) {
     return {
@@ -29,7 +38,7 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return createPageMetadata({
+  const metadata = createPageMetadata({
     title: `${post.title} | Oru Studio Blog`,
     description: post.description,
     path: `/blog/${post.slug}`,
@@ -38,16 +47,28 @@ export async function generateMetadata({ params }) {
     publishedTime: post.date,
     modifiedTime: post.date,
   });
+
+  if (post.status && post.status !== "published") {
+    metadata.title = `[Preview] ${post.title} | Oru Studio Blog`;
+    metadata.robots = {
+      index: false,
+      follow: false,
+    };
+  }
+
+  return metadata;
 }
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const isAdmin = await hasAdminSession();
+  const post = getBlogPostBySlug(slug, { includeUnpublished: isAdmin });
 
   if (!post) {
     notFound();
   }
 
+  const isAdminPreview = Boolean(post.status && post.status !== "published");
   const relatedPosts = getRelatedBlogPosts(post.slug, 3);
   const articleBlocks = post.body ?? post.content.map((paragraph) => ({
     type: "paragraph",
@@ -73,6 +94,15 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <SiteFrame>
+      {isAdminPreview && (
+        <section className="admin-public-preview-banner">
+          <div className="container">
+            <strong>Admin preview</strong>
+            <span>This {post.status} post is visible because you are logged in. Visitors will see 404 until it is published.</span>
+            <Link href={`/dashboard/posts/${post.dbId}`}>Open details</Link>
+          </div>
+        </section>
+      )}
       <JsonLd
         data={[
           buildBreadcrumbJsonLd([
@@ -107,7 +137,7 @@ export default async function BlogPostPage({ params }) {
           <div className="container">
             <div className="detail-layout">
               <div className="article-content">
-                <ArticleBlocks blocks={articleBlocks} />
+                <ArticleBlocks blocks={articleBlocks} showMissingImageNotice={isAdminPreview} />
                 <div className="article-author-box">
                   <img src={authorProfile.photo} alt={authorProfile.name} />
                   <div>

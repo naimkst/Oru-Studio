@@ -56,11 +56,9 @@ export default async function DashboardPostDetailsPage({ params }) {
         </div>
         <div className="admin-topbar-actions">
           <Link href="/dashboard">Back to dashboard</Link>
-          {post.status === "published" && (
-            <Link href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
-              Public page
-            </Link>
-          )}
+          <Link href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
+            Blog preview
+          </Link>
         </div>
       </header>
 

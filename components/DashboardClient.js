@@ -325,11 +325,9 @@ export default function DashboardClient() {
                     </div>
                     <div className="admin-button-row compact">
                       <Link href={`/dashboard/posts/${post.dbId}`}>Details</Link>
-                      {post.status === "published" && (
-                        <Link href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
-                          Public page
-                        </Link>
-                      )}
+                      <Link href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
+                        Blog preview
+                      </Link>
                       <button type="button" className="secondary" onClick={() => regenerateMedia(post)}>
                         Regenerate media
                       </button>
