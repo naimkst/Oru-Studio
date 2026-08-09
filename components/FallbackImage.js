@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const DEFAULT_FALLBACK = "/images/hero-video-area-shopify-01.webp";
 
@@ -10,7 +10,12 @@ export default function FallbackImage({
   alt = "",
   ...props
 }) {
-  const [currentSrc, setCurrentSrc] = useState(src || fallbackSrc);
+  const resolvedSrc = src || fallbackSrc;
+  const [currentSrc, setCurrentSrc] = useState(resolvedSrc);
+
+  useEffect(() => {
+    setCurrentSrc(resolvedSrc);
+  }, [resolvedSrc]);
 
   return (
     <img

@@ -96,6 +96,16 @@ export default function DashboardClient() {
     return "";
   }
 
+  function replacePost(updatedPost) {
+    if (!updatedPost?.dbId) {
+      return;
+    }
+
+    setPosts((currentPosts) =>
+      currentPosts.map((post) => (post.dbId === updatedPost.dbId ? updatedPost : post))
+    );
+  }
+
   async function loadDashboard() {
     setLoadingPosts(true);
     const [sessionResponse, postsResponse] = await Promise.all([
@@ -205,7 +215,9 @@ export default function DashboardClient() {
         return;
       }
 
-      setMessage(`Regenerated media for: ${post.title}`);
+      const data = await response.json().catch(() => ({}));
+      replacePost(data.post);
+      setMessage(`Regenerated media for: ${data.post?.title || post.title}`);
       await loadDashboard();
       router.refresh();
     } catch (error) {
@@ -239,6 +251,7 @@ export default function DashboardClient() {
       }
 
       const data = await response.json().catch(() => ({}));
+      replacePost(data.post);
       setMessage(`Regenerated article: ${data.post?.title || post.title}`);
       await loadDashboard();
       router.refresh();
