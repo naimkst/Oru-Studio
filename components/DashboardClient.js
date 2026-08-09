@@ -239,7 +239,7 @@ export default function DashboardClient() {
       </section>
 
       <main className="admin-layout">
-        <section className="admin-panel">
+        <section className="admin-panel admin-generator-panel">
           <div className="admin-section-heading">
             <h2>Generate Article</h2>
             <p>Create a large Shopify-focused article with category, tags, generated thumbnail, in-content image, and scheduled publish time.</p>
@@ -296,10 +296,13 @@ export default function DashboardClient() {
           </form>
         </section>
 
-        <section className="admin-panel">
-          <div className="admin-section-heading">
-            <h2>Scheduled Posts</h2>
-            <p>Generated posts are stored in the project SQLite database and become public when published or due.</p>
+        <section className="admin-panel admin-posts-panel">
+          <div className="admin-section-heading admin-section-heading-row">
+            <div>
+              <h2>Scheduled Posts</h2>
+              <p>Generated posts are stored in SQLite and become public when published or due.</p>
+            </div>
+            <span className="admin-section-count">{posts.length} posts</span>
           </div>
           {loadingPosts ? (
             <p className="admin-muted">Loading posts...</p>
@@ -308,16 +311,20 @@ export default function DashboardClient() {
           ) : (
             <div className="admin-post-list">
               {posts.map((post) => (
-                <article className="admin-post-item" key={post.dbId}>
-                  <FallbackImage src={post.thumbnail} alt="" />
-                  <div>
+                <article className={`admin-post-item status-${post.status}`} key={post.dbId}>
+                  <Link href={`/dashboard/posts/${post.dbId}`} className="admin-post-thumbnail">
+                    <FallbackImage src={post.thumbnail} alt="" />
+                  </Link>
+                  <div className="admin-post-body">
                     <div className="admin-post-meta">
-                      <span>{post.status}</span>
+                      <span className={`admin-status-pill status-${post.status}`}>{post.status}</span>
                       <span>{post.category}</span>
                       <span>{formatDate(post.scheduledAt || post.publishedAt || post.createdAt)}</span>
                     </div>
-                    <h3>{post.title}</h3>
-                    <p>{post.description}</p>
+                    <h3>
+                      <Link href={`/dashboard/posts/${post.dbId}`}>{post.title}</Link>
+                    </h3>
+                    <p className="admin-post-description">{post.description}</p>
                     <div className="admin-tag-row">
                       {(post.tags || []).map((tag) => (
                         <span key={tag}>{tag}</span>
