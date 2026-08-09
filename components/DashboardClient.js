@@ -49,6 +49,7 @@ export default function DashboardClient() {
   const [session, setSession] = useState(null);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [generating, setGenerating] = useState(false);
+  const [activePostAction, setActivePostAction] = useState(null);
   const [message, setMessage] = useState("");
   const [form, setForm] = useState({
     topic: "",
@@ -66,6 +67,34 @@ export default function DashboardClient() {
     }),
     [posts]
   );
+
+  function getPostActionType(post) {
+    return activePostAction?.id === post.dbId ? activePostAction.type : null;
+  }
+
+  function getPostActionMessage(actionType) {
+    if (actionType === "article") {
+      return "Regenerating the full article and fresh images. This can take a few minutes.";
+    }
+
+    if (actionType === "media") {
+      return "Regenerating thumbnail and in-content images.";
+    }
+
+    if (actionType === "publish") {
+      return "Publishing this article.";
+    }
+
+    if (actionType === "draft") {
+      return "Moving this article back to draft.";
+    }
+
+    if (actionType === "delete") {
+      return "Deleting this article.";
+    }
+
+    return "";
+  }
 
   async function loadDashboard() {
     setLoadingPosts(true);
@@ -134,38 +163,90 @@ export default function DashboardClient() {
   }
 
   async function updateStatus(post, status) {
-    const response = await fetch(`/api/admin/posts/${post.dbId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
-    });
+    setActivePostAction({ id: post.dbId, type: status === "published" ? "publish" : "draft" });
+    setMessage("");
 
-    if (response.ok) {
-      await loadDashboard();
-      router.refresh();
+    try {
+      const response = await fetch(`/api/admin/posts/${post.dbId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+
+      if (response.ok) {
+        await loadDashboard();
+        router.refresh();
+      } else {
+        setMessage(await readErrorMessage(response, "Status update failed."));
+      }
+    } catch (error) {
+      setMessage(error.message || "Status update request failed before reaching the server.");
+    } finally {
+      setActivePostAction(null);
     }
   }
 
   async function regenerateMedia(post) {
+    setActivePostAction({ id: post.dbId, type: "media" });
     setMessage(`Regenerating media for: ${post.title}`);
 
-    const response = await fetch(`/api/admin/posts/${post.dbId}/regenerate-media`, {
-      method: "POST",
-    });
+    try {
+      const response = await fetch(`/api/admin/posts/${post.dbId}/regenerate-media`, {
+        method: "POST",
+      });
 
-    if (!response.ok) {
-      setMessage(
-        await readErrorMessage(
-          response,
-          "Media regeneration failed. Check OPENAI_API_KEY and server logs."
-        )
-      );
+      if (!response.ok) {
+        setMessage(
+          await readErrorMessage(
+            response,
+            "Media regeneration failed. Check OPENAI_API_KEY and server logs."
+          )
+        );
+        return;
+      }
+
+      setMessage(`Regenerated media for: ${post.title}`);
+      await loadDashboard();
+      router.refresh();
+    } catch (error) {
+      setMessage(error.message || "Media regeneration request failed before reaching the server.");
+    } finally {
+      setActivePostAction(null);
+    }
+  }
+
+  async function regenerateArticle(post) {
+    if (!window.confirm(`Regenerate and replace the article content for "${post.title}"?`)) {
       return;
     }
 
-    setMessage(`Regenerated media for: ${post.title}`);
-    await loadDashboard();
-    router.refresh();
+    setActivePostAction({ id: post.dbId, type: "article" });
+    setMessage(`Regenerating article for: ${post.title}`);
+
+    try {
+      const response = await fetch(`/api/admin/posts/${post.dbId}/regenerate-article`, {
+        method: "POST",
+      });
+
+      if (!response.ok) {
+        setMessage(
+          await readErrorMessage(
+            response,
+            "Article regeneration failed. Check OPENAI_API_KEY and server logs."
+          )
+        );
+        return;
+      }
+
+      const data = await response.json().catch(() => ({}));
+      setMessage(`Regenerated article: ${data.post?.title || post.title}`);
+      await loadDashboard();
+      router.refresh();
+    } catch (error) {
+      setMessage(error.message || "Article regeneration request failed before reaching the server.");
+    } finally {
+      setActivePostAction(null);
+    }
   }
 
   async function deletePost(post) {
@@ -173,13 +254,24 @@ export default function DashboardClient() {
       return;
     }
 
-    const response = await fetch(`/api/admin/posts/${post.dbId}`, {
-      method: "DELETE",
-    });
+    setActivePostAction({ id: post.dbId, type: "delete" });
+    setMessage("");
 
-    if (response.ok) {
-      await loadDashboard();
-      router.refresh();
+    try {
+      const response = await fetch(`/api/admin/posts/${post.dbId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        await loadDashboard();
+        router.refresh();
+      } else {
+        setMessage(await readErrorMessage(response, "Delete failed."));
+      }
+    } catch (error) {
+      setMessage(error.message || "Delete request failed before reaching the server.");
+    } finally {
+      setActivePostAction(null);
     }
   }
 
@@ -311,43 +403,79 @@ export default function DashboardClient() {
           ) : (
             <div className="admin-post-list">
               {posts.map((post) => (
-                <article className={`admin-post-item status-${post.status}`} key={post.dbId}>
-                  <Link href={`/dashboard/posts/${post.dbId}`} className="admin-post-thumbnail">
-                    <FallbackImage src={post.thumbnail} alt="" />
-                  </Link>
-                  <div className="admin-post-body">
-                    <div className="admin-post-meta">
-                      <span className={`admin-status-pill status-${post.status}`}>{post.status}</span>
-                      <span>{post.category}</span>
-                      <span>{formatDate(post.scheduledAt || post.publishedAt || post.createdAt)}</span>
-                    </div>
-                    <h3>
-                      <Link href={`/dashboard/posts/${post.dbId}`}>{post.title}</Link>
-                    </h3>
-                    <p className="admin-post-description">{post.description}</p>
-                    <div className="admin-tag-row">
-                      {(post.tags || []).map((tag) => (
-                        <span key={tag}>{tag}</span>
-                      ))}
-                    </div>
-                    <div className="admin-button-row compact">
-                      <Link href={`/dashboard/posts/${post.dbId}`}>Details</Link>
-                      <Link href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
-                        Blog preview
+                (() => {
+                  const postActionType = getPostActionType(post);
+                  const postIsBusy = Boolean(postActionType);
+                  const actionDisabled = Boolean(activePostAction);
+
+                  return (
+                    <article className={`admin-post-item status-${post.status} ${postIsBusy ? "is-working" : ""}`} key={post.dbId}>
+                      <Link href={`/dashboard/posts/${post.dbId}`} className="admin-post-thumbnail">
+                        <FallbackImage src={post.thumbnail} alt="" />
                       </Link>
-                      <button type="button" className="secondary" onClick={() => regenerateMedia(post)}>
-                        Regenerate media
-                      </button>
-                      {post.status !== "published" && (
-                        <button type="button" onClick={() => updateStatus(post, "published")}>Publish</button>
-                      )}
-                      {post.status !== "draft" && (
-                        <button type="button" className="secondary" onClick={() => updateStatus(post, "draft")}>Draft</button>
-                      )}
-                      <button type="button" className="danger" onClick={() => deletePost(post)}>Delete</button>
-                    </div>
-                  </div>
-                </article>
+                      <div className="admin-post-body">
+                        <div className="admin-post-meta">
+                          <span className={`admin-status-pill status-${post.status}`}>{post.status}</span>
+                          <span>{post.category}</span>
+                          <span>{formatDate(post.scheduledAt || post.publishedAt || post.createdAt)}</span>
+                        </div>
+                        <h3>
+                          <Link href={`/dashboard/posts/${post.dbId}`}>{post.title}</Link>
+                        </h3>
+                        <p className="admin-post-description">{post.description}</p>
+                        {(post.thumbnailMissing || post.thumbnailWasDuplicate) && (
+                          <p className="admin-media-note">
+                            {post.thumbnailMissing
+                              ? "Generated thumbnail file is missing. Regenerate media to create a new unique image."
+                              : "This thumbnail was reused by another post. Regenerate media to create a new unique image."}
+                          </p>
+                        )}
+                        <div className="admin-tag-row">
+                          {(post.tags || []).map((tag) => (
+                            <span key={tag}>{tag}</span>
+                          ))}
+                        </div>
+                        {postIsBusy && (
+                          <div className="admin-inline-progress" role="status" aria-live="polite">
+                            <span aria-hidden="true" />
+                            <p>{getPostActionMessage(postActionType)}</p>
+                          </div>
+                        )}
+                        <div className="admin-button-row compact">
+                          <Link href={`/dashboard/posts/${post.dbId}`}>Details</Link>
+                          <Link href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
+                            Blog preview
+                          </Link>
+                          {post.status !== "published" && (
+                            <button
+                              type="button"
+                              className={`secondary ${postActionType === "article" ? "is-loading" : ""}`}
+                              disabled={actionDisabled}
+                              onClick={() => regenerateArticle(post)}
+                            >
+                              {postActionType === "article" ? "Regenerating article..." : "Regenerate article"}
+                            </button>
+                          )}
+                          <button
+                            type="button"
+                            className={`secondary ${postActionType === "media" ? "is-loading" : ""}`}
+                            disabled={actionDisabled}
+                            onClick={() => regenerateMedia(post)}
+                          >
+                            {postActionType === "media" ? "Regenerating media..." : "Regenerate media"}
+                          </button>
+                          {post.status !== "published" && (
+                            <button type="button" disabled={actionDisabled} onClick={() => updateStatus(post, "published")}>Publish</button>
+                          )}
+                          {post.status !== "draft" && (
+                            <button type="button" className="secondary" disabled={actionDisabled} onClick={() => updateStatus(post, "draft")}>Draft</button>
+                          )}
+                          <button type="button" className="danger" disabled={actionDisabled} onClick={() => deletePost(post)}>Delete</button>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })()
               ))}
             </div>
           )}
