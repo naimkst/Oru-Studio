@@ -35,6 +35,7 @@
     ul.nav {
         list-style: none;
         justify-content: center;
+        flex-wrap: nowrap;
     }
 
     .main-menu>ul {
@@ -57,6 +58,7 @@
             position: relative;
             overflow: hidden;
             text-transform: uppercase;
+            white-space: nowrap;
 
 
             &:after {
@@ -725,7 +727,7 @@
     background: #202534;
     transition: all 0.3s ease 0s;
     box-shadow: 0px 10px 40px 0px rgba(50, 50, 50, 0.1);
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: scroll;
 }
 
@@ -747,28 +749,44 @@
     padding-top: 0px;
 }
 
+.responsivemenu>.MuiListItem-root,
+.responsivemenu .subMenu .MuiListItem-root {
+    display: block;
+    padding: 0;
+    width: 100%;
+}
+
+.responsivemenu .MuiCollapse-root,
+.responsivemenu .MuiCollapse-wrapper,
+.responsivemenu .MuiCollapse-wrapperInner {
+    width: 100%;
+}
+
 .responsivemenu li a,
-.responsivemenu li p,
-.responsivemenu ul {
+.responsivemenu li p {
     display: block;
     padding: 13px 35px;
     font-size: 16px;
+    line-height: 1.45;
     letter-spacing: 0;
     text-transform: capitalize;
     font-weight: 500;
     color: #fff;
     cursor: pointer;
+    width: 100%;
+    word-break: normal;
+    overflow-wrap: break-word;
 }
 
 .responsivemenu li p {
     position: relative;
     margin-bottom: 0;
+    padding-right: 60px;
 }
 
 .responsivemenu ul.subMenu {
-    padding-top: 0;
-    padding-left: 15px;
-    padding-right: 0;
+    padding: 0 0 8px;
+    width: 100%;
 }
 
 .responsivemenu ul.subMenu ul {
@@ -785,13 +803,14 @@
 .responsivemenu ul a {
     color: #fff;
     position: relative;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .responsivemenu ul p i {
     position: absolute;
-    right: 0;
-    top: 5px;
+    right: 35px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .responsivemenu .card {
@@ -808,8 +827,15 @@
 
 .responsivemenu li i {
     position: absolute;
-    right: 20px;
-    top: 17px;
+    right: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.responsivemenu .subMenu li a {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 15px;
+    padding: 9px 35px 9px 50px;
 }
 
 .showmenu i {
@@ -825,7 +851,7 @@
     display: none;
 }
 
-@media (max-width:992px) {
+@media (max-width:1199px) {
     .showmenu {
         display: block;
         width: 18px;
@@ -880,6 +906,19 @@
         font-size: 14px;
         padding: 13px 25px;
     }
+
+    .responsivemenu li p {
+        padding-right: 50px;
+    }
+
+    .responsivemenu li i {
+        right: 25px;
+    }
+
+    .responsivemenu .subMenu li a {
+        font-size: 14px;
+        padding: 9px 25px 9px 38px;
+    }
 }
 
 
@@ -888,7 +927,7 @@
     color: #ddd;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1199px) {
     .menu-close {
         background: none;
         border: 1px solid #fff;

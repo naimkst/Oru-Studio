@@ -28,14 +28,14 @@ const Header = (props) => {
                 <div className="container">
                     <div className="second-menu">
                         <div className="row align-items-center">
-                            <div className="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-5">
+                            <div className="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-5">
                                 <div className="logo">
                                     <Link onClick={ClickHandler} href="/">
                                         <Image src={'/logo.png'} alt="" width={200} height={20} />
                                     </Link>
                                 </div>
                             </div>
-                            <div className="col-xl-8 col-lg-8 col-md-1 col-1 text-right text-xl-right d-none d-lg-block">
+                            <div className="col-xl-8 text-right text-xl-right d-none d-xl-block">
                                 <div className="main-menu">
                                     <nav id="mobile-menu">
                                         <ul className="nav">
@@ -120,7 +120,7 @@ const Header = (props) => {
                                     </nav>
                                 </div>
                             </div>
-                            <div className="col-xl-2 col-lg-2 col-md-5 col-5 text-left">
+                            <div className="col-xl-2 col-lg-7 col-md-5 col-5 text-left">
                                 <div className="header-area-right">
                                     <Link href="/contact" className='btn-style-1'>
                                         <span className='main-text'>Contact us</span>
@@ -128,7 +128,7 @@ const Header = (props) => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className="col-sm-1 col-2">
+                            <div className="col-lg-2 col-sm-1 col-2 d-xl-none">
                                 <MobileMenu />
                             </div>
                         </div>
