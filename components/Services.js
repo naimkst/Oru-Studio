@@ -36,9 +36,17 @@ const Services = () => {
                                                     <i className='ti-arrow-top-right'></i>
                                                 </Link>
                                             </div>
+                                            <div className="service-card-media">
+                                                <img src={service.image} alt={`${service.title} service visual`} />
+                                            </div>
                                             <div className="service-content">
                                                 <h3><Link onClick={ClickHandler} href={`/services/${service.slug}`}>{service.title}</Link></h3>
                                                 <p>{service.shortDescription}</p>
+                                                <ul className="service-card-tags">
+                                                    {service.deliverables.slice(0, 2).map((item) => (
+                                                        <li key={item}>{item}</li>
+                                                    ))}
+                                                </ul>
                                             </div>
                                         </div>
                                     </Fade>

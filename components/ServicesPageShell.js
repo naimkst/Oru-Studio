@@ -7,7 +7,7 @@ import Exprience from "./Exprience";
 import FaqSection from "./FaqSection";
 import Hero2 from "./Hero2";
 import Process from "./Process";
-import RelatedService from "./RelatedService";
+import Services from "./Services";
 import SiteFrame from "./SiteFrame";
 import Technology from "./Technology";
 import Testimonial from "./Testimonial";
@@ -17,6 +17,7 @@ export default function ServicesPageShell() {
   return (
     <SiteFrame>
       <Hero2 />
+      <Services />
       <Process />
       <Exprience />
       <Cases />
@@ -25,7 +26,6 @@ export default function ServicesPageShell() {
       <Clients />
       <WhyChoose />
       <FaqSection />
-      <RelatedService />
       <Discuss />
     </SiteFrame>
   );

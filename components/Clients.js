@@ -1,56 +1,6 @@
 import React from 'react'
 import { Fade } from "react-awesome-reveal";
-
-const ClientArray = [
-    {
-        Id: '1',
-        sIcon: '/images/client1.svg',
-        description: 'Partnering on a strategic development project to advance Nokia’s technology.',
-        duration: 1000,
-    },
-    {
-        Id: '2',
-        sIcon: '/images/client2.svg',
-        description: 'Boosting digital presence and engagement with our customized web and marketing solutions.',
-        duration: 1200,
-    },
-    {
-        Id: '3',
-        sIcon: '/images/client3.svg',
-        description: 'Polishing brand manuals and design assets for a top browser company. ',
-        duration: 1400,
-    },
-    {
-        Id: '4',
-        sIcon: '/images/client4.svg',
-        description: 'An online marketplace where creators buy and sell design assets.',
-        duration: 1600,
-    },
-    {
-        Id: '5',
-        sIcon: '/images/client5.svg',
-        description: 'Partnering on a strategic development project to advance Nokia’s technology.',
-        duration: 1000,
-    },
-    {
-        Id: '6',
-        sIcon: '/images/client6.svg',
-        description: 'Boosting digital presence and engagement with our customized web and marketing solutions.',
-        duration: 1200,
-    },
-    {
-        Id: '7',
-        sIcon: '/images/client7.svg',
-        description: 'Polishing brand manuals and design assets for a top browser company. ',
-        duration: 1400,
-    },
-    {
-        Id: '8',
-        sIcon: '/images/client4.svg',
-        description: 'An online marketplace where creators buy and sell design assets.',
-        duration: 1600,
-    },
-]
+import { platformLogos } from '../data/platforms';
 
 const Clients = () => {
 
@@ -59,18 +9,27 @@ const Clients = () => {
             <section className="client-area section-padding pt-0">
                 <div className="container">
                     <div className="client-wrap">
+                        <div className="client-heading">
+                            <span>Platform experience</span>
+                            <h2>Commerce and product tools we build with</h2>
+                            <p>
+                                Selected platforms, APIs, and infrastructure used across Shopify,
+                                ecommerce, SaaS, and custom web application work.
+                            </p>
+                        </div>
                         <div className="row justify-content-md-center mt-none-30 g-0">
-                            {ClientArray.map((client, srv) => (
-                                <div className={"col col-lg-3 col-sm-6 col-12 mt-30"} key={srv}>
+                            {platformLogos.map((platform) => (
+                                <div className={"col col-lg-3 col-sm-6 col-12 mt-30"} key={platform.id}>
                                     <div className="client-item">
-                                        <Fade direction="up" triggerOnce="false" duration={client.duration} delay={9}>
+                                        <Fade direction="up" triggerOnce={false} duration={platform.duration} delay={9}>
                                             <div className="client-icon mb-50">
                                                 <div className="icon">
-                                                    <img src={client.sIcon} alt="" />
+                                                    <img src={platform.logo} alt={`${platform.name} logo`} />
                                                 </div>
                                             </div>
                                             <div className="client-content">
-                                                <p>{client.description}</p>
+                                                <span>{platform.category}</span>
+                                                <p>{platform.description}</p>
                                             </div>
                                         </Fade>
                                     </div>

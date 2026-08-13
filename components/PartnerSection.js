@@ -1,32 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-
-const partners = [
-    {
-        pImg: '/images/client1.svg',
-    },
-    {
-        pImg: '/images/client2.svg',
-    },
-    {
-        pImg: '/images/client3.svg',
-    },
-    {
-        pImg: '/images/client4.svg',
-    },
-    {
-        pImg: '/images/client5.svg',
-    },
-    {
-        pImg: '/images/client6.svg',
-    },
-    {
-        pImg: '/images/client7.svg',
-    },
-    {
-        pImg: '/images/client2.svg',
-    },
-]
+import { platformLogos } from "../data/platforms";
 
 var settings = {
     dots: false,
@@ -94,13 +68,13 @@ const PartnerSection = (props) => {
             <div className="container">
                 <div className="o-hidden">
                     <div className="brand-sub_title">
-                        <span>companies we worked with</span>
+                        <span>platforms we build with</span>
                     </div>
                     <div className="brand-wrap brand-marquee">
                         <Slider {...settings}>
-                            {partners.map((partner, pitem) => (
-                                <div className="brand-logo" key={pitem}>
-                                    <img src={partner.pImg} alt="Client Logo" />
+                            {platformLogos.map((partner) => (
+                                <div className="brand-logo" key={partner.id}>
+                                    <img src={partner.logo} alt={`${partner.name} logo`} />
                                 </div>
                             ))}
                         </Slider>

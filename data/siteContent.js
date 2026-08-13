@@ -4,6 +4,7 @@ import {
   shopifyCaseStudies,
   shopifyResourcePosts,
 } from "./shopifyResources";
+import { serviceDetailsById } from "./serviceDetails";
 
 export { authorProfile, publishedShopifyApps };
 
@@ -19,7 +20,7 @@ export const company = {
   telegramUrl: "https://t.me/orustudio",
 };
 
-export const services = [
+const baseServices = [
   {
     id: "full-stack-web-development",
     title: "Full Stack Web Development",
@@ -201,6 +202,11 @@ export const services = [
     ],
   },
 ];
+
+export const services = baseServices.map((service) => ({
+  ...service,
+  ...(serviceDetailsById[service.id] || {}),
+}));
 
 export const portfolioItems = [
   ...shopifyCaseStudies,
