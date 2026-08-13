@@ -4,6 +4,7 @@ import {
   shopifyCaseStudies,
   shopifyResourcePosts,
 } from "./shopifyResources";
+import { portfolioDetailsById } from "./portfolioDetails";
 import { serviceDetailsById } from "./serviceDetails";
 
 export { authorProfile, publishedShopifyApps };
@@ -208,7 +209,7 @@ export const services = baseServices.map((service) => ({
   ...(serviceDetailsById[service.id] || {}),
 }));
 
-export const portfolioItems = [
+const basePortfolioItems = [
   ...shopifyCaseStudies,
   {
     id: "shopify-fashion-theme-system",
@@ -307,6 +308,11 @@ export const portfolioItems = [
     results: ["Clear request status", "Less manual follow-up", "Better customer response time"],
   },
 ];
+
+export const portfolioItems = basePortfolioItems.map((project) => ({
+  ...project,
+  ...(portfolioDetailsById[project.id] || {}),
+}));
 
 export const blogPosts = [
   ...shopifyResourcePosts,
