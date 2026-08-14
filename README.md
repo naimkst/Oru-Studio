@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3386](http://localhost:3386).
+Open [http://localhost:3387](http://localhost:3387).
 
 ## Required Environment
 
@@ -31,11 +31,13 @@ BLOG_ADMIN_PASSWORD=your-strong-password
 BLOG_SESSION_SECRET=long-random-secret
 BLOG_CRON_SECRET=long-random-secret
 BLOG_DB_PATH=/var/www/orustudio.com/data/blog.sqlite
+PORT=3387
+APP_HOST=127.0.0.1
 ```
 
 ## VPS Deployment With Nginx
 
-The app runs on port `3386`. Nginx should proxy public traffic to `http://127.0.0.1:3386`.
+The app runs on `127.0.0.1:3387`. Nginx should proxy public traffic to `http://127.0.0.1:3387`.
 
 ```bash
 cd /var/www/orustudio.com
@@ -52,7 +54,7 @@ pm2 save
 Check that Next.js is running before testing nginx:
 
 ```bash
-curl -i http://127.0.0.1:3386/api/health
+curl -i http://127.0.0.1:3387/api/health
 pm2 status
 pm2 logs oru-studio --lines 100
 ```
@@ -80,7 +82,7 @@ server {
     server_name orustudio.com www.orustudio.com;
 
     location / {
-        proxy_pass http://127.0.0.1:3386;
+        proxy_pass http://127.0.0.1:3387;
         proxy_http_version 1.1;
         proxy_connect_timeout 60s;
         proxy_send_timeout 300s;
@@ -133,13 +135,13 @@ Run these on the VPS:
 cd /var/www/orustudio.com
 npm run build
 pm2 restart oru-studio
-curl -i http://127.0.0.1:3386/api/health
+curl -i http://127.0.0.1:3387/api/health
 sudo nginx -t
 sudo tail -n 80 /var/log/nginx/error.log
 pm2 logs oru-studio --lines 100
 ```
 
-If `curl http://127.0.0.1:3386/api/health` works but the domain still shows 502, the problem is nginx configuration. If the curl command fails, the Next.js process is not running correctly.
+If `curl http://127.0.0.1:3387/api/health` works but the domain still shows 502, the problem is nginx configuration. If the curl command fails, the Next.js process is not running correctly.
 
 For article generation failures, check the live server logs:
 
