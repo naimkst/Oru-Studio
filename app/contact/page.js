@@ -13,6 +13,13 @@ export const metadata = createPageMetadata({
       "Contact Oru Studio for Shopify app development, Shopify storefront work, ecommerce systems, full stack web products, maintenance, QA, and technical support.",
    path: "/contact",
    image: "/images/discuss.webp",
+   keywords: [
+      "contact Shopify developer",
+      "hire Shopify app developer",
+      "Shopify development consultation",
+      "ecommerce development support",
+      "full stack development contact",
+   ],
 });
 
 const contactJsonLd = {

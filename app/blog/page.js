@@ -13,6 +13,14 @@ export const metadata = createPageMetadata({
     "Original Oru Studio Shopify resources, ecommerce guides, App Store case studies, app development notes, theme guidance, and store optimization articles.",
   path: "/blog",
   image: "/images/portfolio-headless-commerce-storefront.webp",
+  keywords: [
+    "Shopify blog",
+    "Shopify resources",
+    "Shopify app development guide",
+    "Shopify theme development guide",
+    "Shopify SEO",
+    "ecommerce development resources",
+  ],
 });
 
 export default function BlogPage() {

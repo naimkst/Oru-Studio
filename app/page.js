@@ -14,6 +14,13 @@ export const metadata = createPageMetadata({
       "Oru Studio builds Shopify apps, Shopify stores, Shopify Plus projects, ecommerce systems, and full stack web products for merchants, founders, and agencies.",
    path: "/",
    image: "/images/hero-video-area-shopify-01.webp",
+   keywords: [
+      "Shopify app development agency",
+      "Shopify store development",
+      "Shopify Plus experts",
+      "custom Shopify apps",
+      "ecommerce development agency",
+   ],
 });
 
 const Home = () => {

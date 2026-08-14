@@ -15,6 +15,13 @@ export const metadata = createPageMetadata({
     "Oru Studio is a full stack development partner for Shopify apps, Shopify themes, ecommerce, SaaS products, and custom web applications.",
   path: "/about",
   image: "/images/founder-studio-workspace.webp",
+  keywords: [
+    "Oru Studio Shopify developer",
+    "Naim Hossain Najmul",
+    "Shopify app developer",
+    "full stack developer",
+    "ecommerce development partner",
+  ],
 });
 
 export default function AboutPage() {

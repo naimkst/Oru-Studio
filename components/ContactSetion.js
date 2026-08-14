@@ -15,8 +15,8 @@ const ContactSection = () => {
                         <div className="col-lg-4">
                             <div className="contact-left">
                                 <div className="section-title s2">
-                                    <h2>LEt’s <br />
-                                        Talk</h2>
+                                    <h1>Let's <br />
+                                        Talk</h1>
                                 </div>
                                 <ul>
                                     <li>We’ll get back to you within 24 hours.</li>

@@ -16,6 +16,15 @@ export const metadata = createPageMetadata({
     "Published Shopify apps from Oru Studio with documentation, support links, FAQs, privacy information, and App Store listings for merchants.",
   path: "/apps",
   image: "/images/portfolio-merchant-automation-app.webp",
+  keywords: [
+    "Shopify apps",
+    "Shopify App Store apps",
+    "merchant tools",
+    "Shopify app documentation",
+    "Blog CTA Pro",
+    "Real Time Find And Replace",
+    "RateMate Product Reviews",
+  ],
 });
 
 const appsJsonLd = {

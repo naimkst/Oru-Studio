@@ -39,17 +39,24 @@ export async function generateMetadata({ params }) {
   }
 
   const metadata = createPageMetadata({
-    title: `${post.title} | Oru Studio Blog`,
+    title: `${post.title} | Oru Studio`,
     description: post.description,
     path: `/blog/${post.slug}`,
     image: post.thumbnail,
+    keywords: [
+      post.title,
+      post.category,
+      post.tags,
+      "Shopify guide",
+      "ecommerce development",
+    ],
     type: "article",
     publishedTime: post.date,
     modifiedTime: post.date,
   });
 
   if (post.status && post.status !== "published") {
-    metadata.title = `[Preview] ${post.title} | Oru Studio Blog`;
+    metadata.title = `[Preview] ${post.title} | Oru Studio`;
     metadata.robots = {
       index: false,
       follow: false,
@@ -89,7 +96,7 @@ export default async function BlogPostPage({ params }) {
       "@id": `${siteUrl}/#organization`,
     },
     mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
-    ...(post.tags?.length ? { keywords: post.tags.join(", ") } : {}),
+    keywords: [post.category, ...(post.tags || [])].filter(Boolean).join(", "),
   };
 
   return (

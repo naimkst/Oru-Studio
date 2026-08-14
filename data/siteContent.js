@@ -261,19 +261,19 @@ const basePortfolioItems = [
   },
   {
     id: "saas-operations-dashboard",
-    title: "SaaS Operations Dashboard",
+    title: "Shopify Merchant Operations Dashboard",
     slug: "saas-operations-dashboard",
-    category: "Full Stack, SaaS",
+    category: "Shopify App, Operations",
     image: "/images/portfolio-saas-operations-dashboard.webp",
     logo: "/images/project-logo.svg",
     cIcon: "/images/country.png",
     description:
-      "A secure operational dashboard with role-based access, API integrations, activity tracking, and reporting views.",
+      "A Shopify merchant dashboard for order workflows, product data, API integrations, activity tracking, and reporting views.",
     challenge:
-      "The team needed one source of truth for operational status, customer requests, and internal workflow visibility.",
+      "The merchant team needed one source of truth for order status, product updates, customer requests, and internal workflow visibility.",
     solution:
-      "We built a full stack dashboard with authentication, data models, integrations, filters, and clean management screens.",
-    results: ["Centralized operations", "Role-based visibility", "Faster reporting"],
+      "We built a Shopify-connected dashboard with authentication, data models, Admin API integrations, filters, and clean management screens.",
+    results: ["Centralized Shopify operations", "Role-based visibility", "Faster reporting"],
   },
   {
     id: "headless-commerce-storefront",

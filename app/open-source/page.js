@@ -8,6 +8,13 @@ export const metadata = createPageMetadata({
     "Developer resources, reusable patterns, and open-source friendly engineering practices from Oru Studio.",
   path: "/open-source",
   image: "/images/hero-img.webp",
+  keywords: [
+    "Shopify development resources",
+    "open source Shopify patterns",
+    "ecommerce development resources",
+    "full stack development resources",
+    "performance QA notes",
+  ],
 });
 
 const resources = [

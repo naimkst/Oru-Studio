@@ -6,6 +6,7 @@ import { publishedShopifyApps } from "../../../data/siteContent";
 import {
   absoluteUrl,
   buildBreadcrumbJsonLd,
+  buildSeoKeywords,
   createPageMetadata,
   siteUrl,
 } from "../../../data/seo";
@@ -34,6 +35,13 @@ export async function generateMetadata({ params }) {
     description: app.description,
     path: `/apps/${app.slug}`,
     image: app.image,
+    keywords: [
+      app.name,
+      `${app.name} Shopify app`,
+      app.category,
+      app.features,
+      "Shopify App Store",
+    ],
   });
 }
 
@@ -58,6 +66,7 @@ function buildAppJsonLd(app) {
       "@id": `${siteUrl}/#organization`,
     },
     sameAs: app.href,
+    keywords: buildSeoKeywords(app.name, app.category, app.features).join(", "),
   };
 }
 

@@ -9,6 +9,14 @@ export const metadata = createPageMetadata({
     "Selected Oru Studio Shopify case studies, published App Store apps, Shopify themes, full stack dashboards, headless commerce, ecommerce, and backend platforms.",
   path: "/portfolio",
   image: "/images/portfolio-merchant-automation-app.webp",
+  keywords: [
+    "Shopify case studies",
+    "Shopify portfolio",
+    "Shopify app case study",
+    "Shopify theme case study",
+    "headless Shopify portfolio",
+    "ecommerce development portfolio",
+  ],
 });
 
 export default function PortfolioPage() {

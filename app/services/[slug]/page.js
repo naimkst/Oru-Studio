@@ -6,6 +6,7 @@ import { portfolioItems, serviceBySlug, services } from "../../../data/siteConte
 import {
   absoluteUrl,
   buildBreadcrumbJsonLd,
+  buildSeoKeywords,
   createPageMetadata,
   siteUrl,
 } from "../../../data/seo";
@@ -29,6 +30,12 @@ export async function generateMetadata({ params }) {
     description: service.metaDescription || service.shortDescription,
     path: `/services/${service.slug}`,
     image: service.image,
+    keywords: [
+      service.title,
+      `${service.title} service`,
+      service.shortDescription,
+      service.deliverables,
+    ],
   });
 }
 
@@ -61,6 +68,7 @@ export default async function ServiceDetailPage({ params }) {
       "@id": `${siteUrl}/#organization`,
     },
     areaServed: "Worldwide",
+    keywords: buildSeoKeywords(service.title, service.deliverables).join(", "),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: `${service.title} deliverables`,

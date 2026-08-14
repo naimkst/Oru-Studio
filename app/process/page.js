@@ -4,11 +4,18 @@ import { processSteps } from "../../data/siteContent";
 import { createPageMetadata } from "../../data/seo";
 
 export const metadata = createPageMetadata({
-  title: "Process | Oru Studio",
+  title: "Shopify Development Process | Oru Studio",
   description:
     "The Oru Studio process for discovery, planning, design, full stack development, Shopify development, QA, launch, and support.",
   path: "/process",
   image: "/images/process.svg",
+  keywords: [
+    "Shopify development process",
+    "Shopify app development workflow",
+    "ecommerce project planning",
+    "full stack development process",
+    "launch QA",
+  ],
 });
 
 export default function ProcessPage() {

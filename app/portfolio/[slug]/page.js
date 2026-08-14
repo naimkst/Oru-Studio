@@ -6,6 +6,7 @@ import { portfolioBySlug, portfolioItems, services } from "../../../data/siteCon
 import {
   absoluteUrl,
   buildBreadcrumbJsonLd,
+  buildSeoKeywords,
   createPageMetadata,
   siteUrl,
 } from "../../../data/seo";
@@ -29,6 +30,13 @@ export async function generateMetadata({ params }) {
     description: project.metaDescription || project.description,
     path: `/portfolio/${project.slug}`,
     image: project.image,
+    keywords: [
+      project.title,
+      project.category,
+      project.scope,
+      project.stack,
+      project.results,
+    ],
   });
 }
 
@@ -56,6 +64,7 @@ export default async function PortfolioDetailPage({ params }) {
       "@id": `${siteUrl}/#organization`,
     },
     about: project.category,
+    keywords: buildSeoKeywords(project.title, project.category, project.scope, project.stack).join(", "),
     ...(project.appStoreUrl ? { sameAs: project.appStoreUrl } : {}),
   };
 

@@ -12,7 +12,7 @@ import "../styles/sass/style.scss";
 import GoogleAnalytics from "../components/GoogleAnalytics";
 import JsonLd from "../components/JsonLd";
 import { authorProfile, company } from "../data/siteContent";
-import { absoluteUrl, siteName, siteUrl } from "../data/seo";
+import { absoluteUrl, baseSeoKeywords, siteName, siteUrl } from "../data/seo";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -41,14 +41,9 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   keywords: [
-    "Oru Studio",
-    "Shopify apps",
-    "Shopify development",
+    ...baseSeoKeywords,
+    "Shopify development agency",
     "Shopify Plus experts",
-    "Shopify app development",
-    "Shopify store development",
-    "ecommerce development",
-    "full stack development",
   ],
   openGraph: {
     title: "Oru Studio | Shopify Apps, Store Development & Shopify Plus Experts",
@@ -88,8 +83,17 @@ export const metadata: Metadata = {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
   icons: {
-    icon: "/favicon.ico?v=yellow-round",
-    shortcut: "/favicon.ico?v=yellow-round",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 
@@ -99,10 +103,20 @@ const baseJsonLd = [
     "@type": "Organization",
     "@id": `${siteUrl}/#organization`,
     name: siteName,
+    description:
+      "Oru Studio builds Shopify apps, Shopify stores, Shopify Plus projects, ecommerce systems, and full stack web products.",
     url: siteUrl,
-    logo: absoluteUrl("/images/logo.svg"),
+    logo: absoluteUrl("/icon-512.png"),
     email: company.email,
     telephone: company.phoneHref,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: company.email,
+      telephone: company.phoneHref,
+      areaServed: "Worldwide",
+      availableLanguage: ["English"],
+    },
     address: {
       "@type": "PostalAddress",
       streetAddress: "30 N Gould St Ste N",
@@ -115,6 +129,7 @@ const baseJsonLd = [
       "@id": `${siteUrl}/#naim-hossain-najmul`,
     },
     sameAs: authorProfile.links.map((link) => link.href),
+    keywords: baseSeoKeywords.join(", "),
   },
   {
     "@context": "https://schema.org",

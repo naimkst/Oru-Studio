@@ -14,6 +14,15 @@ export const metadata = createPageMetadata({
       "Oru Studio services for Shopify app development, Shopify theme development, headless commerce, ecommerce, backend integrations, UI/UX, DevOps, QA, SEO, and support.",
    path: "/services",
    image: "/images/hero-video-area-shopify-02.webp",
+   keywords: [
+      "Shopify development services",
+      "Shopify app development",
+      "Shopify theme development",
+      "headless Shopify development",
+      "ecommerce development services",
+      "backend API integrations",
+      "technical SEO services",
+   ],
 });
 
 const servicesJsonLd = {

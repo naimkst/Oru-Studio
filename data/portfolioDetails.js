@@ -379,28 +379,28 @@ export const portfolioDetailsById = {
   },
   "saas-operations-dashboard": {
     metaDescription:
-      "SaaS operations dashboard case study covering role-based access, reporting views, activity tracking, integrations, and production-ready UX.",
+      "Shopify merchant operations dashboard case study covering order workflows, product data, role-based access, reporting views, API integrations, and production-ready UX.",
     heroLead:
-      "A full stack operations dashboard created to centralize status, customer requests, reporting, and internal workflow visibility.",
+      "A Shopify merchant operations dashboard created to centralize order status, product updates, customer requests, reporting, and internal workflow visibility.",
     secondaryImage: "/images/case4.webp",
     tertiaryImage: "/images/hero-video-area-08.webp",
-    scope: ["Full stack dashboard", "Role-based access", "Reporting views", "API integrations"],
-    metrics: ["Operational source of truth", "Role-based visibility", "Faster reporting"],
-    overviewTitle: "A calm internal product for teams that need status, data, and action in one place.",
+    scope: ["Shopify operations dashboard", "Role-based access", "Reporting views", "Admin API integrations"],
+    metrics: ["Shopify source of truth", "Role-based visibility", "Faster reporting"],
+    overviewTitle: "A calm Shopify operations product for merchant teams that need status, data, and action in one place.",
     overview: [
-      "Operations teams often run important work across spreadsheets, inboxes, and disconnected tools. That creates unclear ownership, slow reporting, and a lack of confidence about what needs attention.",
-      "The dashboard was designed as a focused operational surface: role-based access, list and detail views, filters, activity trails, API-backed data, and reporting screens that help teams scan quickly and act with context.",
+      "Shopify merchant teams often run important operational work across Shopify admin, spreadsheets, inboxes, and disconnected apps. That creates unclear ownership, slow reporting, and a lack of confidence about what needs attention.",
+      "The dashboard was designed as a focused operational surface for Shopify work: role-based access, order and product views, filters, activity trails, API-backed data, and reporting screens that help teams scan quickly and act with context.",
     ],
     goals: [
-      "Centralize operational requests, statuses, and reporting in one product.",
+      "Centralize Shopify order workflows, product updates, statuses, and reporting in one product.",
       "Give different users the right level of access and visibility.",
-      "Connect external data sources through reliable APIs.",
+      "Connect Shopify and external data sources through reliable APIs.",
       "Design dense screens that are easy to scan during repeated daily use.",
     ],
     process: [
       {
         title: "Data Modeling",
-        text: "We defined core records, statuses, permissions, and relationships before building screens.",
+        text: "We defined Shopify resources, operational records, statuses, permissions, and relationships before building screens.",
       },
       {
         title: "UX Structure",
@@ -408,7 +408,7 @@ export const portfolioDetailsById = {
       },
       {
         title: "Backend Integration",
-        text: "APIs, authentication, roles, and persistence were planned around dependable internal workflows.",
+        text: "Shopify APIs, authentication, roles, and persistence were planned around dependable merchant workflows.",
       },
       {
         title: "Operational QA",
@@ -418,9 +418,9 @@ export const portfolioDetailsById = {
     featureSections: [
       {
         label: "Visibility",
-        title: "Status, requests, and reporting in one dashboard",
+        title: "Shopify status, requests, and reporting in one dashboard",
         text:
-          "The dashboard reduces switching between tools by giving the team a clear place to review work, inspect status, and find records quickly.",
+          "The dashboard reduces switching between Shopify admin and disconnected tools by giving the team a clear place to review work, inspect status, and find records quickly.",
         image: "/images/portfolio-saas-operations-dashboard.webp",
       },
       {
@@ -432,7 +432,7 @@ export const portfolioDetailsById = {
       },
     ],
     outcomes: [
-      "Centralized workflow status and internal visibility.",
+      "Centralized Shopify workflow status and internal visibility.",
       "Role-based access for safer team operations.",
       "Cleaner reporting through structured data and filters.",
       "A scalable full stack foundation for future workflow modules.",
