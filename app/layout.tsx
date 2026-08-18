@@ -34,6 +34,7 @@ export const metadata: Metadata = {
   description:
     "Oru Studio builds Shopify apps, Shopify stores, Shopify Plus projects, ecommerce systems, and full stack web products for merchants, founders, and agencies.",
   applicationName: siteName,
+  manifest: "/site.webmanifest",
   authors: [{ name: company.founder, url: absoluteUrl("/about#team") }],
   creator: company.founder,
   publisher: siteName,

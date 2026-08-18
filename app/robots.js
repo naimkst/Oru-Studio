@@ -5,8 +5,15 @@ export default function robots() {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
-        disallow: ["/api/", "/dashboard"],
+        allow: ["/", "/api/generated-blog-images/"],
+        disallow: [
+          "/api/admin/",
+          "/api/contact",
+          "/api/cron/",
+          "/api/health",
+          "/dashboard",
+          "/login",
+        ],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,

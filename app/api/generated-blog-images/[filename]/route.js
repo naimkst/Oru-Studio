@@ -35,7 +35,7 @@ export async function GET(_request, { params }) {
 
     return new Response(new Uint8Array(image), {
       headers: {
-        "Cache-Control": "no-store, max-age=0",
+        "Cache-Control": "public, max-age=31536000, immutable",
         "Content-Length": String(image.length),
         "Content-Type": contentType,
       },
