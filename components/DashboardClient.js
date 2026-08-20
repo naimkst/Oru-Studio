@@ -209,6 +209,39 @@ function filenameToAltText(filename) {
     .trim();
 }
 
+function blockToPreviewText(block, index) {
+  if (!block) {
+    return "";
+  }
+
+  if (block.type === "heading") {
+    return `${index > 0 ? "\n" : ""}${block.text || ""}`.trim();
+  }
+
+  if (block.type === "list") {
+    const items = (block.items || []).map((item) => `- ${item}`).join("\n");
+    return [block.text, items].filter(Boolean).join("\n");
+  }
+
+  if (block.type === "image") {
+    const label = block.caption || block.alt || block.prompt || "Content image";
+    return `[Image] ${label}`;
+  }
+
+  if (block.type === "callout") {
+    return `Note: ${block.text || ""}`;
+  }
+
+  return block.text || "";
+}
+
+function buildArticlePreviewText(blocks) {
+  return blocks
+    .map(blockToPreviewText)
+    .filter(Boolean)
+    .join("\n\n");
+}
+
 function formatDate(value) {
   if (!value) {
     return "Not scheduled";
@@ -230,6 +263,10 @@ async function readErrorMessage(response, fallback) {
 
   const text = await response.text().catch(() => "");
   const shortText = text.replace(/\s+/g, " ").trim().slice(0, 180);
+
+  if (/^<!doctype html/i.test(shortText) || /^<html/i.test(shortText)) {
+    return `${fallback} HTTP ${response.status}. The server returned an HTML error page instead of JSON. Reload the dashboard and try again.`;
+  }
 
   if (response.status === 502 || response.status === 504) {
     return `Generation timed out or the server gateway returned HTTP ${response.status}. Increase nginx proxy timeouts and check PM2 logs.`;
@@ -277,6 +314,13 @@ export default function DashboardClient() {
       return readManualBodyForAppend(manualForm.bodyJson).length;
     } catch {
       return 0;
+    }
+  }, [manualForm.bodyJson]);
+  const manualArticlePreview = useMemo(() => {
+    try {
+      return buildArticlePreviewText(readManualBodyForAppend(manualForm.bodyJson));
+    } catch {
+      return "";
     }
   }, [manualForm.bodyJson]);
   const hasMorePosts = visiblePostCount < posts.length;
@@ -857,6 +901,21 @@ export default function DashboardClient() {
                   This is the short blog card and SEO summary. The full article is saved from the JSON body blocks above.
                 </span>
               </label>
+              {manualArticlePreview && (
+                <label>
+                  Inner blog content
+                  <textarea
+                    className="admin-article-preview-textarea"
+                    value={manualArticlePreview}
+                    readOnly
+                    rows={10}
+                    spellCheck={false}
+                  />
+                  <span className="admin-field-hint">
+                    Preview only. Edit the JSON body blocks above to change headings, paragraphs, lists, callouts, or images.
+                  </span>
+                </label>
+              )}
               <label>
                 Category
                 <input

@@ -3,7 +3,6 @@ import fs from "fs/promises";
 import path from "path";
 import { NextResponse } from "next/server";
 import { requireAdminFromRequest } from "../../../../lib/auth";
-import { slugify } from "../../../../lib/blogDb";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -30,6 +29,15 @@ function getUploadContentType(file) {
   const extension = path.extname(file.name || "").toLowerCase();
 
   return file.type || EXTENSION_TYPES.get(extension) || "";
+}
+
+function slugifyFilename(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 90);
 }
 
 export async function POST(request) {
@@ -65,7 +73,7 @@ export async function POST(request) {
   }
 
   const originalName = path.parse(image.name || "blog-image").name;
-  const baseName = slugify(originalName) || "blog-image";
+  const baseName = slugifyFilename(originalName) || "blog-image";
   const filename = `${baseName.slice(0, 60)}-${Date.now()}-${crypto
     .randomBytes(4)
     .toString("hex")}${extension}`;
