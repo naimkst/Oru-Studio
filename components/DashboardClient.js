@@ -1132,6 +1132,7 @@ export default function DashboardClient() {
                         )}
                         <div className="admin-button-row compact">
                           <Link href={`/dashboard/posts/${post.dbId}`}>Details</Link>
+                          <Link href={`/dashboard/posts/${post.dbId}/edit`}>Edit</Link>
                           <Link href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
                             Blog preview
                           </Link>

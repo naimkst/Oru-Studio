@@ -56,6 +56,7 @@ export default async function DashboardPostDetailsPage({ params }) {
         </div>
         <div className="admin-topbar-actions">
           <Link href="/dashboard">Back to dashboard</Link>
+          <Link href={`/dashboard/posts/${post.dbId}/edit`}>Edit post</Link>
           <Link href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
             Blog preview
           </Link>

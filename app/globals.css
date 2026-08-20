@@ -386,6 +386,14 @@ a {
   max-width: 1360px;
 }
 
+.admin-edit-layout {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
 .admin-sidebar-stack {
   align-content: start;
   display: grid;
@@ -504,6 +512,22 @@ a {
 .admin-form-grid input[type="file"] {
   cursor: pointer;
   padding: 8px;
+}
+
+.admin-checkbox-field {
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e4e7ec;
+  border-radius: 8px;
+  display: flex !important;
+  gap: 10px !important;
+  padding: 10px 12px;
+}
+
+.admin-checkbox-field input {
+  flex: 0 0 auto;
+  min-height: 16px;
+  width: 16px;
 }
 
 .admin-post-list {
@@ -872,6 +896,7 @@ a {
 @media (max-width: 980px) {
   .admin-layout,
   .admin-detail-layout,
+  .admin-edit-layout,
   .admin-metrics {
     grid-template-columns: 1fr;
   }
