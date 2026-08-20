@@ -784,15 +784,13 @@ export default function DashboardClient() {
             </div>
 
             <div className="admin-prompt-box">
-              <label>
-                Daily ChatGPT prompt
-                <textarea value={DAILY_BLOG_PROMPT} readOnly rows={10} />
-              </label>
-              <div className="admin-button-row">
+              <div className="admin-prompt-header">
+                <span>Daily ChatGPT prompt</span>
                 <button type="button" className="secondary" onClick={copyDailyPrompt}>
                   Copy prompt
                 </button>
               </div>
+              <textarea value={DAILY_BLOG_PROMPT} readOnly rows={10} />
             </div>
 
             <form className="admin-form-grid" onSubmit={saveManualPost}>
