@@ -5,7 +5,7 @@ import ArticleBlocks from "../../../components/ArticleBlocks";
 import FallbackImage from "../../../components/FallbackImage";
 import JsonLd from "../../../components/JsonLd";
 import SiteFrame from "../../../components/SiteFrame";
-import { authorProfile, blogPosts, publishedShopifyApps } from "../../../data/siteContent";
+import { authorProfile, publishedShopifyApps } from "../../../data/siteContent";
 import { ADMIN_COOKIE, readSessionCookieValue } from "../../../lib/auth";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "../../../lib/blogRepository";
 import {
@@ -16,10 +16,7 @@ import {
 } from "../../../data/seo";
 
 export const dynamic = "force-dynamic";
-
-export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
-}
+export const revalidate = 0;
 
 async function hasAdminSession() {
   const cookieStore = await cookies();

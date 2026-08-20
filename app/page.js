@@ -6,7 +6,8 @@ import {
    createPageMetadata,
 } from "../data/seo";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata = createPageMetadata({
    title: "Oru Studio | Shopify Apps, Store Development & Shopify Plus Experts",

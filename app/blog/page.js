@@ -5,7 +5,8 @@ import { authorProfile, publishedShopifyApps } from "../../data/siteContent";
 import { getAllBlogPosts } from "../../lib/blogRepository";
 import { createPageMetadata } from "../../data/seo";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata = createPageMetadata({
   title: "Shopify Resources & Blog | Oru Studio",

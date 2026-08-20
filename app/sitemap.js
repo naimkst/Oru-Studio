@@ -7,7 +7,8 @@ import {
 import { getPublishedGeneratedPosts } from "../lib/blogRepository";
 import { absoluteUrl } from "../data/seo";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 const now = new Date();
 
