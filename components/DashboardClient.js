@@ -272,6 +272,13 @@ export default function DashboardClient() {
     () => posts.slice(0, visiblePostCount),
     [posts, visiblePostCount]
   );
+  const manualBodyBlockCount = useMemo(() => {
+    try {
+      return readManualBodyForAppend(manualForm.bodyJson).length;
+    } catch {
+      return 0;
+    }
+  }, [manualForm.bodyJson]);
   const hasMorePosts = visiblePostCount < posts.length;
 
   useEffect(() => {
@@ -496,7 +503,7 @@ export default function DashboardClient() {
         readTime: post.readTime || current.readTime,
         bodyJson: JSON.stringify(body, null, 2),
       }));
-      setManualMessage("Imported ChatGPT JSON into the post fields.");
+      setManualMessage(`Imported ChatGPT JSON with ${body.length} article block(s).`);
       setManualMessageType("info");
     } catch (error) {
       setManualMessage(error.message || "Could not import the JSON.");
@@ -803,8 +810,14 @@ export default function DashboardClient() {
                   }
                   placeholder='Paste the full JSON response here, or paste only the "body" array.'
                   rows={8}
+                  spellCheck={false}
                   required
                 />
+                <span className="admin-field-hint">
+                  {manualBodyBlockCount > 0
+                    ? `${manualBodyBlockCount} article block(s) ready for the inner blog content.`
+                    : "Paste the full JSON here, then click Import JSON."}
+                </span>
               </label>
               <div className="admin-button-row">
                 <button type="button" className="secondary" onClick={importManualJson}>
@@ -831,14 +844,18 @@ export default function DashboardClient() {
                 />
               </label>
               <label>
-                Description
+                Meta description
                 <textarea
                   value={manualForm.description}
                   onChange={(event) =>
                     setManualForm((current) => ({ ...current, description: event.target.value }))
                   }
                   rows={3}
+                  spellCheck={false}
                 />
+                <span className="admin-field-hint">
+                  This is the short blog card and SEO summary. The full article is saved from the JSON body blocks above.
+                </span>
               </label>
               <label>
                 Category

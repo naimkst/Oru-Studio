@@ -112,7 +112,10 @@ a {
   border: 1px solid #cfd4dc;
   border-radius: 8px;
   color: #101828;
-  font: inherit;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
   min-height: 44px;
   padding: 10px 12px;
   width: 100%;
@@ -130,6 +133,13 @@ a {
 .admin-form-grid textarea {
   line-height: 1.5;
   resize: vertical;
+}
+
+.admin-field-hint {
+  color: #667085;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.45;
 }
 
 .admin-auth-form button,
@@ -465,6 +475,7 @@ a {
   color: #344054;
   font-family: var(--font-geist-mono), Consolas, Monaco, monospace;
   font-size: 12px;
+  font-weight: 400;
   line-height: 1.55;
   max-height: 210px;
   min-height: 150px;
