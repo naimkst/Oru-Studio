@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import FallbackImage from "./FallbackImage";
 
 function toDatetimeLocal(value) {
   if (!value) {
@@ -108,6 +109,22 @@ function blockToPreviewText(block) {
   return block.text || "";
 }
 
+function blockPreviewLabel(block) {
+  if (!block) {
+    return "Empty block";
+  }
+
+  if (block.type === "heading") {
+    return block.text || "Heading";
+  }
+
+  if (block.type === "image") {
+    return block.caption || block.alt || block.src || "Image";
+  }
+
+  return block.text || block.type || "Article block";
+}
+
 async function readErrorMessage(response, fallback) {
   const contentType = response.headers.get("content-type") || "";
 
@@ -143,6 +160,13 @@ export default function DashboardPostEditClient({ post }) {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("info");
 
+  const bodyBlocks = useMemo(() => {
+    try {
+      return readBodyJson(form.bodyJson);
+    } catch {
+      return [];
+    }
+  }, [form.bodyJson]);
   const articlePreview = useMemo(() => {
     try {
       return readBodyJson(form.bodyJson).map(blockToPreviewText).filter(Boolean).join("\n\n");
@@ -150,9 +174,57 @@ export default function DashboardPostEditClient({ post }) {
       return "";
     }
   }, [form.bodyJson]);
+  const imageBlocks = useMemo(
+    () =>
+      bodyBlocks
+        .map((block, index) => ({ ...block, blockIndex: index }))
+        .filter((block) => block.type === "image"),
+    [bodyBlocks]
+  );
 
   function updateField(name, value) {
     setForm((current) => ({ ...current, [name]: value }));
+  }
+
+  function updateBody(nextBody) {
+    updateField("bodyJson", JSON.stringify(nextBody, null, 2));
+  }
+
+  function updateImageBlock(blockIndex, updates) {
+    const body = readBodyJson(form.bodyJson);
+    const currentBlock = body[blockIndex] || { type: "image" };
+
+    body[blockIndex] = {
+      ...currentBlock,
+      type: "image",
+      ...updates,
+    };
+
+    updateBody(body);
+  }
+
+  function addImageBlock() {
+    const body = readBodyJson(form.bodyJson);
+
+    updateBody([
+      ...body,
+      {
+        type: "image",
+        src: "",
+        alt: "",
+        caption: "",
+      },
+    ]);
+  }
+
+  function removeImageBlock(blockIndex) {
+    if (!window.confirm("Remove this image block from the article?")) {
+      return;
+    }
+
+    const body = readBodyJson(form.bodyJson);
+    body.splice(blockIndex, 1);
+    updateBody(body);
   }
 
   async function uploadBlogImage(file) {
@@ -230,8 +302,42 @@ export default function DashboardPostEditClient({ post }) {
     }
   }
 
+  async function uploadImageBlock(event, blockIndex) {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    setUploadingImage(`image-${blockIndex}`);
+    setMessage("");
+
+    try {
+      const data = await uploadBlogImage(file);
+      const body = readBodyJson(form.bodyJson);
+      const currentBlock = body[blockIndex] || { type: "image" };
+
+      body[blockIndex] = {
+        ...currentBlock,
+        type: "image",
+        src: data.src,
+        alt: currentBlock.alt || filenameToAltText(file.name),
+      };
+
+      updateBody(body);
+      setMessage(`Updated image block: ${data.src}`);
+      setMessageType("info");
+    } catch (error) {
+      setMessage(error.message || "Image block upload failed.");
+      setMessageType("error");
+    } finally {
+      setUploadingImage("");
+      event.target.value = "";
+    }
+  }
+
   async function savePost(event) {
-    event.preventDefault();
+    event?.preventDefault();
     setSaving(true);
     setMessage("");
 
@@ -299,10 +405,11 @@ export default function DashboardPostEditClient({ post }) {
       </header>
 
       <main className="admin-edit-layout">
-        <section className="admin-panel">
+        <section className="admin-edit-main">
+          <section className="admin-panel">
           <div className="admin-section-heading">
-            <h2>Post Content</h2>
-            <p>Update metadata, publishing status, thumbnail, and article body blocks.</p>
+            <h2>Post Details</h2>
+            <p>Update title, summary, taxonomy, publishing status, and thumbnail.</p>
           </div>
           <form className="admin-form-grid" onSubmit={savePost}>
             <label>
@@ -338,6 +445,11 @@ export default function DashboardPostEditClient({ post }) {
               Thumbnail path or URL
               <input value={form.thumbnail} onChange={(event) => updateField("thumbnail", event.target.value)} />
             </label>
+            {form.thumbnail && (
+              <div className="admin-edit-thumbnail-preview">
+                <FallbackImage src={form.thumbnail} alt={form.title} />
+              </div>
+            )}
             <label>
               Upload thumbnail
               <input
@@ -345,37 +457,6 @@ export default function DashboardPostEditClient({ post }) {
                 accept="image/avif,image/gif,image/jpeg,image/png,image/webp"
                 onChange={uploadThumbnail}
                 disabled={Boolean(uploadingImage)}
-              />
-            </label>
-            <label className="admin-checkbox-field">
-              <input
-                type="checkbox"
-                checked={form.replaceExistingImages}
-                onChange={(event) => updateField("replaceExistingImages", event.target.checked)}
-              />
-              Replace existing content image blocks when uploading article images
-            </label>
-            <label>
-              Upload content images
-              <input
-                type="file"
-                accept="image/avif,image/gif,image/jpeg,image/png,image/webp"
-                multiple
-                onChange={uploadContentImages}
-                disabled={Boolean(uploadingImage)}
-              />
-              <span className="admin-field-hint">
-                Select multiple files. They are applied to article image blocks in order.
-              </span>
-            </label>
-            <label>
-              Article body JSON
-              <textarea
-                value={form.bodyJson}
-                onChange={(event) => updateField("bodyJson", event.target.value)}
-                rows={16}
-                spellCheck={false}
-                required
               />
             </label>
             <label>
@@ -409,18 +490,152 @@ export default function DashboardPostEditClient({ post }) {
           </form>
         </section>
 
-        <aside className="admin-panel">
+          <section className="admin-panel">
+            <div className="admin-section-heading admin-section-heading-row">
+              <div>
+                <h2>Article Images</h2>
+                <p>Preview, replace, edit, add, or remove images used inside the article body.</p>
+              </div>
+              <button type="button" className="admin-inline-action" onClick={addImageBlock}>
+                Add image
+              </button>
+            </div>
+
+            <div className="admin-bulk-upload">
+              <label className="admin-checkbox-field">
+                <input
+                  type="checkbox"
+                  checked={form.replaceExistingImages}
+                  onChange={(event) => updateField("replaceExistingImages", event.target.checked)}
+                />
+                Replace existing image blocks during bulk upload
+              </label>
+              <label>
+                Bulk upload content images
+                <input
+                  type="file"
+                  accept="image/avif,image/gif,image/jpeg,image/png,image/webp"
+                  multiple
+                  onChange={uploadContentImages}
+                  disabled={Boolean(uploadingImage)}
+                />
+                <span className="admin-field-hint">
+                  Select multiple files. They are applied to article image blocks in order.
+                </span>
+              </label>
+            </div>
+            {message && (
+              <p className={`admin-message ${messageType === "error" ? "error" : ""}`}>{message}</p>
+            )}
+
+            {imageBlocks.length === 0 ? (
+              <p className="admin-muted">No image blocks in this article yet.</p>
+            ) : (
+              <div className="admin-image-editor-list">
+                {imageBlocks.map((imageBlock, imageIndex) => (
+                  <article className="admin-image-editor-item" key={`${imageBlock.blockIndex}-${imageIndex}`}>
+                    <div className="admin-image-editor-preview">
+                      {imageBlock.src ? (
+                        <FallbackImage src={imageBlock.src} alt={imageBlock.alt || ""} />
+                      ) : (
+                        <span>No image selected</span>
+                      )}
+                    </div>
+                    <div className="admin-image-editor-fields">
+                      <div className="admin-image-editor-heading">
+                        <strong>Image {imageIndex + 1}</strong>
+                        <button type="button" className="danger subtle" onClick={() => removeImageBlock(imageBlock.blockIndex)}>
+                          Remove
+                        </button>
+                      </div>
+                      <label>
+                        Image path or URL
+                        <input
+                          value={imageBlock.src || ""}
+                          onChange={(event) => updateImageBlock(imageBlock.blockIndex, { src: event.target.value })}
+                        />
+                      </label>
+                      <label>
+                        Alt text
+                        <input
+                          value={imageBlock.alt || ""}
+                          onChange={(event) => updateImageBlock(imageBlock.blockIndex, { alt: event.target.value })}
+                        />
+                      </label>
+                      <label>
+                        Caption
+                        <input
+                          value={imageBlock.caption || ""}
+                          onChange={(event) => updateImageBlock(imageBlock.blockIndex, { caption: event.target.value })}
+                        />
+                      </label>
+                      <label>
+                        Replace image
+                        <input
+                          type="file"
+                          accept="image/avif,image/gif,image/jpeg,image/png,image/webp"
+                          onChange={(event) => uploadImageBlock(event, imageBlock.blockIndex)}
+                          disabled={Boolean(uploadingImage)}
+                        />
+                      </label>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+            <div className="admin-button-row admin-section-actions">
+              <button type="button" className={saving ? "is-loading" : ""} disabled={saving || Boolean(uploadingImage)} onClick={savePost}>
+                {saving ? "Saving..." : "Save image changes"}
+              </button>
+            </div>
+          </section>
+
+          <section className="admin-panel">
+            <div className="admin-section-heading">
+              <h2>Advanced Body JSON</h2>
+              <p>Edit raw article blocks when you need to change paragraphs, headings, lists, or callouts directly.</p>
+            </div>
+            <form className="admin-form-grid" onSubmit={savePost}>
+              <label>
+                Article body JSON
+                <textarea
+                  className="admin-code-textarea"
+                  value={form.bodyJson}
+                  onChange={(event) => updateField("bodyJson", event.target.value)}
+                  rows={18}
+                  spellCheck={false}
+                  required
+                />
+              </label>
+              <div className="admin-button-row">
+                <button type="submit" className={saving ? "is-loading" : ""} disabled={saving || Boolean(uploadingImage)}>
+                  {saving ? "Saving..." : "Save body JSON"}
+                </button>
+              </div>
+            </form>
+          </section>
+        </section>
+
+        <aside className="admin-panel admin-edit-preview-panel">
           <div className="admin-section-heading">
             <h2>Article Preview</h2>
             <p>Quick text preview of the JSON body.</p>
           </div>
-          <textarea
-            className="admin-article-preview-textarea"
-            value={articlePreview}
-            readOnly
-            rows={18}
-            spellCheck={false}
-          />
+          <div className="admin-article-preview-box">
+            {bodyBlocks.slice(0, 14).map((block, index) => (
+              <div className={`admin-preview-block type-${block.type || "paragraph"}`} key={`${block.type}-${index}`}>
+                {block.type === "image" && block.src ? (
+                  <FallbackImage src={block.src} alt={block.alt || ""} />
+                ) : (
+                  <p>{blockPreviewLabel(block)}</p>
+                )}
+              </div>
+            ))}
+            {bodyBlocks.length > 14 && (
+              <p className="admin-field-hint">Showing first 14 of {bodyBlocks.length} blocks.</p>
+            )}
+            {!articlePreview && <p className="admin-muted">No preview available. Check the body JSON.</p>}
+          </div>
         </aside>
       </main>
     </div>
