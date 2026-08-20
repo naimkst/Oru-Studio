@@ -172,6 +172,51 @@ function readManualBodyForAppend(value) {
   return normalizeManualBlocks(bodySource);
 }
 
+function writeManualBodyJson(value, body) {
+  const parsed = JSON.parse(value || DEFAULT_MANUAL_BODY_JSON);
+
+  if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+    return {
+      ...parsed,
+      body,
+    };
+  }
+
+  return body;
+}
+
+function applyUploadedImagesToBody(body, uploadedImages) {
+  const updatedBody = [...body];
+  let filledCount = 0;
+  let appendedCount = 0;
+
+  uploadedImages.forEach(({ file, src }) => {
+    const emptyImageIndex = updatedBody.findIndex(
+      (block) => block.type === "image" && !String(block.src || "").trim()
+    );
+
+    if (emptyImageIndex >= 0) {
+      updatedBody[emptyImageIndex] = {
+        ...updatedBody[emptyImageIndex],
+        src,
+        alt: updatedBody[emptyImageIndex].alt || filenameToAltText(file.name),
+      };
+      filledCount += 1;
+      return;
+    }
+
+    updatedBody.push({
+      type: "image",
+      src,
+      alt: filenameToAltText(file.name),
+      caption: "",
+    });
+    appendedCount += 1;
+  });
+
+  return { body: updatedBody, filledCount, appendedCount };
+}
+
 function buildManualPostPayload(form) {
   const imported = extractPostJson(form.bodyJson);
   const { post, body } = imported;
@@ -475,10 +520,10 @@ export default function DashboardClient() {
     }
   }
 
-  async function appendBodyImage(event) {
-    const file = event.target.files?.[0];
+  async function appendBodyImages(event) {
+    const files = Array.from(event.target.files || []);
 
-    if (!file) {
+    if (!files.length) {
       return;
     }
 
@@ -486,23 +531,26 @@ export default function DashboardClient() {
     setManualMessage("");
 
     try {
-      const data = await uploadBlogImage(file);
+      const uploadedImages = await Promise.all(
+        files.map(async (file) => {
+          const data = await uploadBlogImage(file);
+
+          return {
+            file,
+            src: data.src,
+          };
+        })
+      );
       const body = readManualBodyForAppend(manualForm.bodyJson);
-      const updatedBody = [
-        ...body,
-        {
-          type: "image",
-          src: data.src,
-          alt: filenameToAltText(file.name),
-          caption: "",
-        },
-      ];
+      const result = applyUploadedImagesToBody(body, uploadedImages);
 
       setManualForm((current) => ({
         ...current,
-        bodyJson: JSON.stringify(updatedBody, null, 2),
+        bodyJson: JSON.stringify(writeManualBodyJson(manualForm.bodyJson, result.body), null, 2),
       }));
-      setManualMessage(`Added content image: ${data.src}`);
+      setManualMessage(
+        `Uploaded ${uploadedImages.length} content image(s). Filled ${result.filledCount} empty image block(s), appended ${result.appendedCount}.`
+      );
       setManualMessageType("info");
     } catch (error) {
       setManualMessage(error.message || "Content image upload failed.");
@@ -965,13 +1013,17 @@ export default function DashboardClient() {
                 />
               </label>
               <label>
-                Append content image
+                Append content images
                 <input
                   type="file"
                   accept="image/avif,image/gif,image/jpeg,image/png,image/webp"
-                  onChange={appendBodyImage}
+                  multiple
+                  onChange={appendBodyImages}
                   disabled={Boolean(uploadingImage)}
                 />
+                <span className="admin-field-hint">
+                  Select multiple files to fill empty image blocks in order. Extra files are added to the end of the article.
+                </span>
               </label>
               <label>
                 Status
