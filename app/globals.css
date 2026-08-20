@@ -366,6 +366,12 @@ a {
   max-width: 1360px;
 }
 
+.admin-sidebar-stack {
+  align-content: start;
+  display: grid;
+  gap: 24px;
+}
+
 .admin-panel {
   align-self: start;
   padding: 24px;
@@ -406,6 +412,27 @@ a {
   font-weight: 800;
   line-height: 1;
   padding: 9px 12px;
+}
+
+.admin-prompt-box {
+  border-bottom: 1px solid #eaecf0;
+  display: grid;
+  gap: 12px;
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+}
+
+.admin-prompt-box textarea {
+  background: #f8fafc;
+  color: #344054;
+  font-family: var(--font-geist-mono), Consolas, Monaco, monospace;
+  font-size: 12px;
+  min-height: 220px;
+}
+
+.admin-form-grid input[type="file"] {
+  cursor: pointer;
+  padding: 8px;
 }
 
 .admin-post-list {

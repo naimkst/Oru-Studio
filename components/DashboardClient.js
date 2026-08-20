@@ -6,6 +6,41 @@ import { useRouter } from "next/navigation";
 import FallbackImage from "./FallbackImage";
 
 const ADMIN_POST_PAGE_SIZE = 10;
+const DEFAULT_MANUAL_BODY_JSON = "[]";
+const DAILY_BLOG_PROMPT = `Create one complete daily SEO blog post for Oru Studio's Shopify and ecommerce audience.
+
+Return valid JSON only. Do not wrap it in markdown.
+
+Schema:
+{
+  "title": "Clear SEO title under 70 characters",
+  "slug": "optional-url-slug",
+  "description": "Meta description under 160 characters",
+  "category": "Shopify Development",
+  "tags": ["Shopify", "Ecommerce", "Conversion"],
+  "thumbnail": {
+    "src": "",
+    "alt": "Thumbnail alt text",
+    "prompt": "Image prompt for a clean blog thumbnail"
+  },
+  "readTime": "10 min read",
+  "body": [
+    { "type": "paragraph", "text": "Strong opening paragraph." },
+    { "type": "heading", "text": "Main section heading" },
+    { "type": "paragraph", "text": "Detailed explanation." },
+    { "type": "image", "src": "", "alt": "Image alt text", "caption": "Short caption", "prompt": "Image prompt for this in-content visual" },
+    { "type": "list", "text": "Key points:", "items": ["Point one", "Point two", "Point three"] },
+    { "type": "callout", "text": "Important practical takeaway." }
+  ]
+}
+
+Requirements:
+- Write 1,800 to 2,500 words for founders, ecommerce operators, and Shopify teams.
+- Include one thumbnail prompt and 2 to 3 in-content image blocks.
+- Leave every image "src" blank unless you already have a real uploaded image URL.
+- Use practical steps, examples, common mistakes, and implementation details.
+- Include 5 to 8 tags.
+- Keep the article accurate, specific, and ready to publish.`;
 
 function toDatetimeLocal(date) {
   const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
@@ -14,6 +49,164 @@ function toDatetimeLocal(date) {
 
 function toIsoOrNull(value) {
   return value ? new Date(value).toISOString() : null;
+}
+
+function createManualForm() {
+  return {
+    title: "",
+    slug: "",
+    description: "",
+    category: "Shopify Development",
+    tags: "",
+    thumbnail: "",
+    readTime: "",
+    status: "draft",
+    scheduledAt: toDatetimeLocal(new Date(Date.now() + 24 * 60 * 60 * 1000)),
+    bodyJson: DEFAULT_MANUAL_BODY_JSON,
+  };
+}
+
+function normalizeTagList(value) {
+  if (Array.isArray(value)) {
+    return value.map((tag) => String(tag || "").trim()).filter(Boolean);
+  }
+
+  return String(value || "")
+    .split(/[,#\n]/)
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+}
+
+function normalizeManualBlock(block) {
+  if (typeof block === "string") {
+    const text = block.trim();
+    return text ? { type: "paragraph", text } : null;
+  }
+
+  if (!block || typeof block !== "object") {
+    return null;
+  }
+
+  const type = String(block.type || "paragraph").toLowerCase();
+
+  if (type === "heading" || type === "h2") {
+    const text = String(block.text || block.heading || block.title || "").trim();
+    return text ? { type: "heading", text } : null;
+  }
+
+  if (type === "list" || type === "ul") {
+    const items = Array.isArray(block.items)
+      ? block.items.map((item) => String(item || "").trim()).filter(Boolean)
+      : [];
+    const text = String(block.text || block.heading || "").trim();
+
+    return text || items.length ? { type: "list", text, items } : null;
+  }
+
+  if (type === "image" || type === "figure") {
+    const src = String(block.src || block.url || block.image || block.imageUrl || "").trim();
+    const alt = String(block.alt || block.altText || "").trim();
+    const caption = String(block.caption || "").trim();
+    const prompt = String(block.prompt || block.imagePrompt || "").trim();
+
+    return src || alt || caption || prompt
+      ? { type: "image", src, alt, caption, prompt }
+      : null;
+  }
+
+  if (type === "callout" || type === "quote") {
+    const text = String(block.text || block.quote || block.content || "").trim();
+    return text ? { type: "callout", text } : null;
+  }
+
+  const text = String(block.text || block.paragraph || block.content || "").trim();
+  return text ? { type: "paragraph", text } : null;
+}
+
+function normalizeManualBlocks(value) {
+  const blocks = Array.isArray(value)
+    ? value
+    : typeof value === "string"
+      ? [{ type: "paragraph", text: value }]
+      : [];
+
+  return blocks.map(normalizeManualBlock).filter(Boolean);
+}
+
+function readImportedThumbnail(post) {
+  if (typeof post.thumbnail === "string") {
+    return post.thumbnail;
+  }
+
+  return (
+    post.thumbnail?.src ||
+    post.thumbnail?.url ||
+    post.thumbnailUrl ||
+    post.featuredImage ||
+    ""
+  );
+}
+
+function extractPostJson(value) {
+  const parsed = JSON.parse(value);
+  const post = Array.isArray(parsed) ? { body: parsed } : parsed || {};
+  const bodySource =
+    Array.isArray(parsed)
+      ? parsed
+      : post.body || post.blocks || post.articleBody || post.contentBlocks || post.content;
+  const body = normalizeManualBlocks(bodySource);
+
+  if (!body.length) {
+    throw new Error("Paste a JSON object with a body array, or paste the body array itself.");
+  }
+
+  return { post, body };
+}
+
+function readManualBodyForAppend(value) {
+  const parsed = JSON.parse(value || DEFAULT_MANUAL_BODY_JSON);
+  const bodySource = Array.isArray(parsed)
+    ? parsed
+    : parsed?.body || parsed?.blocks || parsed?.articleBody || parsed?.contentBlocks || parsed?.content;
+
+  return normalizeManualBlocks(bodySource);
+}
+
+function buildManualPostPayload(form) {
+  const imported = extractPostJson(form.bodyJson);
+  const { post, body } = imported;
+  const title = (form.title || post.title || "").trim();
+  const description = (form.description || post.description || post.metaDescription || "").trim();
+  const category = (form.category || post.category || "Shopify Development").trim();
+  const tags = normalizeTagList(form.tags || post.tags || post.keywords);
+  const thumbnail = (form.thumbnail || readImportedThumbnail(post)).trim();
+  const readTime = (form.readTime || post.readTime || "").trim();
+
+  if (!title || !description || !category) {
+    throw new Error("Title, description, category, and article JSON are required.");
+  }
+
+  return {
+    title,
+    slug: (form.slug || post.slug || "").trim(),
+    description,
+    category,
+    tags,
+    thumbnail,
+    readTime,
+    body,
+    status: form.status,
+    scheduledAt: form.status === "scheduled" ? toIsoOrNull(form.scheduledAt) : null,
+    source: "manual",
+  };
+}
+
+function filenameToAltText(filename) {
+  return String(filename || "Blog image")
+    .replace(/\.[^.]+$/, "")
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function formatDate(value) {
@@ -51,15 +244,20 @@ export default function DashboardClient() {
   const [session, setSession] = useState(null);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [generating, setGenerating] = useState(false);
+  const [manualSaving, setManualSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState("");
   const [activePostAction, setActivePostAction] = useState(null);
   const [visiblePostCount, setVisiblePostCount] = useState(ADMIN_POST_PAGE_SIZE);
   const [message, setMessage] = useState("");
+  const [manualMessage, setManualMessage] = useState("");
+  const [manualMessageType, setManualMessageType] = useState("info");
   const [form, setForm] = useState({
     topic: "",
     category: "Shopify Development",
     status: "scheduled",
     scheduledAt: toDatetimeLocal(new Date(Date.now() + 24 * 60 * 60 * 1000)),
   });
+  const [manualForm, setManualForm] = useState(createManualForm);
 
   const counts = useMemo(
     () => ({
@@ -184,6 +382,169 @@ export default function DashboardClient() {
     setForm((current) => ({ ...current, topic: "" }));
     await loadDashboard();
     router.refresh();
+  }
+
+  async function uploadBlogImage(file) {
+    const uploadFormData = new FormData();
+    uploadFormData.append("image", file);
+
+    const response = await fetch("/api/admin/blog-images", {
+      method: "POST",
+      body: uploadFormData,
+    });
+
+    if (!response.ok) {
+      throw new Error(await readErrorMessage(response, "Image upload failed."));
+    }
+
+    return response.json();
+  }
+
+  async function uploadThumbnail(event) {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    setUploadingImage("thumbnail");
+    setManualMessage("");
+
+    try {
+      const data = await uploadBlogImage(file);
+      setManualForm((current) => ({ ...current, thumbnail: data.src }));
+      setManualMessage(`Uploaded thumbnail: ${data.src}`);
+      setManualMessageType("info");
+    } catch (error) {
+      setManualMessage(error.message || "Thumbnail upload failed.");
+      setManualMessageType("error");
+    } finally {
+      setUploadingImage("");
+      event.target.value = "";
+    }
+  }
+
+  async function appendBodyImage(event) {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    setUploadingImage("body");
+    setManualMessage("");
+
+    try {
+      const data = await uploadBlogImage(file);
+      const body = readManualBodyForAppend(manualForm.bodyJson);
+      const updatedBody = [
+        ...body,
+        {
+          type: "image",
+          src: data.src,
+          alt: filenameToAltText(file.name),
+          caption: "",
+        },
+      ];
+
+      setManualForm((current) => ({
+        ...current,
+        bodyJson: JSON.stringify(updatedBody, null, 2),
+      }));
+      setManualMessage(`Added content image: ${data.src}`);
+      setManualMessageType("info");
+    } catch (error) {
+      setManualMessage(error.message || "Content image upload failed.");
+      setManualMessageType("error");
+    } finally {
+      setUploadingImage("");
+      event.target.value = "";
+    }
+  }
+
+  async function copyDailyPrompt() {
+    if (!navigator.clipboard?.writeText) {
+      setManualMessage("Select and copy the prompt from the text area.");
+      setManualMessageType("error");
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(DAILY_BLOG_PROMPT);
+      setManualMessage("Daily ChatGPT prompt copied.");
+      setManualMessageType("info");
+    } catch (error) {
+      setManualMessage(error.message || "Prompt copy failed.");
+      setManualMessageType("error");
+    }
+  }
+
+  function importManualJson() {
+    setManualMessage("");
+
+    try {
+      const { post, body } = extractPostJson(manualForm.bodyJson);
+
+      setManualForm((current) => ({
+        ...current,
+        title: post.title || current.title,
+        slug: post.slug || current.slug,
+        description: post.description || post.metaDescription || current.description,
+        category: post.category || current.category,
+        tags: normalizeTagList(post.tags || post.keywords).join(", ") || current.tags,
+        thumbnail: readImportedThumbnail(post) || current.thumbnail,
+        readTime: post.readTime || current.readTime,
+        bodyJson: JSON.stringify(body, null, 2),
+      }));
+      setManualMessage("Imported ChatGPT JSON into the post fields.");
+      setManualMessageType("info");
+    } catch (error) {
+      setManualMessage(error.message || "Could not import the JSON.");
+      setManualMessageType("error");
+    }
+  }
+
+  async function saveManualPost(event) {
+    event.preventDefault();
+    setManualSaving(true);
+    setManualMessage("");
+
+    let payload;
+
+    try {
+      payload = buildManualPostPayload(manualForm);
+    } catch (error) {
+      setManualSaving(false);
+      setManualMessage(error.message || "Manual post details are incomplete.");
+      setManualMessageType("error");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/admin/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        setManualMessage(await readErrorMessage(response, "Manual post save failed."));
+        setManualMessageType("error");
+        return;
+      }
+
+      const data = await response.json().catch(() => ({}));
+      setManualMessage(`Saved blog post: ${data.post?.title || payload.title}`);
+      setManualMessageType("info");
+      setManualForm(createManualForm());
+      await loadDashboard();
+      router.refresh();
+    } catch (error) {
+      setManualMessage(error.message || "Manual post request failed before reaching the server.");
+      setManualMessageType("error");
+    } finally {
+      setManualSaving(false);
+    }
   }
 
   async function updateStatus(post, status) {
@@ -341,7 +702,7 @@ export default function DashboardClient() {
       <section className="admin-metrics">
         <div>
           <strong>{counts.total}</strong>
-          <span>Generated posts</span>
+          <span>Blog posts</span>
         </div>
         <div>
           <strong>{counts.published}</strong>
@@ -358,68 +719,243 @@ export default function DashboardClient() {
       </section>
 
       <main className="admin-layout">
-        <section className="admin-panel admin-generator-panel">
-          <div className="admin-section-heading">
-            <h2>Generate Article</h2>
-            <p>Create a large Shopify-focused article with category, tags, generated thumbnail, in-content image, and scheduled publish time.</p>
-          </div>
-          <form className="admin-form-grid" onSubmit={generatePost}>
-            <label>
-              Topic or instruction
-              <textarea
-                value={form.topic}
-                onChange={(event) => setForm((current) => ({ ...current, topic: event.target.value }))}
-                placeholder="Example: How to fix Shopify app proxy signature missing errors"
-                rows={5}
-              />
-            </label>
-            <label>
-              Category
-              <input
-                value={form.category}
-                onChange={(event) => setForm((current) => ({ ...current, category: event.target.value }))}
-                required
-              />
-            </label>
-            <label>
-              Status
-              <select
-                value={form.status}
-                onChange={(event) => setForm((current) => ({ ...current, status: event.target.value }))}
-              >
-                <option value="scheduled">Schedule</option>
-                <option value="draft">Draft</option>
-                <option value="published">Publish now</option>
-              </select>
-            </label>
-            {form.status === "scheduled" && (
+        <div className="admin-sidebar-stack">
+          <section className="admin-panel admin-generator-panel">
+            <div className="admin-section-heading">
+              <h2>Generate Article</h2>
+              <p>Create a large Shopify-focused article with category, tags, generated thumbnail, in-content image, and scheduled publish time.</p>
+            </div>
+            <form className="admin-form-grid" onSubmit={generatePost}>
               <label>
-                Publish date
+                Topic or instruction
+                <textarea
+                  value={form.topic}
+                  onChange={(event) => setForm((current) => ({ ...current, topic: event.target.value }))}
+                  placeholder="Example: How to fix Shopify app proxy signature missing errors"
+                  rows={5}
+                />
+              </label>
+              <label>
+                Category
                 <input
-                  type="datetime-local"
-                  value={form.scheduledAt}
-                  onChange={(event) => setForm((current) => ({ ...current, scheduledAt: event.target.value }))}
+                  value={form.category}
+                  onChange={(event) => setForm((current) => ({ ...current, category: event.target.value }))}
                   required
                 />
               </label>
-            )}
-            {message && <p className="admin-message">{message}</p>}
-            <div className="admin-button-row">
-              <button type="submit" className={generating ? "is-loading" : ""} disabled={generating}>
-                {generating ? "Generating article..." : "Generate article"}
-              </button>
-              <button type="button" className="secondary" onClick={publishDue}>
-                Publish due posts
-              </button>
+              <label>
+                Status
+                <select
+                  value={form.status}
+                  onChange={(event) => setForm((current) => ({ ...current, status: event.target.value }))}
+                >
+                  <option value="scheduled">Schedule</option>
+                  <option value="draft">Draft</option>
+                  <option value="published">Publish now</option>
+                </select>
+              </label>
+              {form.status === "scheduled" && (
+                <label>
+                  Publish date
+                  <input
+                    type="datetime-local"
+                    value={form.scheduledAt}
+                    onChange={(event) => setForm((current) => ({ ...current, scheduledAt: event.target.value }))}
+                    required
+                  />
+                </label>
+              )}
+              {message && <p className="admin-message">{message}</p>}
+              <div className="admin-button-row">
+                <button type="submit" className={generating ? "is-loading" : ""} disabled={generating}>
+                  {generating ? "Generating article..." : "Generate article"}
+                </button>
+                <button type="button" className="secondary" onClick={publishDue}>
+                  Publish due posts
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <section className="admin-panel admin-manual-panel">
+            <div className="admin-section-heading">
+              <h2>Add Blog Post</h2>
+              <p>Paste the daily ChatGPT JSON, upload images, and save the article into the blog database.</p>
             </div>
-          </form>
-        </section>
+
+            <div className="admin-prompt-box">
+              <label>
+                Daily ChatGPT prompt
+                <textarea value={DAILY_BLOG_PROMPT} readOnly rows={10} />
+              </label>
+              <div className="admin-button-row">
+                <button type="button" className="secondary" onClick={copyDailyPrompt}>
+                  Copy prompt
+                </button>
+              </div>
+            </div>
+
+            <form className="admin-form-grid" onSubmit={saveManualPost}>
+              <label>
+                ChatGPT JSON or body blocks
+                <textarea
+                  value={manualForm.bodyJson}
+                  onChange={(event) =>
+                    setManualForm((current) => ({ ...current, bodyJson: event.target.value }))
+                  }
+                  placeholder='Paste the full JSON response here, or paste only the "body" array.'
+                  rows={8}
+                  required
+                />
+              </label>
+              <div className="admin-button-row">
+                <button type="button" className="secondary" onClick={importManualJson}>
+                  Import JSON
+                </button>
+              </div>
+              <label>
+                Title
+                <input
+                  value={manualForm.title}
+                  onChange={(event) =>
+                    setManualForm((current) => ({ ...current, title: event.target.value }))
+                  }
+                />
+              </label>
+              <label>
+                Slug
+                <input
+                  value={manualForm.slug}
+                  onChange={(event) =>
+                    setManualForm((current) => ({ ...current, slug: event.target.value }))
+                  }
+                  placeholder="Auto-generated when empty"
+                />
+              </label>
+              <label>
+                Description
+                <textarea
+                  value={manualForm.description}
+                  onChange={(event) =>
+                    setManualForm((current) => ({ ...current, description: event.target.value }))
+                  }
+                  rows={3}
+                />
+              </label>
+              <label>
+                Category
+                <input
+                  value={manualForm.category}
+                  onChange={(event) =>
+                    setManualForm((current) => ({ ...current, category: event.target.value }))
+                  }
+                />
+              </label>
+              <label>
+                Tags
+                <input
+                  value={manualForm.tags}
+                  onChange={(event) =>
+                    setManualForm((current) => ({ ...current, tags: event.target.value }))
+                  }
+                  placeholder="Shopify, Ecommerce, Conversion"
+                />
+              </label>
+              <label>
+                Read time
+                <input
+                  value={manualForm.readTime}
+                  onChange={(event) =>
+                    setManualForm((current) => ({ ...current, readTime: event.target.value }))
+                  }
+                  placeholder="Auto-estimated when empty"
+                />
+              </label>
+              <label>
+                Thumbnail path or URL
+                <input
+                  value={manualForm.thumbnail}
+                  onChange={(event) =>
+                    setManualForm((current) => ({ ...current, thumbnail: event.target.value }))
+                  }
+                  placeholder="/images/manual-blog/example.webp"
+                />
+              </label>
+              <label>
+                Upload thumbnail
+                <input
+                  type="file"
+                  accept="image/avif,image/gif,image/jpeg,image/png,image/webp"
+                  onChange={uploadThumbnail}
+                  disabled={Boolean(uploadingImage)}
+                />
+              </label>
+              <label>
+                Append content image
+                <input
+                  type="file"
+                  accept="image/avif,image/gif,image/jpeg,image/png,image/webp"
+                  onChange={appendBodyImage}
+                  disabled={Boolean(uploadingImage)}
+                />
+              </label>
+              <label>
+                Status
+                <select
+                  value={manualForm.status}
+                  onChange={(event) =>
+                    setManualForm((current) => ({ ...current, status: event.target.value }))
+                  }
+                >
+                  <option value="draft">Draft</option>
+                  <option value="scheduled">Schedule</option>
+                  <option value="published">Publish now</option>
+                </select>
+              </label>
+              {manualForm.status === "scheduled" && (
+                <label>
+                  Publish date
+                  <input
+                    type="datetime-local"
+                    value={manualForm.scheduledAt}
+                    onChange={(event) =>
+                      setManualForm((current) => ({ ...current, scheduledAt: event.target.value }))
+                    }
+                    required
+                  />
+                </label>
+              )}
+              {manualMessage && (
+                <p className={`admin-message ${manualMessageType === "error" ? "error" : ""}`}>
+                  {manualMessage}
+                </p>
+              )}
+              <div className="admin-button-row">
+                <button
+                  type="submit"
+                  className={manualSaving ? "is-loading" : ""}
+                  disabled={manualSaving || Boolean(uploadingImage)}
+                >
+                  {manualSaving ? "Saving post..." : "Save blog post"}
+                </button>
+                <button
+                  type="button"
+                  className="secondary"
+                  onClick={() => setManualForm(createManualForm())}
+                  disabled={manualSaving || Boolean(uploadingImage)}
+                >
+                  Clear
+                </button>
+              </div>
+            </form>
+          </section>
+        </div>
 
         <section className="admin-panel admin-posts-panel">
           <div className="admin-section-heading admin-section-heading-row">
             <div>
               <h2>Scheduled Posts</h2>
-              <p>Generated posts are stored in SQLite and become public when published or due.</p>
+              <p>Blog posts are stored in SQLite and become public when published or due.</p>
             </div>
             <span className="admin-section-count">{posts.length} posts</span>
           </div>

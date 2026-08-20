@@ -24,6 +24,8 @@ data/*.sqlite-*
 # generated blog media
 public/images/generated-blog/*
 !public/images/generated-blog/.gitkeep
+public/images/manual-blog/*
+!public/images/manual-blog/.gitkeep
 
 # production
 /build
