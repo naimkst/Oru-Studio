@@ -580,6 +580,15 @@ a {
   padding: 8px 12px;
 }
 
+.admin-inline-action-row,
+.admin-image-editor-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
 .admin-edit-thumbnail-preview {
   background: #f2f4f7;
   border: 1px solid #e4e7ec;
@@ -692,16 +701,35 @@ a {
   font-size: 15px;
 }
 
-.admin-image-editor-heading .danger {
-  background: #fff1f0;
-  border: 1px solid #fecdca;
+.admin-image-editor-actions button {
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
   border-radius: 6px;
-  color: #b42318;
+  color: #344054;
   cursor: pointer;
   font-size: 12px;
   font-weight: 800;
   min-height: 32px;
   padding: 6px 10px;
+}
+
+.admin-image-editor-actions button:hover,
+.admin-inline-action:hover {
+  background: #fffbeb;
+  border-color: #f4bd29;
+  color: #8a5d00;
+}
+
+.admin-image-editor-actions .danger {
+  background: #fff1f0;
+  border: 1px solid #fecdca;
+  color: #b42318;
+}
+
+.admin-image-editor-actions .danger:hover {
+  background: #fee4e2;
+  border-color: #fda29b;
+  color: #912018;
 }
 
 .admin-edit-preview-panel {

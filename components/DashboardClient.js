@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import FallbackImage from "./FallbackImage";
+import { insertImagesThroughArticleBody } from "../lib/articleBodyPlacement";
 
 const ADMIN_POST_PAGE_SIZE = 10;
 const DEFAULT_MANUAL_BODY_JSON = "[]";
@@ -187,8 +188,9 @@ function writeManualBodyJson(value, body) {
 
 function applyUploadedImagesToBody(body, uploadedImages) {
   const updatedBody = [...body];
+  const insertedImages = [];
   let filledCount = 0;
-  let appendedCount = 0;
+  let insertedCount = 0;
 
   uploadedImages.forEach(({ file, src }) => {
     const emptyImageIndex = updatedBody.findIndex(
@@ -205,16 +207,20 @@ function applyUploadedImagesToBody(body, uploadedImages) {
       return;
     }
 
-    updatedBody.push({
+    insertedImages.push({
       type: "image",
       src,
       alt: filenameToAltText(file.name),
       caption: "",
     });
-    appendedCount += 1;
+    insertedCount += 1;
   });
 
-  return { body: updatedBody, filledCount, appendedCount };
+  return {
+    body: insertImagesThroughArticleBody(updatedBody, insertedImages),
+    filledCount,
+    insertedCount,
+  };
 }
 
 function buildManualPostPayload(form) {
@@ -549,7 +555,7 @@ export default function DashboardClient() {
         bodyJson: JSON.stringify(writeManualBodyJson(manualForm.bodyJson, result.body), null, 2),
       }));
       setManualMessage(
-        `Uploaded ${uploadedImages.length} content image(s). Filled ${result.filledCount} empty image block(s), appended ${result.appendedCount}.`
+        `Uploaded ${uploadedImages.length} content image(s). Filled ${result.filledCount} empty image block(s), inserted ${result.insertedCount} into the article.`
       );
       setManualMessageType("info");
     } catch (error) {

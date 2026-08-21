@@ -1,8 +1,9 @@
 import { Fragment } from "react";
 import FallbackImage from "./FallbackImage";
+import { distributeTrailingImagesThroughArticleBody } from "../lib/articleBodyPlacement";
 
 export default function ArticleBlocks({ blocks = [], showMissingImageNotice = false }) {
-  return blocks.map((block, index) => {
+  return distributeTrailingImagesThroughArticleBody(blocks).map((block, index) => {
     const key = `${block.type || "paragraph"}-${index}`;
 
     if (block.type === "heading") {

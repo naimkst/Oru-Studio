@@ -4,6 +4,10 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import FallbackImage from "./FallbackImage";
+import {
+  distributeTrailingImagesThroughArticleBody,
+  insertImagesThroughArticleBody,
+} from "../lib/articleBodyPlacement";
 
 function toDatetimeLocal(value) {
   if (!value) {
@@ -47,8 +51,9 @@ function readBodyJson(value) {
 
 function applyUploadedImagesToBody(body, uploadedImages, replaceExisting) {
   const updatedBody = [...body];
+  const insertedImages = [];
   let replacedCount = 0;
-  let appendedCount = 0;
+  let insertedCount = 0;
   let searchStart = 0;
 
   uploadedImages.forEach(({ file, src }) => {
@@ -71,16 +76,22 @@ function applyUploadedImagesToBody(body, uploadedImages, replaceExisting) {
       return;
     }
 
-    updatedBody.push({
+    insertedImages.push({
       type: "image",
       src,
       alt: filenameToAltText(file.name),
       caption: "",
     });
-    appendedCount += 1;
+    insertedCount += 1;
   });
 
-  return { body: updatedBody, replacedCount, appendedCount };
+  return {
+    body: distributeTrailingImagesThroughArticleBody(
+      insertImagesThroughArticleBody(updatedBody, insertedImages)
+    ),
+    replacedCount,
+    insertedCount,
+  };
 }
 
 function blockToPreviewText(block) {
@@ -169,11 +180,18 @@ export default function DashboardPostEditClient({ post }) {
   }, [form.bodyJson]);
   const articlePreview = useMemo(() => {
     try {
-      return readBodyJson(form.bodyJson).map(blockToPreviewText).filter(Boolean).join("\n\n");
+      return distributeTrailingImagesThroughArticleBody(readBodyJson(form.bodyJson))
+        .map(blockToPreviewText)
+        .filter(Boolean)
+        .join("\n\n");
     } catch {
       return "";
     }
   }, [form.bodyJson]);
+  const previewBlocks = useMemo(
+    () => distributeTrailingImagesThroughArticleBody(bodyBlocks),
+    [bodyBlocks]
+  );
   const imageBlocks = useMemo(
     () =>
       bodyBlocks
@@ -206,15 +224,49 @@ export default function DashboardPostEditClient({ post }) {
   function addImageBlock() {
     const body = readBodyJson(form.bodyJson);
 
-    updateBody([
-      ...body,
-      {
-        type: "image",
-        src: "",
-        alt: "",
-        caption: "",
-      },
-    ]);
+    updateBody(
+      insertImagesThroughArticleBody(body, [
+        {
+          type: "image",
+          src: "",
+          alt: "",
+          caption: "",
+        },
+      ])
+    );
+  }
+
+  function distributeImages() {
+    try {
+      updateBody(distributeTrailingImagesThroughArticleBody(readBodyJson(form.bodyJson)));
+      setMessage("Images were moved into the article content. Save changes to update the public post.");
+      setMessageType("info");
+    } catch (error) {
+      setMessage(error.message || "Could not distribute article images.");
+      setMessageType("error");
+    }
+  }
+
+  function moveImageBlock(blockIndex, direction) {
+    const body = readBodyJson(form.bodyJson);
+    const imageBlock = body[blockIndex];
+
+    if (!imageBlock || imageBlock.type !== "image") {
+      return;
+    }
+
+    const targetIndex =
+      direction < 0
+        ? body.findLastIndex((block, index) => index < blockIndex && block.type !== "image")
+        : body.findIndex((block, index) => index > blockIndex && block.type !== "image");
+
+    if (targetIndex < 0) {
+      return;
+    }
+
+    body.splice(blockIndex, 1);
+    body.splice(targetIndex, 0, imageBlock);
+    updateBody(body);
   }
 
   function removeImageBlock(blockIndex) {
@@ -256,7 +308,7 @@ export default function DashboardPostEditClient({ post }) {
     try {
       const data = await uploadBlogImage(file);
       updateField("thumbnail", data.src);
-      setMessage(`Uploaded thumbnail: ${data.src}`);
+      setMessage(`Uploaded thumbnail: ${data.src}. Save changes to update the public post.`);
       setMessageType("info");
     } catch (error) {
       setMessage(error.message || "Thumbnail upload failed.");
@@ -290,7 +342,7 @@ export default function DashboardPostEditClient({ post }) {
 
       updateField("bodyJson", JSON.stringify(result.body, null, 2));
       setMessage(
-        `Uploaded ${uploadedImages.length} content image(s). Replaced ${result.replacedCount} image block(s), appended ${result.appendedCount}.`
+        `Uploaded ${uploadedImages.length} content image(s). Replaced ${result.replacedCount} image block(s), inserted ${result.insertedCount} into the article. Save changes to update the public post.`
       );
       setMessageType("info");
     } catch (error) {
@@ -325,7 +377,7 @@ export default function DashboardPostEditClient({ post }) {
       };
 
       updateBody(body);
-      setMessage(`Updated image block: ${data.src}`);
+      setMessage(`Updated image block: ${data.src}. Save changes to update the public post.`);
       setMessageType("info");
     } catch (error) {
       setMessage(error.message || "Image block upload failed.");
@@ -377,7 +429,7 @@ export default function DashboardPostEditClient({ post }) {
       }
 
       const data = await response.json().catch(() => ({}));
-      setMessage(`Saved: ${data.post?.title || form.title}`);
+      setMessage(`Saved: ${data.post?.title || form.title}. Public blog content is updated.`);
       setMessageType("info");
       router.refresh();
     } catch (error) {
@@ -496,9 +548,14 @@ export default function DashboardPostEditClient({ post }) {
                 <h2>Article Images</h2>
                 <p>Preview, replace, edit, add, or remove images used inside the article body.</p>
               </div>
-              <button type="button" className="admin-inline-action" onClick={addImageBlock}>
-                Add image
-              </button>
+              <div className="admin-inline-action-row">
+                <button type="button" className="admin-inline-action" onClick={distributeImages}>
+                  Distribute images
+                </button>
+                <button type="button" className="admin-inline-action" onClick={addImageBlock}>
+                  Add image
+                </button>
+              </div>
             </div>
 
             <div className="admin-bulk-upload">
@@ -544,9 +601,17 @@ export default function DashboardPostEditClient({ post }) {
                     <div className="admin-image-editor-fields">
                       <div className="admin-image-editor-heading">
                         <strong>Image {imageIndex + 1}</strong>
-                        <button type="button" className="danger subtle" onClick={() => removeImageBlock(imageBlock.blockIndex)}>
-                          Remove
-                        </button>
+                        <div className="admin-image-editor-actions">
+                          <button type="button" onClick={() => moveImageBlock(imageBlock.blockIndex, -1)}>
+                            Move up
+                          </button>
+                          <button type="button" onClick={() => moveImageBlock(imageBlock.blockIndex, 1)}>
+                            Move down
+                          </button>
+                          <button type="button" className="danger subtle" onClick={() => removeImageBlock(imageBlock.blockIndex)}>
+                            Remove
+                          </button>
+                        </div>
                       </div>
                       <label>
                         Image path or URL
@@ -622,7 +687,7 @@ export default function DashboardPostEditClient({ post }) {
             <p>Quick text preview of the JSON body.</p>
           </div>
           <div className="admin-article-preview-box">
-            {bodyBlocks.slice(0, 14).map((block, index) => (
+            {previewBlocks.slice(0, 14).map((block, index) => (
               <div className={`admin-preview-block type-${block.type || "paragraph"}`} key={`${block.type}-${index}`}>
                 {block.type === "image" && block.src ? (
                   <FallbackImage src={block.src} alt={block.alt || ""} />
@@ -631,8 +696,8 @@ export default function DashboardPostEditClient({ post }) {
                 )}
               </div>
             ))}
-            {bodyBlocks.length > 14 && (
-              <p className="admin-field-hint">Showing first 14 of {bodyBlocks.length} blocks.</p>
+            {previewBlocks.length > 14 && (
+              <p className="admin-field-hint">Showing first 14 of {previewBlocks.length} blocks.</p>
             )}
             {!articlePreview && <p className="admin-muted">No preview available. Check the body JSON.</p>}
           </div>
